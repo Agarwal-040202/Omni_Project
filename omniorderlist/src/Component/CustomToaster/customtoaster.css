@@ -1,0 +1,28 @@
+
+.modal{
+    z-index: 99999;
+}
+.modal-content{
+    /* border-left: 12px solid rgb(30, 194, 30); */
+    /* width: 70%; */
+    
+   
+}
+.dataSucces{
+    border-left: 12px solid rgb(30, 194, 30);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+
+}
+.dataError{
+    border-left: 12px solid red;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+div .modal-dialog{
+    /* float:right !important; */
+    /* margin-right: 10px; */
+}
+.btn-submit1{
+    background: red !important;
+}

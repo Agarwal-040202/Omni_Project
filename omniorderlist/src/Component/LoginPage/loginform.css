@@ -1,0 +1,421 @@
+/* Google Font Link */
+
+.main-Div {
+  height: 90.1vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+.container1 {
+  position: relative !important;
+  max-width: 850px !important;
+  width: 100% !important;
+  background: #fff;
+  padding: 40px 30px !important;
+}
+.chooseRoll-tag-h6{
+  font-size: 18px !important;
+  font-weight: 600;
+  color: maroon;
+  margin-top: 1px;
+}
+.radio-sapn-tag{
+  font-size: 16px !important;
+font-weight: 600;
+
+}
+.container1 .cover {
+  position: absolute !important;
+  top: 0 !important;
+  left: 50% !important;
+  height: 100% !important;
+  width: 50% !important;
+  z-index: 98 !important;
+  transition: all 2s ease !important;
+  transform-origin: left !important;
+  transform-style: preserve-3d !important;
+}
+.container1 #flip:checked ~ .cover {
+  transform: rotateY(-180deg);
+  /* backface-visibility: hidden; */
+}
+.container1 .cover .front,
+.container1 .cover .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.cover .back {
+  transform: rotateY(180deg);
+  /* backface-visibility: hidden; */
+}
+.container1 .cover::before,
+.container1 .cover::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  /* background: #7d2ae8; */
+  /* opacity: 0.5; */
+  z-index: 12;
+}
+.container1 .cover::after {
+  opacity: 0.3;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+.container1 .cover img {
+  height: 100% !important;
+  width: 100% !important;
+  overflow: hidden;
+  z-index: 10;
+}
+.container1 .cover .text {
+  position: absolute;
+  z-index: 130;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cover .text .text-1,
+.cover .text .text-2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+.cover .text .text-2 {
+  font-size: 15px;
+  font-weight: 500;
+}
+.container1 .forms {
+  height: 100%;
+  width: 100% !important;
+  background: #fff;
+}
+.container1 .form-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.form-content .login-form,
+.form-content .signup-form {
+  width: calc(100% / 2 - 25px);
+}
+.forms .form-content .title {
+  position: relative;
+  font-size: 26px;
+  font-weight: 700;
+  color: maroon;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+.forms .form-content .title:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 25px;
+}
+.forms .signup-form .title:before {
+  width: 20px;
+}
+.forms .form-content .input-boxes {
+  /* margin-top: 30px; */
+}
+.forms .form-content .input-box {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  margin: 8px 0;
+  position: relative;
+}
+.form-content .input-box input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.form-content .input-box input:focus,
+.form-content .input-box input:valid {
+  border-color: maroon;
+}
+.form-content .input-box i {
+  position: absolute;
+  font-size: 17px;
+}
+.forms .form-content .text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+.forms .form-content .text a {
+  text-decoration: none;
+}
+.forms .form-content .text a:hover {
+  text-decoration: underline;
+}
+.Login-Submit-div {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.Login-Submit-div button {
+  background: maroon;
+  color: white;
+  font-weight: 600;
+  border: none;
+  width: 100%;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.forms .form-content .button input {
+  color: #fff;
+  background: maroon;
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+.forms .form-content .button input:hover {
+  background: maroon;
+}
+.forms .form-content label {
+  color: maroon;
+  cursor: pointer;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.forms .form-content .login-text,
+.forms .form-content .sign-up-text {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 16px;
+}
+.container1 #flip {
+  display: none;
+}
+@media (max-width: 800px) {
+  .main-Div {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-Div {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+  .chooseRoll-tag-h6{
+    font-size: 13px !important;
+    margin-top: 5px;
+  }
+  .radio-sapn-tag{
+    font-size: 13px !important;
+  font-weight: 600;
+  
+  }
+}
+@media (max-width: 500px) {
+  .container1 .cover {
+    display: none;
+  }
+  .form-content .login-form {
+    width: 100%;
+    margin-top: 40px;
+  }
+  .form-content .signup-form {
+    width: 100%;
+    display: none;
+  }
+  .container1 #flip:checked ~ .forms .signup-form {
+    display: block;
+  }
+  .container1 #flip:checked ~ .forms .login-form {
+    display: none;
+  }
+}
+
+/* new css login form */
+.box {
+  position: relative;
+  max-width: 700px !important;
+  width: 100% !important;
+  height: 500px;
+  background: #1c1c1c;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  max-width: 850px !important;
+  width: 100% !important;
+  height: 420px;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent,
+    #45f3ff,
+    #45f3ff,
+    #45f3ff
+  );
+  z-index: 1;
+  transform-origin: bottom right;
+  animation: animate 6s linear infinite;
+}
+
+.borderLine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  max-width: 850px !important;
+  width: 100% !important;
+  height: 420px;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent,
+    #ff27,
+    #ff27,
+    #ff27
+  );
+  z-index: 1;
+  transform-origin: bottom right;
+  animation: animate 6s linear infinite;
+  animation-delay: -7.5s;
+}
+
+.box::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  max-width: 850px !important;
+  width: 100% !important;
+  height: 420px;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent,
+    #45f3ff,
+    #45f3ff,
+    #45f3ff
+  );
+  z-index: 1;
+  transform-origin: bottom right;
+  animation: animate 6s linear infinite;
+  animation-delay: -3s;
+}
+.borderLine {
+  position: absolute;
+  top: 0;
+  inset: 0;
+}
+
+.borderLine::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  max-width: 850px !important;
+  width: 100% !important;
+  height: 420px;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent,
+    #ff27,
+    #ff27,
+    #ff27
+  );
+  z-index: 1;
+  transform-origin: bottom right;
+  animation: animate 6s linear infinite;
+  animation-delay: -1.5s;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.box .form {
+  position: absolute;
+  inset: 4px;
+  background: white;
+  padding: 0px 20px;
+  border-radius: 8px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.box .form h2 {
+  color: #ffffff;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.1rem;
+}
+
+.box .form .inputBox {
+  position: relative;
+  width: 300px;
+  margin-top: 35px;
+}
+
+.box .form .inputBox input {
+  position: relative;
+  width: 100%;
+  padding: 20px 10px 10px;
+  background: transparent;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  color: #23242a;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.box .form .inputBox span {
+  position: absolute;
+  left: 0;
+  padding: 20px 0px 10px;
+  pointer-events: none;
+  color: #8f8f8f;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+}
+
+/* new login form css end */
