@@ -1,5 +1,5 @@
 import express from "express"
-import { getUserDetails, UserDetail } from "../Controlers/userControler.js"
+import { getUserDetails, UserDetail, updateUserDetail } from "../Controlers/userControler.js"
 
 const router = express.Router()
 
@@ -9,6 +9,8 @@ const router = express.Router()
 
 router.post("/userdetail", UserDetail)
 router.post("/find/userId", getUserDetails)
+router.put("/update/userId", updateUserDetail)
+
 
 
 export default router

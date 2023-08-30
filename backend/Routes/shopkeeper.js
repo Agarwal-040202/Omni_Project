@@ -11,4 +11,5 @@ router.post("/addshopkeeperdetail", addShopkeeperDetail)
 router.get("/getallshopkeeper", getShopkeeperDetail)
 
 
+
 export default router
