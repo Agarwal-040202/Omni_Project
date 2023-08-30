@@ -13,7 +13,7 @@ export const getFiledMemberData = createAsyncThunk(
     async (fileldMemberData, { rejectWithValue }) => {
         try {
             let josnObj={
-                userId: fileldMemberData
+                FieldMemberID: fileldMemberData
             }
             const response = await axios.post(
                 "http://localhost:8000/api/users/find/userId",
@@ -25,6 +25,7 @@ export const getFiledMemberData = createAsyncThunk(
                 }
             );
 
+            console.log("hjhhkhkhhkhkhkhk", fileldMemberData)
             const filedMemberRecored = response.data;
             console.log("filedMemberRecored", filedMemberRecored);
 
