@@ -1,23 +1,40 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Row, Col, Input } from 'antd';
 
-const AddressComponent = ({ setAd }) => {
+const AddressComponent = ({ setAd, setDemoState, getAddress, address, demoState }) => {
     const inputSearchaddressRef = useRef(null)
+
+    const [fakeState, setFakeState] = useState(false)
 
     const addressInfoObj = () => {
         return { addressLine1: "", addressLine2: "", zipcode: "", city: "", state: "", country: "", county: "", streetAddress: '' }
     }
 
 
+    useEffect(()=>{
+        initMapScript().then(() => initAutoComplete());
+    },[])
+
+    useEffect(()=>{
+        setFakeState(!fakeState)
+        if(demoState === false && getAddress != undefined){
+        inputSearchaddressRef.current.value =  getAddress
+        }
+       
+    }, [getAddress, demoState])
 
     const loginUserId = sessionStorage.getItem("loggedUserId");
     const logUser = { createdBy: loginUserId, updatedBy: loginUserId };
     const [loggedInId, setloggedInId] = useState('')
     const [addressInfo, setaddressInfo] = useState({ ...addressInfoObj() })
-    console.log('addressInfoaddressInfo', addressInfo)
+
+    console.log('addressInfoaddressInfo', getAddress, demoState)
+
+    
+   
 
     const onhandleChangeAddress = () => {
-        initMapScript().then(() => initAutoComplete());
+       
         if (inputSearchaddressRef.current.value !== "") {
             if (inputSearchaddressRef.current.value > 0) {
                 // showClearButton = true;
@@ -85,11 +102,15 @@ const AddressComponent = ({ setAd }) => {
             streetAddress: inputSearchaddressRef?.current?.value?.substring(0, inputSearchaddressRef?.current?.value?.indexOf(",")),
             addressTypeId: 1
         };
+
         setAd(addressInfoDet)
+        setDemoState(true)
         setaddressInfo({ ...addressInfoDet });
     };
 
     const mapApi = "https://maps.googleapis.com/maps/api/js";
+
+    console.log("kkkkkkk",addressInfo)
 
 
     function loadAsyncScript(src) {
@@ -118,7 +139,7 @@ const AddressComponent = ({ setAd }) => {
         <div>
             <Row>
                 <Col span={24} className="w-100">
-                    <Input
+                    <input
                         ref={inputSearchaddressRef}
                         type="text"
                         placeholder="Enter Primary Address"
@@ -127,6 +148,7 @@ const AddressComponent = ({ setAd }) => {
                         id="Address"
                         onChange={onhandleChangeAddress}
                         className="address-info-textbox"
+                        style={{width:"100%"}}
                     />
                 </Col>
             </Row>

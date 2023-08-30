@@ -32,9 +32,12 @@ const Menubar = () => {
 
     }
     else if (fileldMemberDetailStatus == "Success"){
+      
+
       navigate("/addfieldmember",
+      
         {
-          state: filedMemberRecored
+          state: filedMemberRecored,
         }
       )
     }

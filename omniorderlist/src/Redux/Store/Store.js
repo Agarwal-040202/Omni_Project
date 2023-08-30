@@ -13,7 +13,7 @@ export const store = configureStore({
         auth:authReducer,
         fieldMemberDetail:fieldMemberReducer,
         getFiledMemberData: getFieldMemberDataSlice,
-        shopkeeperDetails: shopkeeperDetailsSlice,
-        allShopKeeperData:shopKeeperDataSlice
+        getShopKeeperData: shopKeeperDataSlice,
+        
     }
 })

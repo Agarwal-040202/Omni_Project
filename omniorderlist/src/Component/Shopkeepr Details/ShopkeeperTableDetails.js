@@ -11,10 +11,10 @@ import "./shopkeepertabledetails.css"
 const ShopkeeperTableDetails = (props) => {
     const dispatch = useDispatch();
 
-    const shopKeeperData = useSelector((State) => State.getShopkeeperData)
+    const { shopKeeperData, shopkeeperDataStatus } = useSelector((State) => State.getShopKeeperData )
 
 
-    console.log('persojjjnalInfo', shopKeeperData)
+    console.log('persojjjnalInfo', shopKeeperData, shopkeeperDataStatus)
 
     const [showModal, setShowModal] = useState(false)
 
