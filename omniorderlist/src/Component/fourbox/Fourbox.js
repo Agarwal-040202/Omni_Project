@@ -24,7 +24,7 @@ const Fourbox = () => {
 
   console.log('personalInjjjfo', fileldMemberDetailStatus, filedMemberRecored)
 
-  console.log("userrole", UserRole.User_Role, UserID)
+  console.log("userrole", UserRole?.User_Role, UserID)
 
   const navigate = useNavigate();
 
