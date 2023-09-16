@@ -5,8 +5,8 @@ import axios from "axios"
 
 //add new field member
 const initialState = {
-    shopkeeperDetailStatus: "",
-    shopkeeperDetailError: "",
+    shopkeeperDetailStatus: "" || null || undefined,
+    shopkeeperDetailError: "" || null || undefined,
     shopkeeperDetailLoaded: false
 };
 
