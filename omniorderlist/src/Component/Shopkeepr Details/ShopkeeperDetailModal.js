@@ -165,7 +165,7 @@ const ShopkeeperDetailModal = (props) => {
             case Shopkeeper_Email === '':
                 errMsg = 'Enter Shopkeeper Email';
                 break;
-            case addressTextBoxState == true || props.shopkeeperSingleData?.length == 0 && address?.addressLine1 == undefined :
+            case addressTextBoxState == true || props.shopkeeperSingleData?.length == 0 && address?.addressLine1 == undefined  :
                 errMsg = 'Please enter Address';
                 break;
             case contactInfo?.Country == "" :
