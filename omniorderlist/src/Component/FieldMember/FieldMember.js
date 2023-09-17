@@ -10,15 +10,16 @@ import Form from 'react-bootstrap/Form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import MyContext from "../../MyContext";
 import { fileldMemberDetail } from "../../Redux/Slice/feildMemberDetailsSlice"
+import { updateFiledMemberData } from "../../Redux/Slice/updateFieldMemberSlice"
 import AddressComponent from '../AddressComponent/AddressComponent';
 
 
 const newObjPersonal = () => {
     return { Gender: '', Nationality: '', MaritalStatus: "", Qualification: '' }
 }
-const newObjContact = () => {
-    return { Address: "", Country: '', State: '', City: '', Pincode: '' }
-}
+// const newObjContact = () => {
+//     return { Address: "", Country: '', State: '', City: '', Pincode: '' }
+// }
 
 const FieldMember = () => {
 
@@ -31,28 +32,26 @@ const FieldMember = () => {
 
     const [address, setAd] = useState({})
     const [demoState, setDemoState] = useState(false)
-
+    const [addressTextBoxState, setAddressTextBoxState] = useState(false)
     const [startDate, setStartDate] = useState(new Date());
     const [personalInfo, setPersonalInfo] = useState({ ...newObjPersonal() })
-    const [contactInfo, setContactInfo] = useState({ ...newObjContact() })
-    const [contactInformation, setContactInformation] = useState({ 
-        Address: address.addressLine1, 
-        Country: address.country, 
-        State: address.state, 
-        City: address.city, 
-        Pincode: address.zipcode
-    })
-
-    // const [userDetailState, setUserDetailState] = useState(personalInfo, contactInfo)
+    const [contactInfo, setContactInfo] = useState()
     const [getStatusState, setStatusState] = useState(false)
+
     const { fileldMemberDetailStatus, fileldMemberDetailError } = useSelector((State) => State.fieldMemberDetail)
 
-    console.log('personalInfo', fileldMemberDetailError, fileldMemberDetailStatus)
+    console.log('personalkkkllkInfo', fileldMemberDetailError, fileldMemberDetailStatus)
 
-    const formattedDate = new Date(startDate).toLocaleDateString("en-US");
-    console.log("Date", formattedDate)
 
-    console.log("location", location?.state?.[0])
+    const { updateFileldMemberDetailStatus, updateFileldMemberDetailError } = useSelector((State) => State.updatefieldMember)
+
+    console.log('updateFieldMember', updateFileldMemberDetailStatus, updateFileldMemberDetailError)
+
+
+    // const formattedDate = new Date(startDate).toLocaleDateString("en-US");
+    // console.log("Date", formattedDate)
+
+    console.log("hhhhgututututututu", location?.state?.[0].Gender, location.key, personalInfo?.Gender)
 
     const userFirstname = UserRole?.User_Name?.trim()?.split(" ")[0];
     const wordsArray = UserRole?.User_Name?.split(" ");
@@ -60,41 +59,67 @@ const FieldMember = () => {
 
 
     useEffect(() => {
-        if (location?.state?.[0] != undefined) {
-            
-            setPersonalInfo((prev) => ({
-                ...prev, ...location?.state[0]
-            }))
+        setPersonalInfo((prev) => ({
+            ...prev,
+            Qualification: location.key != "" ? location?.state?.[0]?.Qualification : personalInfo?.Qualification,
+            Gender: location.key != "" ? location?.state?.[0].Gender : personalInfo?.Gender,
+            MaritalStatus: location.key != "" ? location?.state?.[0]?.MaritalStatus : personalInfo?.MaritalStatus,
+            Nationality: location.key != "" ? location?.state?.[0]?.Nationality : personalInfo?.Nationality,
+            Address: demoState == false ? location?.state?.[0]?.Address : address?.addressLine1,
+            City: demoState == false ? location?.state?.[0]?.City : address?.city,
+            State: demoState == false ? location?.state?.[0]?.State : address?.state,
+            Country: demoState == false ? location?.state?.[0]?.Country : address?.country,
+            Pincode: demoState == false ? location?.state?.[0]?.Pincode : address?.zipcode
+
+        }));
+
+        setStartDate(new Date(location.state?.[0]?.Date_Of_Joining))
+    }, [demoState, location.key]);
+
+
+
+    useEffect(() => {
+        if (location?.state?.[0].length != 0) {
+            setAddressTextBoxState(false)
         }
     }, [location])
 
-    useEffect(() => {
-        if (address?.addressLine1 != undefined) {
+    console.log("yiyiyiiyiyi", personalInfo)
 
-            setPersonalInfo((prev) => ({
-                ...prev, ...address
-            }))
-        }
-    }, [address])
+
+    const currentDate = new Date();
+    const afterConvertDate = currentDate.toLocaleDateString()
+    console.log("date", afterConvertDate)
+    const parts = afterConvertDate.split('/');
+    const formattedDate = `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
+    console.log("datekkk", formattedDate)
+
+    const systemCurrentData = () => {
+        const currentDate1 = new Date();
+
+        const day1 = currentDate1.getDate();
+        const month1 = currentDate1.getMonth() + 1; // Months are zero-indexed, so add 1
+        const year1 = currentDate1.getFullYear();
+
+        return `${year1}-${month1}-${day1}`;
+    }
+
 
     const getFormattedDate = () => {
-
-        const day = startDate?.getDate();
-        const month = startDate?.getMonth() + 1; // Months are zero-indexed, so add 1
-        const year = startDate?.getFullYear();
-
+        const currentDate = startDate ? startDate : null
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+        const year = currentDate.getFullYear();
         return `${year}-${month}-${day}`;
     };
 
-    console.log("ddsdsd", getFormattedDate())
-
-
+    // console.log("ljljlljllj", getFormattedDate())
 
     useEffect(() => {
         if (getStatusState == true) {
             callFunction()
         }
-    }, [fileldMemberDetailStatus])
+    }, [fileldMemberDetailStatus, updateFileldMemberDetailStatus])
 
 
     useEffect(() => {
@@ -110,7 +135,7 @@ const FieldMember = () => {
         setPersonalInfo(prev => ({
             ...prev, [id]: value
         }))
-
+        location.key = ""
     }
 
     const handleChangeContact = (e) => {
@@ -119,13 +144,13 @@ const FieldMember = () => {
             ...prev, [id]: value
         }))
     }
-    console.log('ppppppppppppalInfo', personalInfo, )
+    console.log('ppppppppppppalInfo', location.key)
 
     const validate = () => {
         let errMsg;
         let { Gender, Nationality, MaritalStatus, Qualification } = personalInfo;
         // let { Address,  } = contactInfo;
-
+        console.log("jkjlkjlk", address)
         switch (true) {
             case Gender === '':
                 errMsg = 'Please select Gender';
@@ -142,19 +167,19 @@ const FieldMember = () => {
             case getFormattedDate() == "undefined-NaN-undefined":
                 errMsg = 'Please select Date Of Joining';
                 break;
-            case address?.addressLine1 == undefined :
+            case addressTextBoxState == true || address?.addressLine1 == undefined && location?.state?.[0].Address == "":
                 errMsg = 'Please enter Address';
                 break;
-            case address?.country === '' || address?.country === undefined:
+            case (address?.country === '' || address?.country === undefined) && location?.state?.[0].Country == "":
                 errMsg = 'Please enter Country';
                 break;
-            case address?.state === '' || address?.state === undefined :
+            case (address?.state === '' || address?.state === undefined) && location?.state?.[0].State == "":
                 errMsg = 'Please enter State';
                 break;
-            case address?.city === '' || address?.city === undefined:
+            case (address?.city === '' || address?.city === undefined) && location?.state?.[0].City == "":
                 errMsg = 'Please enter City';
                 break;
-            case address?.zipcode === '' || address?.zipcode === undefined:
+            case (address?.zipcode === '' || address?.zipcode === undefined) && location?.state?.[0].Pincode == "":
                 errMsg = 'Please enter Pincode';
                 break;
             default:
@@ -165,52 +190,68 @@ const FieldMember = () => {
         return false;
     };
 
-    console.log("dddddd", contactInformation)
+    console.log("dddddd", demoState,)
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!validate()) return;
-        const obj = { 
-            FieldMemberID: userID, 
-            FieldMember_Firstname: userFirstname, 
-            FieldMember_LastName: userLastname, 
-            FieldMember_EmailID: UserRole.Email_Id, 
-            FieldMember_Role: UserRole.User_Role, 
-            FieldMember_Contact: UserRole.Contact, 
-            Date_Of_Joining: getFormattedDate(), 
-            Address: address?.addressLine1, 
+        const obj = {
+            FieldMemberID: userID,
+            FieldMember_Firstname: userFirstname,
+            FieldMember_LastName: userLastname,
+            FieldMember_EmailID: UserRole.Email_Id,
+            FieldMember_Role: UserRole.User_Role,
+            FieldMember_Contact: UserRole.Contact,
+            FieldMember_CreatedAt: systemCurrentData(),
+            Date_Of_Joining: getFormattedDate(),
+            Address: personalInfo?.Address,
+            Country: personalInfo?.Country,
+            State: personalInfo?.State,
+            City: personalInfo?.City,
+            Pincode: personalInfo?.Pincode,
             ...personalInfo
-            // ...contactInformation
         }
-        console.log("objjkjkjkj",obj)
-        try {
-            dispatch(fileldMemberDetail(obj));
-            setStatusState(true);
-        } catch (err) {
-            handleShopToast(true, 'Error', 'Something went wrong.');
+
+
+        if (location?.state?.[0].length != 0 && location?.state?.[0] != undefined) {
+            console.log("objjkjkjkj", userID, demoState, obj)
+            try {
+                dispatch(updateFiledMemberData(obj));
+                setStatusState(true);
+            }
+            catch (err) {
+                handleShopToast(true, 'Error', 'Something went wrong.');
+            }
+
+        }
+        else {
+            try {
+                dispatch(fileldMemberDetail(obj));
+                setStatusState(true);
+            } catch (err) {
+                handleShopToast(true, 'Error', 'Something went wrong.');
+            }
         }
     };
 
 
 
     const callFunction = () => {
-
-        if (fileldMemberDetailStatus == "pending") {
+        if (fileldMemberDetailStatus == "pending" || updateFileldMemberDetailStatus == "pending") {
             setShowLoder(true)
         }
         else if (fileldMemberDetailStatus == "Success") {
-            // setTimeout(() => {
+
             handleShopToast(true, 'Success', 'Detail add sucessfully.')
             navigate("/fourbox")
-
-            // }, 3000)
         }
-        // else{
-        //     console.log(fileldMemberDetailError,"llllllllllllll")
-        //     handleShopToast(true, 'Error', 'Somthing went wrong.') 
-        // }
-
+        else if (updateFileldMemberDetailStatus == "Success") {
+            handleShopToast(true, 'Success', 'Detail update sucessfully.')
+            navigate("/fourbox")
+        }
     }
+
+
 
     return (
 
@@ -340,19 +381,16 @@ const FieldMember = () => {
                                                     id="Gender"
                                                     name='Gender'
                                                     onChange={(e) => handleChangeInput(e)}
-                                                    value={personalInfo.Gender}
-
+                                                    value={location?.key != "" ? location?.state?.[0]?.Gender : personalInfo?.Gender}
                                                 >
                                                     <option value='' disabled selected hidden>Gender</option>
                                                     <option>Male</option>
                                                     <option>Female</option>
                                                 </Form.Select>
-
-
                                             </Col>
 
                                         </Row>
-                                        {console.log("tytytyytytyt", personalInfo.Nationality)}
+
                                         <Row span={24} className=''>
 
                                             <Col span={12}
@@ -366,7 +404,7 @@ const FieldMember = () => {
                                                     name="Nationality"
                                                     id='Nationality'
                                                     autoComplete="off"
-                                                    value={personalInfo.Nationality}
+                                                    value={location.key != "" ? location?.state?.[0]?.Nationality : personalInfo?.Nationality}
                                                     onChange={(e) => handleChangeInput(e)}
                                                     className='personal-ingo-textbox'
 
@@ -387,7 +425,7 @@ const FieldMember = () => {
                                                     onChange={(e) => handleChangeInput(e)}
                                                     name='MaritalStatus'
                                                     id='MaritalStatus'
-                                                    value={personalInfo.MaritalStatus}
+                                                    value={location.key != "" ? location?.state?.[0]?.MaritalStatus : personalInfo?.MaritalStatus}
 
                                                 >
                                                     <option disabled value='' selected hidden>Marital Status</option>
@@ -411,8 +449,7 @@ const FieldMember = () => {
                                                     onChange={(e) => handleChangeInput(e)}
                                                     name="Qualification"
                                                     id='Qualification'
-                                                    value={personalInfo.Qualification}
-                                                // defaultValue={location?.state?.[0]?.Qualification == "" ? personalInfo.Qualification : location?.state?.[0]?.Qualification}
+                                                    value={location.key != "" ? location?.state?.[0]?.Qualification : personalInfo?.Qualification}
 
                                                 >
                                                     <option value="" disabled selected hidden>Qulification</option>
@@ -431,19 +468,21 @@ const FieldMember = () => {
                                                 className='d-flex '
 
                                             >
+                                                {/* {console.log("Dakjkjte", location.state?.[0]?.Date_Of_Joining)}
                                                 <DatePicker
                                                     placeholderText="Select date of joining"
                                                     isClearable
                                                     showIcon
                                                     closeOnScroll={true}
-                                                    selected={startDate} onChange={(date) => setStartDate(date)}
+                                                    selected={startDate} 
+                                                    onChange={(date) => setStartDate(date)}
                                                     dateFormat="yyyy-MM-dd"
                                                     className='personal-ingo-textbox1 ms-2'
                                                     name='Date_Of_Joining'
                                                     id='Date_Of_Joining'
+                                                    // defaultValue={location.state[0]?.Date_Of_Joining}
+                                                /> */}
 
-                                                />
-                                                
                                             </Col>
 
                                         </Row>
@@ -452,25 +491,35 @@ const FieldMember = () => {
                                 <Row>
                                     <Col span={24} className='form-control mt-2 w-100'>
                                         <div>
-                                            <h6 className='info-tag-h6'>Conatct Address k</h6>
+                                            <h6 className='info-tag-h6'>Conatct Address</h6>
                                         </div>
-                                        <AddressComponent setAd={setAd} address={address} setDemoState={setDemoState} demoState={demoState} getAddress={location?.state?.[0]?.Address} />
+                                        {console.log("uiuiiuiuiuu", addressTextBoxState)}
+                                        <AddressComponent
+                                            setAd={setAd}
+                                            address={address}
+                                            setDemoState={setDemoState}
+                                            demoState={demoState}
+                                            getAddress={location?.state?.[0]}
+                                            addressTextBoxState={addressTextBoxState}
+                                            setAddressTextBoxState={setAddressTextBoxState}
+                                        />
 
-                                        
-                                        {console.log("hhhhhhhhh", demoState, personalInfo.Country)}
+
+                                        {console.log("hhhhhhhhh", demoState, personalInfo?.Country)}
                                         <Row span={24}>
                                             <Col span={12}
                                                 xs={24}
                                                 sm={24}
                                                 md={12}
                                                 lg={12}>
+
                                                 <Input
                                                     type="text"
                                                     placeholder="Country"
                                                     name="Country"
                                                     autoComplete="off"
                                                     id='Country'
-                                                    value={demoState == true ? address.country : personalInfo.Country}
+                                                    value={demoState == true ? address.country : personalInfo?.Country}
                                                     onChange={(e) => handleChangeContact(e)}
                                                     className='address-info-texbox2'
                                                     disabled={true}
@@ -485,12 +534,13 @@ const FieldMember = () => {
                                                 className='d-flex justify-content-end'
 
                                             >
+                                                {console.log("uuuuuuuu", demoState, address?.state, personalInfo?.State)}
                                                 <Input
                                                     type="text"
                                                     placeholder="State"
                                                     name="State"
                                                     autoComplete="off"
-                                                    value={demoState == true ? address.state : personalInfo.State}
+                                                    value={demoState == true ? address?.state : personalInfo?.State}
                                                     id='State'
                                                     onChange={(e) => handleChangeContact(e)}
                                                     className='address-info-texbox2'
@@ -514,7 +564,7 @@ const FieldMember = () => {
                                                     name="City"
                                                     id='City'
                                                     autoComplete="off"
-                                                    value={demoState == true ? address.city : personalInfo.City}
+                                                    value={demoState == true ? address?.city : personalInfo?.City}
                                                     onChange={(e) => handleChangeContact(e)}
                                                     className='address-info-texbox3'
                                                     disabled={true}
@@ -535,7 +585,7 @@ const FieldMember = () => {
                                                     name="Pincode"
                                                     autoComplete="off"
                                                     id='Pincode'
-                                                    value={demoState == true ? address.zipcode : personalInfo.Pincode}
+                                                    value={demoState == true ? address?.zipcode : personalInfo?.Pincode}
                                                     // value={location?.state?.[0]?.Pincode != "" && address?.addressLine1 != undefined  ? address.zipcode : location?.state?.[0]?.Pincode }
                                                     className='address-info-texbox4'
                                                     onChange={(e) => handleChangeContact(e)}
@@ -553,7 +603,7 @@ const FieldMember = () => {
 
                         </Row>
 
-                        {console.log("jkjkjkjsdsd", location?.state?.[0].length)}
+                        {console.log("jkjkjkjsdsd", personalInfo)}
                         <Row className="mt-2">
                             <Col span={24} className="d-flex justify-content-between">
                                 <div>
@@ -565,9 +615,9 @@ const FieldMember = () => {
                                 </div>
                                 <div>
                                     {/* <Commonbutton buttonText={"Save"} buttonwidth={135} /> */}
-                                    <button style={{ backgroundColor: "maroon", color: "white",width:"60px",height:"30px",borderRadius:"5px",border:"none" }}
+                                    <button style={{ backgroundColor: "maroon", color: "white", width: "60px", height: "30px", borderRadius: "5px", border: "none" }}
                                     // onClick={handleSubmit}
-                                    >{location?.state?.[0].length != 0 && location?.state?.[0] != undefined  ? "Update" : "Save"} </button>
+                                    >{location?.state?.[0].length != 0 && location?.state?.[0] != undefined ? "Update" : "Save"} </button>
 
                                 </div>
                             </Col>

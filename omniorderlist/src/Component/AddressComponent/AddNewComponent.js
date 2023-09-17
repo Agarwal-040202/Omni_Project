@@ -1,31 +1,30 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Row, Col, Input } from 'antd';
 
-const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxState, demoState, }) => {
+const AddNewComponent = ({ setAd, setDemoState, getAddress, addressTextBoxState, setAddressTextBoxState, demoState, }) => {
     const inputSearchaddressRef = useRef(null)
 
     const [fakeState, setFakeState] = useState(false)
 
-    const[addressText, setAddressText] = useState("")
+    const [addressText, setAddressText] = useState("")
 
     const addressInfoObj = () => {
         return { addressLine1: "", addressLine2: "", zipcode: "", city: "", state: "", country: "", county: "", streetAddress: '' }
     }
 
 
-    useEffect(()=>{
-        
+    useEffect(() => {
         initMapScript().then(() => initAutoComplete());
-    },[])
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         setFakeState(!fakeState)
-        if(demoState === false && getAddress != undefined){
-            
-            inputSearchaddressRef.current.value = getAddress?.Address != undefined ? getAddress?.Address : getAddress 
+        if (demoState === false && getAddress != undefined) {
+
+            inputSearchaddressRef.current.value = getAddress?.Address != undefined ? getAddress?.Address : getAddress
 
         }
-       
+
     }, [getAddress, demoState])
 
     const loginUserId = sessionStorage.getItem("loggedUserId");
@@ -35,20 +34,20 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
 
     console.log('addressInfoaddressInfo', getAddress)
 
-    
-   
+
+
 
     const onhandleChangeAddress = () => {
-        
+
 
         if (inputSearchaddressRef.current.value !== "") {
             setAddressTextBoxState(false)
             setAddressText(inputSearchaddressRef.current.value)
-            
+
             if (inputSearchaddressRef.current.value > 0) {
                 // showClearButton = true;   
             }
-        }else{
+        } else {
             setAd("")
             setAddressTextBoxState(true)
         }
@@ -66,7 +65,7 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
     };
 
     const onChangeAddress = (autocomplete) => {
-        console.log("autocomplete",autocomplete)
+        console.log("autocomplete", autocomplete)
         const place = autocomplete.getPlace();
         const lat = place?.geometry?.location?.lat();
         const long = place?.geometry?.location?.lng();
@@ -90,7 +89,7 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
         };
 
         if (Array.isArray(place?.address_components)) {
-            place.address_components.forEach((component) => {
+            place?.address_components?.forEach((component) => {
                 const types = component.types;
                 const value = component.long_name;
 
@@ -120,13 +119,13 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
 
         setAd(addressInfoDet)
         setDemoState(true)
-       
+
         setaddressInfo({ ...addressInfoDet });
     };
 
     const mapApi = "https://maps.googleapis.com/maps/api/js";
 
-    console.log("kkkkkkk",addressInfo)
+    console.log("kkkkkkk", addressInfo)
 
 
     function loadAsyncScript(src) {
@@ -143,12 +142,12 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
     }
 
     const initMapScript = () => {
-        
+
         if (window.google) {
             return Promise.resolve();
         }
         const src = `${mapApi}?key=${'AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI'}&libraries=places&v=weekly`;
-        console.log(src,"srcsrcsrc")
+        console.log(src, "srcsrcsrc")
         return loadAsyncScript(src);
     }
     return (
@@ -164,7 +163,7 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
                         id="Address"
                         onChange={onhandleChangeAddress}
                         className="address-info-textbox"
-                        style={{width:"100%",paddingLeft:"10px"}}
+                        style={{ width: "100%", paddingLeft: "10px" }}
 
                     />
                 </Col>
@@ -173,4 +172,4 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
     );
 };
 
-export default AddressComponent;
+export default AddNewComponent;
