@@ -53,7 +53,7 @@ const shopKeeperDataSlice = createSlice({
                 return {
                     ...state,
                     shopKeeperDataLoaded: false,
-                    shopKeeperData: action.payload,
+                    shopKeeperData: action?.payload,
                     shopkeeperDataStatus: "Success"
                 };
             } else {
@@ -64,7 +64,7 @@ const shopKeeperDataSlice = createSlice({
             return {
                 ...state,
                 shopkeeperDataStatus: "rejected",
-                shopKeeperDataError: action.payload
+                shopKeeperDataError: action?.payload
             };
         });
     }

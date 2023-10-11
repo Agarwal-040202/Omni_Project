@@ -11,39 +11,52 @@ import "./shopkeepertabledetails.css"
 const ShopkeeperTableDetails = (props) => {
     const dispatch = useDispatch();
 
-    const { shopKeeperData, shopkeeperDataStatus } = useSelector((State) => State.getShopKeeperData )
+    const { shopKeeperData} = useSelector((State) => State.getShopKeeperData)
 
 
-    console.log('persojjjnalInfo', shopKeeperData, shopkeeperDataStatus)
+    // console.log('persojjjnakkklInfo', shopKeeperData?.data)
 
     const [showModal, setShowModal] = useState(false)
+    const [shopkeeperSingleData,setShopkeeperSingleData] = useState([])
+    const [newEntry,setNewEntry] = useState(false)
 
-    useEffect(()=>{
+    useEffect(() => {
 
         functionS()
-     
-    },[])
 
-    const functionS = ()=>{
-        try{
+    }, [])
+
+    const functionS = () => {
+        try {
             dispatch(getShopkeeperData());
 
         }
-        catch(err){
-console.log(err)
+        catch (err) {
+            console.log(err)
         }
     }
 
     const addShopkeeperdetail = () => {
         setShowModal(true)
+        setNewEntry(true)
+    }
+
+    const updateShopkeeperdetailFunction = (e)=>{
+        setShowModal(true)
+        // console.log("index", shopKeeperData?.data[e])
+        setShopkeeperSingleData(shopKeeperData?.data[e])
+        setNewEntry(false)
+
 
     }
     const companyInfoEditModal = () => {
 
     }
 
+    console.log("shopkeeperSingleData", shopkeeperSingleData)
+
     return (
-        <div className='p-3 ' style={{ maxHeight: "90vh",height:"90vh",overflow:"hidden" }}>
+        <div className='p-3 ' style={{ maxHeight: "90vh", height: "90vh", overflow: "hidden" }}>
             <Row>
                 <Col span={24}>
                     <Row>
@@ -68,19 +81,19 @@ console.log(err)
 
                                 </Link>
                             </div>
-                            <div className='m-0 p-0'>                            
+                            <div className='m-0 p-0'>
                                 <Link className="" to="#" onClick={addShopkeeperdetail} >
-                                <div className="" >
-                                    <button
-                                        className="Add-shopkeeper-btn"
-                                        type="submit"
-                                    // onClick={addEditModalFun}
-                                    >
-                                        Add Shopkeeper
-                                    </button>
-                                </div>
-                                {/* <Commonbutton buttonText={"Add Shopkeeper"} /> */}
-                            </Link>
+                                    <div className="" >
+                                        <button
+                                            className="Add-shopkeeper-btn"
+                                            type="submit"
+                                        // onClick={addEditModalFun}
+                                        >
+                                            Add Shopkeeper
+                                        </button>
+                                    </div>
+                                    {/* <Commonbutton buttonText={"Add Shopkeeper"} /> */}
+                                </Link>
                             </div>
 
 
@@ -88,7 +101,7 @@ console.log(err)
                     </Row>
                     <Row className='mt-4'>
                         <Col>
-                            <h6 style={{ color: "maroon" }}>Primary Information </h6>
+                            <h6 style={{ color: "maroon" }}>Shopkeeper Information </h6>
                             <Table bordered responsive>
                                 <thead className='bg-light'>
                                     <tr>
@@ -96,8 +109,12 @@ console.log(err)
                                         <th >Owner_Name</th>
                                         <th >GST Number</th>
                                         <th >Conatact</th>
-                                        <th >Email Id</th>
-
+                                        {/* <th >Email Id</th> */}
+                                        <th >Address</th>
+                                        <th >City</th>
+                                        <th >State</th>
+                                        {/* <th >Pincode</th> */}
+                                        <th >Village Name</th>
                                         <th >Action </th>
 
 
@@ -107,19 +124,32 @@ console.log(err)
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td >Sumit Provision Store</td>
-                                        <td >Sumit Kumar Agarwal</td>
-                                        <td >SKU887878788UTY</td>
-                                        <td >9876543210, 8767677765</td>
-                                        <td >sumitprostore@gmail.com</td>
+                                    {shopKeeperData?.data != "" && shopKeeperData?.data.map((tabelData,index)=>{
+                                        return(
+                                            <>
+                                                <tr>
+                                                    {/* {console.log("tabelData", tabelData)} */}
+                                                    <td >{tabelData?.Firm_Name}</td>
+                                                    <td >{tabelData?.Shopkeeper_First_Name + " " + tabelData?.Shopkeeper_Last_Name}</td>
+                                                    <td >{tabelData?.GST_Number}</td>
+                                                    <td >{tabelData?.Contact + ", " + tabelData?.Whatsup_Contact}</td>
+                                                    {/* <td >sumitprostore@gmail.com</td> */}
+                                                    <td >{tabelData?.Address1}</td>
+                                                    <td >{tabelData?.City}</td>
+                                                    <td >{tabelData?.State}</td>
+                                                    {/* <td >123456</td> */}
+                                                    <td >{tabelData?.Village_Street}</td>
 
-                                        <td style={{ cursor: "pointer", color: "blue", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={addShopkeeperdetail}>Edit</td>
+                                                    <td style={{ cursor: "pointer", color: "blue", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={(e)=>updateShopkeeperdetailFunction(index)}>Edit</td>
 
-                                        {/* {Array.from({ length: 12 }).map((_, index) => (
+                                                    {/* {Array.from({ length: 12 }).map((_, index) => (
                                             <td key={index}>Table cell {index}</td>
                                         ))} */}
-                                    </tr>
+                                                </tr>
+                                            </>
+                                        )
+                                    })}
+                                   
 
                                 </tbody>
                             </Table>
@@ -128,7 +158,7 @@ console.log(err)
                     </Row>
 
 
-                    <Row className='mt-2'>
+                    {/* <Row className='mt-2'>
                         <Col>
                             <h6 style={{ color: "maroon" }} >Primary Addresss Information</h6>
                             <Table bordered responsive>
@@ -159,11 +189,11 @@ console.log(err)
                             </Table>
 
                         </Col>
-                    </Row>
+                    </Row> */}
                 </Col>
             </Row>
             {
-                showModal == true && <ShopkeeperDetailModal showModal={showModal} setShowModal={setShowModal} />
+                showModal == true && <ShopkeeperDetailModal showModal={showModal} setShowModal={setShowModal} shopkeeperSingleData={shopkeeperSingleData} newEntry={newEntry} />
             }
 
         </div>

@@ -5,6 +5,7 @@ import fieldMemberReducer from "../Slice/feildMemberDetailsSlice"
 import getFieldMemberDataSlice from "../Slice/getFieldMemberDataSlice"
 import shopkeeperDetailsSlice from "../Slice/addNewShopkeeperSlice"
 import shopKeeperDataSlice  from "../Slice/getShopkeeperDataSlice"
+import updatefieldMemberReducer from "../Slice/updateFieldMemberSlice"
 
 
 export const store = configureStore({
@@ -13,6 +14,8 @@ export const store = configureStore({
         auth:authReducer,
         fieldMemberDetail:fieldMemberReducer,
         getFiledMemberData: getFieldMemberDataSlice,
+        updatefieldMember:updatefieldMemberReducer,
+        addNewShopkeeper:shopkeeperDetailsSlice,
         getShopKeeperData: shopKeeperDataSlice,
         
     }
