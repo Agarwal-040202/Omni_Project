@@ -190,72 +190,72 @@ const Commoncomponent = (props) => {
 
           </div>
           :
-          <div   className="Main-Layoyt-Div py-1 pb-2 px-3">
-          <div >
-            {console.log("jjjjjkhkjjjj", data1[0]?.src, sorceVideo)}
-            <video src="/videodata/FullCut410.mp4" muted autoPlay={"autoplay"} 
-            poster="./Jacobandbella.jpg" preLoad="auto" loop className='w-100 video-class'>
-              video tag is not supported by your browser</video>
-          </div>
+          <>hi</>
+        //   <div   className="Main-Layoyt-Div py-1 pb-2 px-3">
+        //   <div >
+        //     {console.log("jjjjjkhkjjjj", data1[0]?.src, sorceVideo)}
+        //     <video src="/videodata/FullCut410.mp4" muted autoPlay={"autoplay"} 
+        //     poster="./Jacobandbella.jpg" preLoad="auto" loop className='w-100 video-class'>
+        //       video tag is not supported by your browser</video>
+        //   </div>
 
-          <Row className=' mb-1' >
-            <Col xs={4} sm={4} lg={4} className="d-flex justify-content-start align-items-center">
-              <div className="d-flex justify-content-start align-items-center pt-2">
-                <h6 className='screwName-class'>{data1[0]?.screwName}</h6>
-              </div>
-            </Col>
-            <Col xs={7} sm={7} lg={7} className="d-flex justify-content-end">
-              <div className='search_input-div w-100'>
-                <div className='w-100'>
-                  <Form.Control size="sm" type="text" placeholder="Search Size" className='search_input' value={getInput} onChange={(e) => searchData(e)} />
-                </div>
-                <div className='d-flex justify-content-end align-items-center' style={{ width: "30px" }}>
-                  <img src="images/searchicon2.png" className='w-75' />
-                </div>
-              </div>
-            </Col>
-            <Col xs={1} sm={1} lg={1} className="d-flex justify-content-end ">
-            <div className='d-flex justify-content-end align-items-center' style={{ width: "40px" }}>
+        //   <Row className=' mb-1' >
+        //     <Col xs={4} sm={4} lg={4} className="d-flex justify-content-start align-items-center">
+        //       <div className="d-flex justify-content-start align-items-center pt-2">
+        //         <h6 className='screwName-class'>{data1[0]?.screwName}</h6>
+        //       </div>
+        //     </Col>
+        //     <Col xs={7} sm={7} lg={7} className="d-flex justify-content-end">
+        //       <div className='search_input-div w-100'>
+        //         <div className='w-100'>
+        //           <Form.Control size="sm" type="text" placeholder="Search Size" className='search_input' value={getInput} onChange={(e) => searchData(e)} />
+        //         </div>
+        //         <div className='d-flex justify-content-end align-items-center' style={{ width: "30px" }}>
+        //           <img src="images/searchicon2.png" className='w-75' />
+        //         </div>
+        //       </div>
+        //     </Col>
+        //     <Col xs={1} sm={1} lg={1} className="d-flex justify-content-end ">
+        //     <div className='d-flex justify-content-end align-items-center' style={{ width: "40px" }}>
               
-                  <a href="#" download >
-                  <img src="images/printer3.jpg"
-                  //  onClick={exportPDF} 
-                   style={{ width: "28px", cursor: "pointer" }} />
-                  </a>
-                </div>
-            </Col>
-          </Row>
+        //           <a href="#" download >
+        //           <img src="images/printer3.jpg"
+        //            style={{ width: "28px", cursor: "pointer" }} />
+        //           </a>
+        //         </div>
+        //     </Col>
+        //   </Row>
 
-          <div className="m-0 p-0 table-main-div heughtset">
+        //   <div className="m-0 p-0 table-main-div heughtset">
 
-            <Table bordered className='m-0 p-0' id="HtmlToPdf">
+        //     <Table bordered className='m-0 p-0' id="HtmlToPdf">
 
-              <thead className='bg-light' style={{ position: "sticky", top: "-2px", background: "white", zIndex: "5", height: "40px", }}>
-                <tr >
-                  <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>SIZE</th>
-                  <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>PACKING</th>
-                  <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
-                    <img src="images/rsicon1.jpg" style={{ height: "12px", marginTop: "-3px" }} />{" "} 100 NOS.</th>
-                </tr>
+        //       <thead className='bg-light' style={{ position: "sticky", top: "-2px", background: "white", zIndex: "5", height: "40px", }}>
+        //         <tr >
+        //           <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>SIZE</th>
+        //           <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>PACKING</th>
+        //           <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
+        //             <img src="images/rsicon1.jpg" style={{ height: "12px", marginTop: "-3px" }} />{" "} 100 NOS.</th>
+        //         </tr>
 
-              </thead>
-              {tabelData1?.filter(data => data?.size?.toLowerCase().includes(getInput.toLowerCase())).map((data, index) => {
-                return (
-                  <tr style={{ backgroundColor: "" }} className="tabel-row">
-                    <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }}>{data.size}</td>
-                    <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }}>{data.packing}</td>
-                    <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }}>{data.price}</td>
-                  </tr>
-                )
-              })
-              }
+        //       </thead>
+        //       {tabelData1?.filter(data => data?.size?.toLowerCase().includes(getInput.toLowerCase())).map((data, index) => {
+        //         return (
+        //           <tr style={{ backgroundColor: "" }} className="tabel-row">
+        //             <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }}>{data.size}</td>
+        //             <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }}>{data.packing}</td>
+        //             <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }}>{data.price}</td>
+        //           </tr>
+        //         )
+        //       })
+        //       }
 
-            </Table>
+        //     </Table>
 
 
-          </div>
+        //   </div>
 
-        </div>
+        // </div>
 
       }
     </div>
