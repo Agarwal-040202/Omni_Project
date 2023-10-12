@@ -86,4 +86,10 @@
       align-items: start !important ;
     }
   }
+
+
+
+  button:focus:not(:focus-visible) {
+    color:transparent
+}
   

@@ -13,8 +13,6 @@ const Homepage = () => {
             <video autoPlay loop src="./Omniscrew1hjhjhjh.mp4" muted allowFullscreen style={{ pointerEvents: "none", maxWidth: "100%", width: "100%" }} >
             </video>
 
-
-
         </div>
     )
 }

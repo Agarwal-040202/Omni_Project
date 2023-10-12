@@ -73,7 +73,7 @@ const FieldMember = () => {
 
         }));
 
-        setStartDate(new Date(location.state?.[0]?.Date_Of_Joining))
+        // setStartDate(new Date(location.state?.[0]?.Date_Of_Joining))
     }, [demoState, location.key]);
 
 

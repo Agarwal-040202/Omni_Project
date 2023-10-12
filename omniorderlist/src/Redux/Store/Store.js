@@ -6,7 +6,8 @@ import getFieldMemberDataSlice from "../Slice/getFieldMemberDataSlice"
 import shopkeeperDetailsSlice from "../Slice/addNewShopkeeperSlice"
 import shopKeeperDataSlice  from "../Slice/getShopkeeperDataSlice"
 import updatefieldMemberReducer from "../Slice/updateFieldMemberSlice"
-
+import updateshopkeeperReducer from "../Slice/shopkeeperSlice/updateShopkeeperSlice"
+import insertCatelogueData from "../Slice/catelogueSlice/catelogueSlice"
 
 export const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
         updatefieldMember:updatefieldMemberReducer,
         addNewShopkeeper:shopkeeperDetailsSlice,
         getShopKeeperData: shopKeeperDataSlice,
-        
+        updateshopkeeperData:updateshopkeeperReducer,
+        catelougeData:insertCatelogueData
     }
 })

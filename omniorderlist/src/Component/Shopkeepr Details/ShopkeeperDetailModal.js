@@ -9,37 +9,43 @@ import { Col, Row, Input } from "antd";
 import { v4 as uuidv4 } from "uuid"
 import MyContext from "../../MyContext";
 import { shopkeeperDetails } from "../../Redux/Slice/addNewShopkeeperSlice"
+import {updateShopkeeperData} from "../../Redux/Slice/shopkeeperSlice/updateShopkeeperSlice"
 import "./shopkeeperdetailmodal.css"
 import AddNewComponent from '../AddressComponent/AddNewComponent';
+import AddressComponentNew from './AddressComponentNew';
 
 const newObjPersonal = () => {
     return { Firm_Name: '', Shopkeeper_First_Name: '', Shopkeeper_Last_Name: "", Contact: '', Whatsup_Contact: '', GST_Number: '', Shopkeeper_Email: '' }
 }
-const newObjContact = () => {
-    return { Address: "", Country: '', State: '', City: '', Pincode: '', Village_Street: '' }
-}
-
 const ShopkeeperDetailModal = (props) => {
-
+    const addressInfoComRef = useRef('');
     let { handleShopToast, setShowLoder } = useContext(MyContext)
+    console.log('shopkeeperSingleDatashopkeeperSingleDatashopkeeperSingleData', props.shopkeeperSingleData)
 
     const dispatch = useDispatch()
 
     const [userIDState, setUserIDState] = useState("")
     const [personalInfo, setPersonalInfo] = useState({ ...newObjPersonal() })
-    const [contactInfo, setContactInfo] = useState({ ...newObjContact() })
+    const [newContactInfo, setNewContactInfo] = useState({})
     const [getStatusState, setStatusState] = useState(false)
     const [address, setAd] = useState({})
     const [demoState, setDemoState] = useState(false)
+    const [enterTextBox,setEnterTextBox] = useState(false)
     const [addressTextBoxState, setAddressTextBoxState] = useState(false)
+
 
     const { shopkeeperDetailStatus, shopkeeperDetailError } = useSelector((State) => State.addNewShopkeeper)
 
     console.log('persongfdsdsalInfo', shopkeeperDetailError, shopkeeperDetailStatus)
 
+    const {  updateShopKeeperDetailStatus, updateShopKeeperDetailError,updateShopKeeperRecored } = useSelector((State) => State.updateshopkeeperData)
+
+    console.log('updateShopKeailStatus', updateShopKeeperDetailStatus, updateShopKeeperDetailError,updateShopKeeperRecored)
+
+
     const currentDate = new Date();
     const afterConvertDate = currentDate.toLocaleDateString()
-    console.log("date",afterConvertDate)
+    console.log("date", afterConvertDate)
     const parts = afterConvertDate.split('/');
     const formattedDate = `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
     console.log("datekkk", formattedDate)
@@ -67,38 +73,22 @@ const ShopkeeperDetailModal = (props) => {
         // randemID.slice(0, 6)
     }, [])
 
-    console.log("props.shopkeeperSingleData", props.shopkeeperSingleData.length)
-    useEffect(()=>{
+    console.log("props.shopkeeperSingleData", props.shopkeeperSingleData)
+    useEffect(() => {
         setPersonalInfo(prev => ({
-            ...prev, 
-            Firm_Name: props.shopkeeperSingleData.length == 0 ? personalInfo.Firm_Name :  props.shopkeeperSingleData.Firm_Name,
+            ...prev,
+            Firm_Name: enterTextBox == true ? personalInfo.Firm_Name : props.shopkeeperSingleData.Firm_Name,
             Shopkeeper_First_Name: props.shopkeeperSingleData.length == 0 ? personalInfo.Shopkeeper_First_Name : props.shopkeeperSingleData.Shopkeeper_First_Name,
             Shopkeeper_Last_Name: props.shopkeeperSingleData.length == 0 ? personalInfo.Shopkeeper_Last_Name : props.shopkeeperSingleData.Shopkeeper_Last_Name,
-            Contact: props.shopkeeperSingleData.length == 0 ? personalInfo.Contact :  props.shopkeeperSingleData.Contact,
+            Contact: props.shopkeeperSingleData.length == 0 ? personalInfo.Contact : props.shopkeeperSingleData.Contact,
             Whatsup_Contact: props.shopkeeperSingleData.length == 0 ? personalInfo.Whatsup_Contact : props.shopkeeperSingleData.Whatsup_Contact,
-            GST_Number: props.shopkeeperSingleData.length == 0 ?  personalInfo.GST_Number :   props.shopkeeperSingleData.GST_Number,
-            Shopkeeper_Email: props.shopkeeperSingleData.length == 0 ?  personalInfo.Shopkeeper_Email  : props.shopkeeperSingleData.Shopkeeper_Email
+            GST_Number: props.shopkeeperSingleData.length == 0 ? personalInfo.GST_Number : props.shopkeeperSingleData.GST_Number,
+            Shopkeeper_Email: props.shopkeeperSingleData.length == 0 ? personalInfo.Shopkeeper_Email : props.shopkeeperSingleData.Shopkeeper_Email
 
         }))
 
-    }, [props.shopkeeperSingleData])
+    }, [props.shopkeeperSingleData,enterTextBox])
 
-    useEffect(() => {
-        setContactInfo((prev) => ({
-            ...prev,
-            Address: demoState == false ? props.shopkeeperSingleData?.Address1 : address?.addressLine1,
-            City: demoState == false ? props.shopkeeperSingleData?.City : address?.city,
-            State: demoState == false ? props.shopkeeperSingleData?.State : address?.state,
-            Country: demoState == false ? props.shopkeeperSingleData?.Country : address?.country,
-            Pincode: demoState == false ? props.shopkeeperSingleData?.Pincode : address?.zipcode,
-            Village_Street: demoState == false ? contactInfo.Village_Street != "" ? contactInfo.Village_Street : props.shopkeeperSingleData.Village_Street : address?.streetAddress
-
-        }));
-
-        
-    }, [demoState]);
-
-    console.log("lkhlkhlkhh", addressTextBoxState, address, props.shopkeeperSingleData.Firm_Name)
 
     useEffect(() => {
         if (props.shopkeeperSingleData?.Address1?.length != 0) {
@@ -113,35 +103,26 @@ const ShopkeeperDetailModal = (props) => {
         }
     }, [shopkeeperDetailStatus])
 
-    console.log("contactInfo",demoState,address, contactInfo)
+    useEffect(() => {
+        if (props.shopkeeperSingleData != undefined && props.shopkeeperSingleData != '' && props.newEntry == false) {
+            addressInfoComRef.current.updateAddressFun(props.shopkeeperSingleData)
+        }
+    }, [props])
 
-    const handleChange = () => {
-
-    }
 
     const handleChangeInput = (e) => {
         let { id, value } = e.target
         setPersonalInfo(prev => ({
             ...prev, [id]: value
         }))
-
+        setEnterTextBox(true)
     }
 
-    const handleChangeContact = (e) => {
-        let { id, value } = e.target
-        setContactInfo(prev => ({
-            ...prev, [id]: value
-        }))
-    }
+    console.log("sdsgsssgsdg",enterTextBox,personalInfo.Firm_Name)
 
     const validate = () => {
         let errMsg;
         let { Firm_Name, Shopkeeper_First_Name, Shopkeeper_Last_Name, Contact, Whatsup_Contact, GST_Number, Shopkeeper_Email } = personalInfo
-
-        let { Address1, Country, State, City, Pincode, Village_Street } = contactInfo;
-         
-        console.log("jjjjjjjj", addressTextBoxState, State, address, props.shopkeeperSingleData?.State?.length)
-
 
         switch (true) {
             case Firm_Name === undefined || Firm_Name === '' || Firm_Name === null:
@@ -165,24 +146,7 @@ const ShopkeeperDetailModal = (props) => {
             case Shopkeeper_Email === '':
                 errMsg = 'Enter Shopkeeper Email';
                 break;
-            case addressTextBoxState == true || props.shopkeeperSingleData?.length == 0 && address?.addressLine1 == undefined  :
-                errMsg = 'Please enter Address';
-                break;
-            case contactInfo?.Country == "" :
-                errMsg = 'Please enter Country';
-                break;
-            case State == "":
-                errMsg = 'Please enter State';
-                break;
-            case (address?.city === '' || address?.city === undefined ) :
-                errMsg = 'Please enter City';
-                break;
-            case (address?.zipcode === '' || address?.zipcode === undefined):
-                errMsg = 'Please enter Pincode';
-                break;
-            case (address?.streetaddress === '' || address?.streetaddress == undefined):
-                errMsg = 'Enter Village Street';
-                break;
+
             default:
                 return true;
         }
@@ -191,15 +155,20 @@ const ShopkeeperDetailModal = (props) => {
         return false;
     };
 
-    console.log("dddddd", personalInfo, contactInfo)
 
-              // FieldMemberID: userID, FieldMember_Firstname: userFirstname, FieldMember_LastName: userLastname, FieldMember_EmailID: UserRole.Email_Id, FieldMember_Role: UserRole.User_Role, FieldMember_Contact: UserRole.Contact,
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (!validate()) return;
-        const obj = { 
+        if (addressInfoComRef.current.checkvalidation()) {
+            return;
+        }
+
+    console.log("eeeeddsdsdsd", personalInfo)
+    
+        const obj = {
             Logged_User_ID: userID,
             Logged_Email_ID: UserRole.Email_Id,
             Logged_User_Role: UserRole.User_Role,
@@ -208,15 +177,27 @@ const ShopkeeperDetailModal = (props) => {
             Is_Active: "true",
             Created_At: getFormattedDate(),
             Shopkeeper_ID: userIDState,
-             ...personalInfo, 
-             ...contactInfo 
-            }
-        console.log(obj, "objectkjlk")
-        try {
+            ...personalInfo,
+            ...newContactInfo
+        }
+        console.log(obj, "objecfdfdtkjlk")
+
+        if(props.shopkeeperSingleData != ""){
+            try{
             
-            // dispatch(shopkeeperDetails(obj));
+            //   dispatch(updateShopkeeperData(obj))
+              setStatusState(true);
+            }
+            catch(err){
+                handleShopToast(true, 'Error', 'Something went wrong.');
+
+            }
+        }
+        try {
+
+            dispatch(shopkeeperDetails(obj));
             setStatusState(true);
-           
+
         } catch (err) {
             handleShopToast(true, 'Error', 'Something went wrong.');
         }
@@ -231,10 +212,10 @@ const ShopkeeperDetailModal = (props) => {
         else if (shopkeeperDetailStatus == "Success") {
             handleShopToast(true, 'Success', 'Shopkeeper add sucessfully.')
             handleClose()
-            
+
         }
-        else if (shopkeeperDetailStatus == "rejected"){
-           
+        else if (shopkeeperDetailStatus == "rejected") {
+
             handleShopToast(true, 'Error', 'Shopkeeper allready exists!');
             setShowLoder(true)
 
@@ -244,7 +225,7 @@ const ShopkeeperDetailModal = (props) => {
 
     const handleClose = () => {
         props.setShowModal(false)
-        
+
     }
 
     console.log("jkjkkkj", props.showModal)
@@ -256,7 +237,7 @@ const ShopkeeperDetailModal = (props) => {
                 centered
                 backdrop={false}
                 size="lg"
-                style={{zIndex:9}}
+                style={{ zIndex: 9 }}
             >
                 <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
                     <Modal.Title style={{ color: "white" }}>Shopkeeper Informtion</Modal.Title>
@@ -266,8 +247,6 @@ const ShopkeeperDetailModal = (props) => {
 
                         <Row className='d-flex justify-content-center'>
                             <Col span={24} xs={24} sm={24} md={24} lg={24} className="form-control  ">
-
-
                                 <form onSubmit={handleSubmit}>
                                     <Row className=''>
                                         <Col spn={24} lg={24} className=' w-100'>
@@ -285,8 +264,7 @@ const ShopkeeperDetailModal = (props) => {
                                                                 name="Firm_Name"
                                                                 autoComplete="off"
                                                                 id='Firm_Name'
-                                                                defaultValue={props.newEntry == true ? "" : props.shopkeeperSingleData != '' ? props.shopkeeperSingleData?.Firm_Name : personalInfo.Firm_Name}
-                                                                // defaultValue={location?.state?.[0]?.Nationality == "" ? personalInfo.Nationality : location?.state?.[0]?.Nationality}
+                                                                defaultValue={props.newEntry == true ? "" : enterTextBox == false ? props.shopkeeperSingleData?.Firm_Name : personalInfo.Firm_Name}
                                                                 onChange={(e) => handleChangeInput(e)}
                                                                 style={{ marginBottom: "10px", height: "36px", borderRadius: "5px" }}
 
@@ -327,7 +305,7 @@ const ShopkeeperDetailModal = (props) => {
                                                                 id="Shopkeeper_Last_Name"
                                                                 autoComplete="off"
                                                                 onChange={(e) => handleChangeInput(e)}
-                                                                defaultValue={props.newEntry == true ? "" : props.shopkeeperSingleData != '' ? props.shopkeeperSingleData?.Shopkeeper_Last_Name :personalInfo.Shopkeeper_Last_Name}
+                                                                defaultValue={props.newEntry == true ? "" : props.shopkeeperSingleData != '' ? props.shopkeeperSingleData?.Shopkeeper_Last_Name : personalInfo.Shopkeeper_Last_Name}
                                                                 className='personal-ingo-textbox'
 
                                                             />
@@ -408,7 +386,7 @@ const ShopkeeperDetailModal = (props) => {
                                                                 name='Shopkeeper_Email'
                                                                 autoComplete="off"
                                                                 onChange={(e) => handleChangeInput(e)}
-                                                                defaultValue={props.newEntry == true ? "" : props.shopkeeperSingleData != '' ? props.shopkeeperSingleData?.Shopkeeper_Email :  personalInfo.Shopkeeper_Email}
+                                                                defaultValue={props.newEntry == true ? "" : props.shopkeeperSingleData != '' ? props.shopkeeperSingleData?.Shopkeeper_Email : personalInfo.Shopkeeper_Email}
                                                                 className='personal-ingo-textbox8'
 
                                                             />
@@ -418,134 +396,7 @@ const ShopkeeperDetailModal = (props) => {
 
                                                 </Col>
                                             </Row>
-                                            <Row>
-                                                <Col span={24} className='form-control mt-2 w-100'>
-                                                    <div>
-                                                        <h6 className='info-tag-h6'>Conatct Address</h6>
-                                                    </div>
-                                                    {console.log("proAddress1", address)}
-                                                    <AddNewComponent
-                                                        setAd={setAd}
-                                                        address={address}
-                                                        setDemoState={setDemoState}
-                                                        demoState={demoState}
-                                                        getAddress={props.newEntry == true ? "" : props.shopkeeperSingleData?.Address1}
-                                                        addressTextBoxState={addressTextBoxState}
-                                                        setAddressTextBoxState={setAddressTextBoxState}
-                                                    />
-                                                    {console.log("jkjkjuuukjkjj",demoState, props.newEntry, address?.country, props.shopkeeperSingleData)}
-
-                                                    <Row span={24} className=''>
-                                                        <Col span={12}
-                                                            xs={24}
-                                                            sm={24}
-                                                            md={12}
-                                                            lg={12}>
-                                                            <Input
-                                                                type="text"
-                                                                placeholder="Country"
-                                                                name="Country"
-                                                                id='Country'
-                                                                autoComplete="off"
-                                                                // onChange={(e) => handleChangeContact(e)}
-                                                                value={props.newEntry == true && demoState == false ? "" : address?.country != undefined ? address?.country : props.shopkeeperSingleData?.Country}
-                                                                className='address-info-texbox2'
-                                                                disabled={true}
-                                                                style={{ color: "black" }}
-                                                            />
-                                                        </Col>
-                                                        <Col span={12}
-                                                            xs={24}
-                                                            sm={24}
-                                                            md={12}
-                                                            lg={12}
-                                                            className='d-flex justify-content-end'
-                                                        >
-                                                            <Input
-                                                                type="text"
-                                                                placeholder="State"
-                                                                id='State'
-                                                                name='State'
-                                                                autoComplete="off"
-                                                                // onChange={(e) => handleChangeContact(e)}
-                                                                value={props.newEntry == true && demoState == false ? "" : address.state != undefined ? address.state : props.shopkeeperSingleData?.State}
-                                                                className='address-info-texbox2'
-                                                                disabled={true}
-                                                                style={{ color: "black" }}
-
-
-                                                            />
-                                                        </Col>
-
-                                                    </Row>
-                                                    <Row span={24} className=''>
-                                                        <Col span={12}
-                                                            xs={24}
-                                                            sm={24}
-                                                            md={12}
-                                                            lg={12}>
-                                                            <Input
-                                                                type="text"
-                                                                placeholder="City"
-                                                                name='City'
-                                                                id='City'
-                                                                autoComplete="off"
-                                                                onChange={(e) => handleChangeContact(e)}
-                                                                value={props.newEntry == true && demoState == false ? "" : address.city != undefined ? address.city : props.shopkeeperSingleData?.City}
-                                                                className='address-info-texbox3'
-                                                                disabled={true}
-                                                                style={{ color: "black" }}
-
-
-                                                            />
-                                                        </Col>
-                                                        <Col span={12}
-                                                            xs={24}
-                                                            sm={24}
-                                                            md={12}
-                                                            lg={12}
-                                                            className='d-flex justify-content-end'
-
-                                                        >
-                                                            <Input
-                                                                type="text"
-                                                                placeholder="Pincode"
-                                                                name="Pincode"
-                                                                id='Pincode'
-                                                                autoComplete="off"
-                                                                onChange={(e) => handleChangeContact(e)}
-                                                                value={props.newEntry == true && demoState == false ? "" : address.zipcode != undefined ? address.zipcode : props.shopkeeperSingleData?.Pincode}
-                                                                className='address-info-texbox5'
-                                                                disabled={true}
-                                                                style={{color:"black"}}
-
-                                                            />
-                                                        </Col>
-
-                                                    </Row>
-                                                    <Row>
-                                                        <Col span={24} className='w-100'>
-
-                                                            <Input
-                                                                type="text"
-                                                                placeholder="Enter the Village or Street Adress"
-                                                                name="Village_Street"
-                                                                id='Village_Street'
-                                                                autoComplete="off"
-                                                                onChange={(e) => handleChangeContact(e)}
-                                                                defaultValue={props.newEntry == true && demoState == false ? "" : address?.streetAddress != undefined ? address?.streetAddress :  props.shopkeeperSingleData?.Village_Street}
-                                                                className='address-info-textbox6'
-                                                                // disabled={true}
-                                                                // style={{ color: "black" }}
-
-
-                                                            />
-                                                        </Col>
-
-                                                    </Row>
-
-                                                </Col>
-                                            </Row>
+                                            <AddressComponentNew ref={addressInfoComRef} setNewContactInfo={setNewContactInfo} />
                                         </Col>
 
                                     </Row>

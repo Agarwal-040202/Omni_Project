@@ -21,9 +21,7 @@ const ShopkeeperTableDetails = (props) => {
     const [newEntry,setNewEntry] = useState(false)
 
     useEffect(() => {
-
         functionS()
-
     }, [])
 
     const functionS = () => {

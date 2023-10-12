@@ -93,12 +93,14 @@ const Otpadmin = (props) => {
 
                 console.log("response", respos.data[0]?.User_Code)
 
+                const dataObjAdmin = { userCode: respos.data[0]?.User_Code, UserRole: respos.data[0]?.User_Role }
+
                 if (respos) {
                     setHideOtpPage(true)
                     setShowLoder(true)
                     setTimeout(() => {
                         navigate("/adminlogin", {
-                            state: "Admin"
+                            state: dataObjAdmin
                         })
                     }, 2000)
                     // handleClose()

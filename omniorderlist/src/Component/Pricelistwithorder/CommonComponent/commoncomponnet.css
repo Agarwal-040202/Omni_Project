@@ -1,0 +1,186 @@
+.table-main-div{
+    /* max-height: calc(100vh - 490px) !important;
+    overflow-y: auto !important; */
+    border: 1px slid black !important;
+    /* background-color: red; */
+    
+}
+.video-class{
+    object-fit: fill;
+    height: 54vh !important;
+    position: relative;
+    z-index: -1;
+  
+}
+.heughtset
+{
+    overflow: scroll !important;
+    height: 17.5vh !important;
+    overflow-x: hidden !important;
+    margin-bottom: 10px;
+}
+
+
+.vertical-scroll::-webkit-scrollbar{
+    width: 10px;
+    height: 10px;
+   
+}
+.screwName-class{
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 600;
+    color: rgb(88, 87, 87);    
+}
+
+.search_input-div{
+    border: 2px solid gray;
+    /* margin-right: 0px; */
+    padding-right: 10px !important;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search_input{
+    width: 100%;
+    border: none;
+    border-radius: 20px;
+    padding-left: 10px;
+    font-weight: 700;
+    font-family: sans-serif;
+}
+.tabel-row{
+    transition: transform 1s;
+}
+.tabel-row:hover {
+    /* background-color: gainsboro !important;
+    transition: all 1s; 
+    font-size: 22px;  */
+    /* font-weight: 600;  */
+    /* color: rgb(35, 231, 35) !important;     */
+}
+
+vertical-scroll::-webkit-scrollbar-thumb{
+
+  background: rgb(227, 232, 227);
+  border-radius: 100vw;
+}
+.vertical-scroll::-webkit-scrollbar-track{
+  background: rgb(89, 91, 89);
+  border-radius: 100vw;
+  margin-block:10px;
+
+} 
+
+@media(max-width:800px){
+   
+    .video-class{
+        object-fit: fill !important;
+        height: 42vh !important;
+        position: relative !important;
+        z-index: -1 !important;
+    
+    }
+    .heughtset
+    {
+        overflow: scroll !important;
+        height: 29vh !important;
+        overflow-x: hidden !important;
+    }
+}
+
+@media(max-width:600px){
+   
+
+    .video-class{
+        object-fit: fill !important;
+        height: 43vh !important;
+        position: relative !important;
+        z-index: -1 !important;
+    
+    }
+    .heughtset
+    {
+        overflow: scroll !important;
+        height: 27vh !important;
+        overflow-x: hidden !important;
+        margin-bottom: 10px !important;
+        border-top: 1px solid black !important;
+    }
+}
+
+@media(max-width:500px){
+    .video-class{
+        object-fit: fill !important;
+        height: 35vh !important;
+        position: relative !important;
+        z-index: -1 !important;
+    
+    }
+    .search_input-div{
+        margin-right: 10px !important   ;
+    }
+    .heughtset
+    {
+        overflow: scroll !important;
+        height: 47vh !important;
+        overflow-x: hidden !important;
+        margin-bottom: 10px !important;
+    }
+    .screwName-class{
+        font-size: 15px;
+    }
+}
+
+@media(max-width:400px){
+    .table-main-div{
+        border: 1px slid black !important;        
+    }
+    .screwName-class{
+        font-size: 14px;
+    }
+    .search_input-div{
+        margin-right: 10px !important   ;
+    }
+    .video-class{
+        object-fit: fill !important;
+        height: 28vh !important;
+        position: relative !important;
+        z-index: -1 !important;
+    
+    }
+    .heughtset
+    {
+        overflow: scroll !important;
+        height: 44vh !important;
+        overflow-x: hidden !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+@media(max-width:380px){
+    .table-main-div{
+        border: 1px slid black !important;        
+    }
+    .screwName-class{
+        font-size: 11px;
+    }
+    .search_input-div{
+        margin-right: 5px !important   ;
+    }
+    .video-class{
+        object-fit: fill !important;
+        height: 28vh !important;
+        position: relative !important;
+        z-index: -1 !important;
+       
+    }
+    .heughtset
+    {
+        overflow: scroll !important;
+        height: 44vh !important;
+        overflow-x: hidden !important;
+        /* margin-bottom: 10px !important; */
+    }
+}

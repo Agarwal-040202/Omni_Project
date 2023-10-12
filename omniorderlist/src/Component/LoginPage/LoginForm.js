@@ -70,7 +70,7 @@ const LoginForm = () => {
   }
 
 
-  // console.log("hhjhjhjh", loaction?.state?.userCode)
+  console.log("hhjhjhjh", loaction?.state)
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
@@ -80,12 +80,13 @@ const LoginForm = () => {
       "Password": memberPasswordState
     }
 
-    if ((loaction.state == "Admin") || loaction?.state?.UserRole == "Field Member") {
+    if ((loaction.state?.UserRole == "Admin") || loaction?.state?.UserRole == "Field Member") {
       if (memberEmailState == "" || memberPasswordState == "") {
         handleShopToast(true, 'Error', 'Please fills both fields.')
       }
       else {
 
+        console.log("sdfsdf",JsonObj)
         try {
           dispatch(showUser1(JsonObj))
           setStatusState(true)
@@ -145,7 +146,10 @@ const LoginForm = () => {
     if (loginStatus == "pending") {
       setShowLoder(true)
     }
-    else if (loginStatus == "Success") {
+    else if(loaction.state?.UserRole == "Admin" && loginStatus == "Success"){
+      navigate("/dashboard")
+    }
+    else if (loaction?.state?.UserRole == "Field Member" && loginStatus == "Success") {
       
       // handleShopToast(true, 'Sucess', 'Login is successfully.')
       navigate("/fourbox")
