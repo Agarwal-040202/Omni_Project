@@ -1,5 +1,5 @@
 import express from "express"
-import { addShopkeeperDetail, getShopkeeperDetail } from "../Controlers/shopkeeperControler.js"
+import { addShopkeeperDetail, getShopkeeperDetail,updateShopkeeperDetail } from "../Controlers/shopkeeperControler.js"
 
 const router = express.Router()
 
@@ -9,6 +9,8 @@ const router = express.Router()
 
 router.post("/addshopkeeperdetail", addShopkeeperDetail)
 router.get("/getallshopkeeper", getShopkeeperDetail)
+router.put("/update/shopkeeperId", updateShopkeeperDetail)
+
 
 
 
