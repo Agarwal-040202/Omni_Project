@@ -32,17 +32,14 @@ import { db } from "../connect.js";
 // };
 export const createCatalogues = (req, res) => {
 
-
-
-
   const jsonData = req.body; // Assuming req.body is an array of JSON data objects
 
   // Define the SQL query to delete all existing records from the table
-  const deleteQuery = `DELETE FROM fullcut_ss_410`;
+  const deleteQuery = `DELETE FROM drywall_410`;
   
   // Define the SQL query to insert multiple records into the database
   const insertQuery = `
-    INSERT INTO fullcut_ss_410 (Schrew_Name, Size, Packing, Price)
+    INSERT INTO drywall_410 (Schrew_Name, Size, Packing, Price)
     VALUES ?
   `;
   
