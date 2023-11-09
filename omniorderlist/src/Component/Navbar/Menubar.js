@@ -70,34 +70,223 @@ const Menubar = () => {
           <Navbar 
            collapseOnSelect
            expand="lg"
-           className="navbar-light bg-light"
+           className="navbar-light"
            style={{backgroundColor: "white"}}
           >
 
           <Container fluid className="p-0">
-          {/* <Navbar.Brand href="#home"> */}
-          <Link 
+          {/* <Link 
           to="/" style={{ textDecoration: "none",marginLeft:"10px" }}>
             <div className="ml-2">
               <img src="images/Omni-Logo-1.png" alt="" className="d-inline-block align-text-top w-50" />
             </div>
-          </Link>
-       {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/fullcut" || linkDataProps?.pathname == "/drywall" ?
+          </Link> */}
+              <Link  style={{ textDecoration: "none", color: "white", fontSize: "9px", fontWeight: "600" }}>
+                <div className="d-flex justify-content-center align-items-center flex-column">
+                  <div className="">
+                    <img
+                      src="./Omni-Logo-2.png"
+                      style={{ width: "80px" }}
+                    />
+                  </div>
+                  <div>
+                    <span style={{color:"black",fontWeight:"bold"}}>
+                      SINCE 1992
+                    </span>
+                  </div>
+                </div>
+
+              </Link>
+              {console.log("hhhlhlhl",linkDataProps?.pathname)}
+       {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/fullcut" || linkDataProps?.pathname == "/drywall" || linkDataProps?.pathname == "/cskphillselftap" ?
        <>
        <div style={{marginRight:"10px"}}>
           <Navbar.Toggle aria-controls="responsive-navbar-nav "  />
           </div>
           <Navbar.Collapse id="responsive-navbar-nav menu-list-items " style={{ justifyContent: "" }} >
-         
-            <Nav className=" nav-tag bg-light">
-              <Nav.Link href="#features" className="menu-list-div mt-0 p-0 pt-1 justify-content-end m-0">
+            <Nav className=" nav-tag">
+
+            <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+          style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
+          >
+
+            S Steel 410
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>  
+              <Link
+                  to={{
+                    pathname: "/fullcut",
+
+                  }} state={"1"}
+                  className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
+                    Fullcut 410 Chipboard</Link></li>
+            <li><Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"2"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>Drywall 410</Link></li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    CSK Phillips SDS
+                  </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    Pan Phillips SDS
+                    </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    Hex SDS
+                    </Link>
+            </li>
+          </ul>
+        </li>
+
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+          style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
+          >
+
+            S Steel
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>  
+              <Link
+                  to={{
+                    pathname: "/cskphillselftap",
+
+                  }} state={"3"}
+                  className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
+                    CSK Phillips Self Tapping</Link></li>
+            <li><Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    CSK Phillips Self Tapping Wood
+                    </Link></li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    CSK Phillips Chipboard
+                  </Link>
+            </li>
+          </ul>
+        </li>
+
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+          style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
+          >
+
+            Finsh Screw
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>  
+              <Link
+                  to={{
+                    pathname: "/fullcut",
+
+                  }} state={"0"}
+                  className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
+                    Gypsum Chrome MS</Link></li>
+            <li><Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    Black MS
+                    </Link></li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    White Zink Fullcut MS
+                  </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    Antique SS
+                    </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    Rose Gold SS
+                    </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/drywall",
+
+                  }} state={"1"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    Brass SS
+                    </Link>
+            </li>
+          </ul>
+        </li>
+
+
+              {/* <Nav.Link href="#features" className="menu-list-div mt-0 p-0 pt-1 justify-content-end m-0">
                 <Link
                   to={{
                     pathname: "/fullcut",
 
                   }} state={"0"}
                   className="menu-Link " style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }} data="LinkData">Full Cut 410</Link>
-                {/* </div> */}
+                
               </Nav.Link>
               <Nav.Link href="#" className="menu-list-div mt-0 p-0 justify-content-end m-0">
                 <Link
@@ -149,7 +338,7 @@ const Menubar = () => {
 
                 }} state={"7"}
                   className="menu-Link" style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}>Wood Slotted</Link>
-              </Nav.Link>
+              </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
        </>
