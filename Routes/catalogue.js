@@ -11,7 +11,7 @@ router.post("/insertcatalogue", createCatalogues)
 
 
 // router.post("/find/userId", getUserDetails)
-// router.put("/update/userId", updateUserDetail)
+// router.put("/update/userId", updateUserDetail) new code push 14-11-23
 
 
 
