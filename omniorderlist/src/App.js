@@ -66,7 +66,7 @@ function App() {
           <Route exact path="/adminlogin" element={<LoginForm />} />
           <Route exact path="/addfieldmember" element={<FieldMember />} />
           <Route exact path="/addshopkeeper" element={<ShopKeeperList />} />
-          <Route exact path="/fourbox/pricelist" element={<Commoncomponent text={0}/>} />
+          <Route exact path="/fourbox/pricelist" element={<Commoncomponent text={1}/>} />
           <Route exact path="/:id" element={<Commoncomponent text={1}/>} />
           <Route exact path="/fourbox" element={<Fourbox />} />
           {/* <Route exact path="/admindashboard" element={<Adminpannel/>} /> */}

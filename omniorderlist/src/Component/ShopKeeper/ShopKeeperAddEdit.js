@@ -278,9 +278,7 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
                                             </Row>
                                             <AddressComponentNew ref={addressInfoComRef} setNewContactInfo={setNewContactInfo} />
                                         </Col>
-
                                     </Row>
-
 
                                     <Row className="mt-2">
                                         <Col span={24} className="d-flex justify-content-between">
@@ -291,7 +289,7 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
                                                 </Link>
                                             </div>
                                             <div>
-                                                <Button type="submit" style={{ backgroundColor: "maroon", width: "140px", border: "none", height: "40px" }}>
+                                                <Button type="submit" style={{ backgroundColor: "maroon", width: "140px", border: "none", height: "40px",color:"white" }}>
                                                   {actionType=='ADD' ?'SAVE':'UPDATE'}
                                                 </Button>
                                             </div>

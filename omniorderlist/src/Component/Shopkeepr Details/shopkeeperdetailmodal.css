@@ -1,7 +1,17 @@
 div .modal-dialog{
 
 }
-
+.add-sopkeeper-btn{
+    width: 140px;
+    border: none;
+    height: 40px;
+    background: green;
+    color: white !important;
+    font-weight: 500;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 5px;
+}
 .address-info-texbox3{
     margin-bottom: 10px;
 }
