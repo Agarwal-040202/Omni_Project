@@ -311,7 +311,7 @@ return (
                style={{ width: '75px', border: "1px solid black", height: "30px" }}
                onChange={(e) => updateScheme(screwName, i, e.target.value)}
              />
-             <button onClick={() => removeFromOrderListFunction(screwName, i)}>Remove</button>
+             <button onClick={() => removeFromOrderListFunction(screwName, i)}>Remove kk</button>
            </li>
          ))}
        </ul>
