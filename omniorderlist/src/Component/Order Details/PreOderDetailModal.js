@@ -1,101 +1,107 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Commonbackbutton from "../CommonButtons/Commonbackbutton";
 import Commonbutton from "../CommonButtons/Commonbutton";
-import { Col, Row, Input,Select, Space, Form } from "antd";
+import { Col, Row, Input, Select, Space, Form } from "antd";
 import "./preorderdetailmodal.css";
 import ShopkeeperDetailModal from "../Shopkeepr Details/ShopkeeperDetailModal";
-import axios from 'axios';
-import { useDispatch, useSelector } from "react-redux"
-import { getShopkeeperData } from "../../Redux/Slice/getShopkeeperDataSlice"
-
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getShopkeeperData } from "../../Redux/Slice/getShopkeeperDataSlice";
+import Commoncomponent from "../Pricelistwithorder/CommonComponent/Commoncomponent";
 
 const PreOderDetailModal = (props) => {
-
   const dispatch = useDispatch();
 
-    const { shopKeeperData} = useSelector((State) => State.getShopKeeperData)
+  const { shopKeeperData } = useSelector((State) => State.getShopKeeperData);
 
   const [showModal, setShowModal] = useState(false);
 
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedShopkeeper, setSelectedShopkeeper] = useState(null);
-  const [searchValue, setSearchValue] = useState('');
-  const [selectedValue, setSelectedValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("");
   const [filteredShopkeepers, setFilteredShopkeepers] = useState([]);
-  const [showButton,setShowButton] = useState(true)
+  const [showButton, setShowButton] = useState(true);
+  const [showCommonComponent,setShowCommonComponent] = useState(false)
+
+  console.log("koikoioioi",latitude,longitude)
+
+  
 
   useEffect(() => {
-    functionS()
-}, [])
+    functionS();
+  }, []);
 
-const functionS = () => {
+  const functionS = () => {
     try {
-        dispatch(getShopkeeperData());
-
+      dispatch(getShopkeeperData());
+    } catch (err) {
+      console.log(err);
     }
-    catch (err) {
-        console.log(err)
+  };
+
+  console.log("shopKeeperData",selectedShopkeeper);
+  const serializedData = JSON.stringify(selectedShopkeeper);
+sessionStorage.setItem('shopKeeperData', serializedData);
+
+  sessionStorage.setItem('shopKeeperData', serializedData);
+
+  const [name, setName] = useState("");
+  // search shopkeeper code start
+
+  useEffect(() => {
+    // Filter shopkeepers based on selected state
+    if (address?.state) {
+      const filteredData = shopKeeperData?.data?.filter(
+        (item) => (item.State === address?.state && item.City === address?.city) 
+      );
+      console.log("filteredData", filteredData);
+      setFilteredShopkeepers(filteredData);
+    } else {
+      // If no state is selected, show all shopkeepers
+      setFilteredShopkeepers(shopKeeperData?.data);
     }
-}
+  }, [address?.state, shopKeeperData]);
 
-console.log("shopKeeperData",shopKeeperData)
+  console.log("jlkjkjl", filteredShopkeepers);
 
-const [name, setName] = useState("");
-// search shopkeeper code start
+  // Function to handle change in the Select component
+  const onChange = (value) => {
+    setSelectedValue(value);
 
+    const result = filteredShopkeepers?.find((item) => {
+      return (
+        item.Firm_Name === value &&
+        item.State === address?.state &&
+        item.City === address?.city
+        // item.State === "Haryana" &&
+        // item.City === "Panipat1"
+      );
+    });
 
-useEffect(() => {
-  // Filter shopkeepers based on selected state
-  if (address?.state) {
-    const filteredData = shopKeeperData?.data?.filter((item) => item.State === address?.state)
-    console.log("filteredData",filteredData)
-    setFilteredShopkeepers(filteredData);
-  } else {
-    // If no state is selected, show all shopkeepers
-    setFilteredShopkeepers(shopKeeperData?.data);
-  }
-}, [address?.state, shopKeeperData]);
+    setSelectedShopkeeper(result);
+  };
 
-console.log("jlkjkjl",filteredShopkeepers)
+  useEffect(() => {
+    if (selectedShopkeeper) {
+      setShowButton(false);
+    }
+  }, [selectedShopkeeper]);
 
-// Function to handle change in the Select component
-const onChange = (value) => {
-  setSelectedValue(value);
+  console.log("selectedValue", selectedValue, selectedShopkeeper);
 
-  const result = filteredShopkeepers?.find((item) => {
-    return (
-      item.Firm_Name === value &&
-      item.State === address?.state &&
-      item.City === address?.city
-      // item.State === "Haryana" &&
-      // item.City === "Panipat1"
+  // search shopekeeper code end
 
-    
-    );
-  });
-
-  setSelectedShopkeeper(result);
-};
-
-useEffect(()=>{
-  if(selectedShopkeeper){
-    setShowButton(false)
-
-  }
-},[selectedShopkeeper])
-
-console.log("selectedValue",selectedValue,selectedShopkeeper)
+  // new code start
 
 
-// search shopekeeper code end
-
-
+  // new code
 
   useEffect(() => {
     // Check if geolocation is supported by the browser
@@ -108,64 +114,63 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
           fetchAddress(latitude, longitude);
         },
         (error) => {
-          console.error('Error getting location:', error);
+          console.error("Error getting location:", error);
           setLoading(false);
         }
       );
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      console.error("Geolocation is not supported by this browser.");
       setLoading(false);
     }
   }, []);
-//   let { formattedAddress, country, state, city, pincode} = jsonAddress;
-
+  //   let { formattedAddress, country, state, city, pincode} = jsonAddress;
 
   const fetchAddress = (latitude, longitude) => {
     // Replace 'YOUR_API_KEY' with your Google Maps Geocoding API key
-    const apiKey = 'YOUR_API_KEY';
+    const apiKey = "YOUR_API_KEY";
     const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${"AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI"}`;
-  
-    axios.get(apiUrl)
+
+    axios
+      .get(apiUrl)
       .then((response) => {
         if (response.data.results.length > 0) {
           const addressData = response.data.results[0];
-          
+
           // Extract meaningful address components
           const jsonAddress = {
             formattedAddress: addressData.formatted_address,
-            city: extractComponent(addressData, 'locality'),
-            state: extractComponent(addressData, 'administrative_area_level_1'),
-            zipCode: extractComponent(addressData, 'postal_code'),
-            country: extractComponent(addressData, 'country'),
+            city: extractComponent(addressData, "locality"),
+            state: extractComponent(addressData, "administrative_area_level_1"),
+            zipCode: extractComponent(addressData, "postal_code"),
+            country: extractComponent(addressData, "country"),
           };
-  
+
           // Log the JSON address data
-          console.log('Address Data (JSON):', jsonAddress);
-  
+          console.log("Address Data (JSON):", jsonAddress);
+
           // Set the address in state or do further processing as needed
           setAddress(jsonAddress);
         } else {
-          setAddress('Address not found');
+          setAddress("Address not found");
         }
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching address:', error);
-        setAddress('Error fetching address');
+        console.error("Error fetching address:", error);
+        setAddress("Error fetching address");
         setLoading(false);
       });
   };
-  
+
   // Helper function to extract specific component from addressData
   const extractComponent = (addressData, componentType) => {
-    const component = addressData.address_components.find(
-      (component) => component.types.includes(componentType)
+    const component = addressData.address_components.find((component) =>
+      component.types.includes(componentType)
     );
-    return component ? component.long_name : '';
+    return component ? component.long_name : "";
   };
-  
-  console.log("lkkhkjhkwwwjiit",address?.formattedAddress)
 
+  console.log("lkkhkjhkwwwjiit", address?.formattedAddress);
 
   const handleChange = () => {};
   const handleSubmit = (e) => {
@@ -181,6 +186,10 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
 
   console.log("jkjkdfdfdkkj", props.showPreOrderDetailModal);
 
+  const callCommonComponentFunction = () =>{
+    setShowCommonComponent(true)
+  }
+
   return (
     <div>
       <Modal
@@ -189,7 +198,7 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
         centered
         backdrop={false}
         size="lg"
-        style={{zIndex:9}}
+        style={{ zIndex: 9 }}
       >
         <Modal.Header
           closeButton
@@ -209,9 +218,7 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
                 lg={24}
                 className="form-control"
               >
-                <form
-                onSubmit={handleSubmit}
-                >
+                <form onSubmit={handleSubmit}>
                   <Row className="">
                     <Col spn={24} lg={24} className=" w-100">
                       <Row>
@@ -327,28 +334,35 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
                           <div>
                             <h6 className="info-tag-h6">Shopkeeper Detail</h6>
                           </div>
-                          {console.log("jkljhlhh",shopKeeperData?.data)}
+                          {console.log("jkljhlhh",filteredShopkeepers, shopKeeperData?.data)}
                           <Row>
                             <Col span={24} xs={24} sm={24} md={24} lg={24}>
-
-                            <Select 
+                              <Select
                                 placeholder="Search a Firm Name"
                                 onChange={onChange}
                                 value={selectedValue || null}
                                 showSearch
                                 listHeight={90}
                                 filterOption={(inputValue, option) =>
-                                  option.children?.toLowerCase().indexOf(inputValue?.toLowerCase()) >= 0
+                                  option.children
+                                    ?.toLowerCase()
+                                    .indexOf(inputValue?.toLowerCase()) >= 0
                                 }
-    
-                                style={{width:"100%",marginBottom:"10px",height: "36px",
-                                borderRadius: "5px"}}
+                                style={{
+                                  width: "100%",
+                                  marginBottom: "10px",
+                                  height: "36px",
+                                  borderRadius: "5px",
+                                }}
                               >
                                 {filteredShopkeepers?.map((item) => (
-                                     <Select.Option key={item.ID} value={item.Firm_Name}>
-                                       {item.Firm_Name}
-                                     </Select.Option>
-                                   ))}
+                                  <Select.Option
+                                    key={item.ID}
+                                    value={item.Firm_Name}
+                                  >
+                                    {item.Firm_Name}
+                                  </Select.Option>
+                                ))}
                               </Select>
 
                               {/* <Input
@@ -393,9 +407,11 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
                                 autoComplete="off"
                                 onChange={handleChange}
                                 className="personal-ingo-textbox"
-                                value={selectedShopkeeper?.Shopkeeper_First_Name}
+                                value={
+                                  selectedShopkeeper?.Shopkeeper_First_Name
+                                }
                                 disabled={true}
-                                style={{color:"black"}}
+                                style={{ color: "black" }}
                               />
                             </Col>
                             <Col
@@ -415,7 +431,7 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
                                 value={selectedShopkeeper?.Shopkeeper_Last_Name}
                                 className="personal-ingo-textbox"
                                 disabled={true}
-                                style={{color:"black"}}
+                                style={{ color: "black" }}
                               />
                             </Col>
                           </Row>
@@ -431,7 +447,7 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
                                 value={selectedShopkeeper?.GST_Number}
                                 className="personal-ingo-textbox7"
                                 disabled={true}
-                                style={{color:"black"}}
+                                style={{ color: "black" }}
                               />
                             </Col>
                             <Col
@@ -450,7 +466,7 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
                                 value={selectedShopkeeper?.Whatsup_Contact}
                                 className="personal-ingo-textbox8"
                                 disabled={true}
-                                style={{color:"black"}}
+                                style={{ color: "black" }}
                               />
                             </Col>
                           </Row>
@@ -473,7 +489,7 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
                       <div>
                         <div>
                           {/* <Commonbutton buttonText={"Save"} buttonwidth={135} /> */}
-                        
+
                           <Button
                             type="submit"
                             style={{
@@ -483,12 +499,19 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
                               height: "40px",
                             }}
                             disabled={showButton}
+                            onClick={callCommonComponentFunction}
                           >
-                              <Link to="pricelist" style={{color:"white",textDecoration:"none"}}>
-                            Take Order
+                            
+                            <Link
+                              to={{
+                                pathname: "pricelist",
+                                state: { stateData: "lkhl" },
+                              }}
+                              style={{ color: "white", textDecoration: "none" }}
+                            >
+                              Take Order
                             </Link>
                           </Button>
-                        
                         </div>
                         {/* <Commonbutton buttonText={"Save"} buttonwidth={135} /> */}
                         {/* <Button style={{ backgroundColor: "maroon" }}>Save</Button> */}
@@ -508,6 +531,7 @@ console.log("selectedValue",selectedValue,selectedShopkeeper)
           setShowModal={setShowModal}
         />
       )}
+
     </div>
   );
 };

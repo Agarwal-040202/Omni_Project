@@ -2,7 +2,7 @@ import React from 'react'
 
 const Addtocartmodal = () => {
   return (
-    <div>Addtocartmodal</div>
+    <div>Addtocartmodal new code push 14/11/23</div>
   )
 }
 

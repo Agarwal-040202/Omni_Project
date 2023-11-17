@@ -8,6 +8,8 @@ const router = express.Router()
 // })
 
 router.post("/insertcatalogue", createCatalogues)
+
+
 // router.post("/find/userId", getUserDetails)
 // router.put("/update/userId", updateUserDetail)
 
