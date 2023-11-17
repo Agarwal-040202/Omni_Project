@@ -14,7 +14,12 @@ const app = express()
 
 //MIDDLEWARES
 
-app.use(cors())
+var corsOptions = {
+    origin: 'https://omniproject-production.up.railway.app',
+    optionsSuccessStatus: 200 // For legacy browser support
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(cookieParser())
 app.use(bodyParser.json())
