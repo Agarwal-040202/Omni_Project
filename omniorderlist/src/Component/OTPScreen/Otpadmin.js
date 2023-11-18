@@ -85,7 +85,7 @@ const Otpadmin = (props) => {
 
                 console.log('inputObject2', JsonObj)
 
-                const respos = await axios.post("https://omniproject-production.up.railway.app/api/auth/find/logincode", JsonObj, {
+                const respos = await axios.post("http://localhost:8000/api/auth/find/logincode", JsonObj, {
                     headers: {
                         'Content-Type': 'application/json'
                     }

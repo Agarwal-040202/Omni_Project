@@ -46,7 +46,7 @@ export const registerUser = createAsyncThunk(
 export const showUser1 = createAsyncThunk("showUser1", async (user, { rejectWithValue }) => {
     console.log("user",user)
     try {
-        const response = await axios.post("https://omniproject-production.up.railway.app/api/auth/fieldmemberlogin", user, {
+        const response = await axios.post("http://localhost:8000/api/auth/fieldmemberlogin", user, {
             headers: {
                 'Content-Type': 'application/json'
             },
