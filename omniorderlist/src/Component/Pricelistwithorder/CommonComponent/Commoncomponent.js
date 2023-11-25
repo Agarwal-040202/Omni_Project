@@ -286,40 +286,66 @@ return (
                 style={{ zIndex: 9 }}
             >
                 <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
-                    <Modal.Title style={{ color: "white" }}>Order List</Modal.Title>
+                    <Modal.Title style={{ color: "white" }}>Omni Order List</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <div>                    
+                  <div>     
+                    <Row>
+                      <Col>
+                        <Row>
+                          <Col xs="12" md="2" lg="2">
+                          <h5 className='firmname-tag-h6'>Firm Name: </h5>
+                          </Col>
+                          <Col xs="12" md="10" lg="6"><h5 className='firmname-tag-h6' style={{color:"black",paddingRight:"10px"}}>{shopKeepeerData?.Firm_Name}</h5></Col>
+                        </Row>
+                        <Row>
+                          <Col xs="12" sm="6" lg="6">
+                          <h5 className='firmname-tag-h6'>City: <span style={{color:"black"}}>{shopKeepeerData?.City}</span></h5>
+                          </Col>
+                          <Col xs="12" sm="6" lg="6">
+                          <h5 className='firmname-tag-h6'>Mode: <span style={{color:"black"}}>Visit</span></h5>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>  
+                    <hr/>  
+                    {console.log("orderListff",orderList)}           
                     <div className='pdf-class'>
                     {Object.keys(orderList).map((screwName, index) => (
      <div key={index}>
-       <h5>{screwName}</h5>
-       <ul>
+       <h4 style={{ fontWeight:"700",color:"maroon"}}>{screwName}</h4>
+       {/* <ul> */}
          {orderList[screwName].map((item, i) => (
-           <li key={i} style={{ listStyle: "none" }}>
-             {item.Size} Qty:{" "}
+           <h6 key={i} style={{ listStyle: "none" }}>
+             {item.Size} 
              <input
                type="text"
                value={item.Quantity}
-               style={{ width: '65px', border: "1px solid black", height: "30px" }}
+               style={{ width: '65px', border: "1px solid gray", height: "30px",marginLeft:"20px" }}
                onChange={(e) => updateQuantity(screwName, i, e.target.value)}
              />{" "}
-             Scheme:{" "}
+             Dis:{" "}
              <input
                type="text"
                value={item.Scheme}
-               style={{ width: '75px', border: "1px solid black", height: "30px" }}
+               style={{ width: '75px', border: "1px solid gray", height: "30px", }}
                onChange={(e) => updateScheme(screwName, i, e.target.value)}
              />
-             <button onClick={() => removeFromOrderListFunction(screwName, i)}>Remove kk</button>
-           </li>
+             <img src="cancel1.png" onClick={() => removeFromOrderListFunction(screwName, i)} style={{ width: "40px",marginLeft:"20px" }}/>
+             {/* <button onClick={() => removeFromOrderListFunction(screwName, i)} style={{marginLeft:"20px",backgroundColor:"red",color:"white",
+            borderRadius:"5px",border:"none",fontSize:"16px",height: "30px",width:"70px"}}>Remove</button> */}
+           </h6>
          ))}
-       </ul>
+       {/* </ul> */}
      </div>
    ))}
 
                      </div>
-                    <button onClick={() => generatePDF(orderList,orderno)}>Download</button>
+                     <hr/>
+                    <button onClick={() => generatePDF(orderList,orderno)}
+                    style={{backgroundColor:"green",color:"white",
+                    borderRadius:"5px",border:"none",fontSize:"16px",height: "36px",width:"120px",float:"right"}}
+                    >Genrate Order</button>
                      </div>
                 </Modal.Body>
             </Modal>
@@ -335,7 +361,7 @@ return (
           </div>
 
           <Row className=' mb-1' >
-            <Col xs={4} sm={4} lg={4} className="d-flex justify-content-start align-items-center">
+            <Col xs={5} sm={5} lg={5} className="d-flex justify-content-start align-items-center">
               <div className="d-flex justify-content-start align-items-center pt-2">
                 <h6 className='screwName-class'>{
                 // data1[0]?.screwName
@@ -343,45 +369,44 @@ return (
                 }</h6>
               </div>
             </Col>
-            <Col xs={7} sm={7} lg={7} className="d-flex justify-content-end">
+            <Col xs={5} sm={5} lg={5} className="d-flex justify-content-end">
               <div className='search_input-div w-100'>
                 <div className='w-100'>
                   <Form.Control size="sm" type="text" placeholder="Search Size" className='search_input' value={getInput} onChange={(e) => searchData(e)} />
                 </div>
                 <div className='d-flex justify-content-end align-items-center' style={{ width: "30px" }}>
-                  <img src="images/searchicon2.png" className='w-75' />
+                  <img src="searchicon2.png" className='w-75' />
                 </div>
               </div>
             </Col>
-            <Col xs={1} sm={1} lg={1} className="d-flex justify-content-end ">
-            <div className='d-flex justify-content-end align-items-center' style={{ width: "40px" }}>
-              <button onClick={showOrderModal}>order</button>
-              
-                  {/* <a href="#" download >
-                  <img src="images/printer3.jpg"
-                   style={{ width: "28px", cursor: "pointer" }} />
-                  </a> */}
+            <Col xs={2} sm={2} lg={2} className="d-flex justify-content-end ">
+            <div className='d-flex justify-content-end align-items-center' style={{ width: "40px"}} >
+              {/* <button onClick={showOrderModal}>order</button> */}
+                  {orderList != "" ? <>
+                    <img src="takeorder1.webp" style={{ width: "28px", cursor: "pointer", }}  onClick={showOrderModal} />
+                  
+                  </>:""}
+                
                 </div>
             </Col>
           </Row>
 
           <div className="m-0 p-0 table-main-div heughtset">
-          {console.log("datatatat",priceListData?.priceListData?.data?.[0].Price
-)}
-            <Table bordered className='m-0 p-0' id="HtmlToPdf">
+          {console.log("datatatat",priceListData?.priceListData?.data?.[0].Price)}
+            <Table bordered className='m-0 p-0' id="HtmlToPdf" responsive>
 
               <thead className='bg-light' style={{ position: "sticky", top: "-2px", background: "white", zIndex: "5", height: "40px", }}>
                 <tr >
                   <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>Size</th>
                   <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>Packing</th>
                   <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
-                    <img src="images/rsicon1.jpg" style={{ height: "12px", marginTop: "-3px" }} />{" "} 100 NOS.</th>
+                    <img src="rsicon1.jpg" style={{ height: "12px", marginTop: "-3px" }} />{" "} 100 NOS.</th>
 
                     <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
                       Qty
                       </th>
                       <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
-                      Scheme
+                      Info
                       </th> 
                       <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
                       Action
@@ -406,7 +431,7 @@ return (
                       <input type='text' placeholder='Qty'
                       id="qtyInput"
                       ref={inputRef} 
-                      style={{ width: '65px',border:"1px solid black",height:"30px"}}
+                      style={{ width: '65px',border:"1px solid black",height:"28px"}}
                       defaultValue={quantity} 
                       onChange={(e) => setQuantity(e.target.value)}
                       /> 
@@ -415,7 +440,7 @@ return (
                       <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }} className='p-2'>
                       <input type='text' placeholder='Scheme' 
                         ref={inputSchemeRef} 
-                      style={{ width: '75px',border:"1px solid black",height:"30px" }}
+                      style={{ width: '75px',border:"1px solid black",height:"28px" }}
                       defaultValue={scheme} 
                       onChange={(e) => setScheme(e.target.value)}
                       /> 
@@ -427,9 +452,9 @@ return (
           // Clear input fields after adding
         } />
                     {/* Cancel button */}
-                    <img src="cancel1.png" style={{ width: "40px" }} 
+                    {/* <img src="cancel1.png" style={{ width: "40px" }} 
                     onClick={() => removeFromOrderListFunction(screwName, index)}
-                    />
+                    /> */}
                   </td>
                   </tr>
                 )
