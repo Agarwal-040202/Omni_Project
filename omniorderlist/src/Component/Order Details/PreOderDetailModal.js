@@ -482,7 +482,7 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                           {/* <Button style={{ backgroundColor: "maroon" }}>Back</Button> */}
                           <Commonbackbutton
                             backButtonText={"Cancel"}
-                            backbuttonwidth={135}
+                            backbuttonwidth={102}
                           />
                         </Link>
                       </div>
@@ -494,7 +494,7 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                             type="submit"
                             style={{
                               backgroundColor: "maroon",
-                              width: "140px",
+                              width: "106px",
                               border: "none",
                               height: "40px",
                             }}
