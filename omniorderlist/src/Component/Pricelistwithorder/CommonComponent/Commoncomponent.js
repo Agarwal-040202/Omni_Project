@@ -31,8 +31,8 @@ const Commoncomponent = (props) => {
 
   const linkDataProps = useLocation();
   const dispatch = useDispatch();
-  const inputRef = useRef(null)
-  const inputSchemeRef = useRef(null);
+  const inputRef = useRef([])
+  const inputSchemeRef = useRef([]);
   const { priceListData } = useSelector((state) => state);
   const [sorceVideo, setSourceVideo1] = useState('');
   const [getInput, setInput] = useState('');
@@ -104,6 +104,30 @@ const functionS = () => {
 
   }, [data1[linkDataProps.state]?.src])
 
+ // Update inputRefs array when the number of input fields changes
+ useEffect(() => {
+  inputRef.current = Array(tableData.length).fill().map((_, i) => inputRef.current[i] || React.createRef());
+  inputSchemeRef.current = Array(tableData.length).fill().map((_, i) => inputSchemeRef.current[i] || React.createRef());
+  
+}, [tableData]);
+
+// Clear input fields when screwName changes
+useEffect(() => {
+  inputSchemeRef.current.forEach((ref) => {
+    if (ref.current) {
+      ref.current.value = '';
+      
+    }
+  });
+  inputRef.current.forEach((ref) => {
+    if (ref.current) {
+      ref.current.value = '0';
+      
+    }
+  });
+}, [screwName]);
+  
+
   console.log("linkDataProps", linkDataProps)
 
 
@@ -158,7 +182,7 @@ const functionS = () => {
     setOrderList({ ...orderList });
 
     // Clear the input fields after adding/updating the item
-    inputRef.current.value="kkkk"
+    // inputRef.current.value="kkkk"
     // setQuantity("kkkk");
     // setScheme('');
 
@@ -281,6 +305,8 @@ let totalCount = 0;
 // Iterate through each screwName key and add the length of the array to totalCount
 Object.keys(orderList).forEach((screwName) => {
   totalCount += orderList[screwName].length;
+  // inputRef.current.value="0"
+  
 });
 
 
@@ -473,9 +499,10 @@ return (
 
                     <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }} className='p-2'>
                     
-                      <input type='text' placeholder='Qty'
+                      <input type='text' 
+                      placeholder='Qty'
                       id="qtyInput"
-                      ref={inputRef} 
+                      ref={inputRef.current[index]}
                       style={{ width: '65px',border:"1px solid black",height:"28px"}}
                       defaultValue={quantity} 
                       onChange={(e) => setQuantity(e.target.value)}
@@ -483,8 +510,9 @@ return (
                       </td>
 
                       <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }} className='p-2'>
-                      <input type='text' placeholder='Info' 
-                        ref={inputSchemeRef} 
+                      <input type='text' 
+                      placeholder='Info' 
+                        ref={inputSchemeRef.current[index]} 
                       style={{ width: '75px',border:"1px solid black",height:"28px" }}
                       defaultValue={scheme} 
                       onChange={(e) => setScheme(e.target.value)}
