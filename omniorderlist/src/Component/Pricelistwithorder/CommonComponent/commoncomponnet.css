@@ -63,6 +63,34 @@
     /* color: rgb(35, 231, 35) !important;     */
 }
 
+.toggle-switch {
+    width: 55px; /* Width of the toggle switch */
+    height: 30px; /* Height of the toggle switch */
+    border-radius: 15px; /* Adjust border-radius to create the switch shape */
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 14px;
+  }
+  
+  .toggle-handle {
+    width: 30px; /* Width of the handle */
+    height: 30px; /* Height of the handle */
+    background-color: white; /* Color of the handle */
+    border-radius: 50%; /* Makes the handle round */
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .checked {
+    transform: translateX(100%); /* Move handle to the right when checked */
+  }
+  
+
 vertical-scroll::-webkit-scrollbar-thumb{
 
   background: rgb(227, 232, 227);

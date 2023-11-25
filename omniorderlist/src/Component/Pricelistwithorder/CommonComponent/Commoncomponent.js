@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useLocation } from "react-router-dom"
 import Table from 'react-bootstrap/Table';
 import { data1 } from "../AllTableData/Tabeldata"
@@ -43,9 +45,9 @@ const Commoncomponent = (props) => {
   const [getInput1, setInput1] = useState("");
   const [userIDState, setUserIDState] = useState("")
   const [userCodeState, setUserCodeState] = useState("")
+  const [checked, setChecked] = useState(false);
 
-
-  console.log("priceListDatafff",priceListData?.priceListData?.data)
+  console.log("priceListDatafff",checked,priceListData?.priceListData?.data)
 
   useEffect(() => {
     functionS()
@@ -219,7 +221,7 @@ const generatePDF = (orderList, orderno) => {
   // shopKeepeerData?.Firm_Name,shopKeepeerData?.City,
   yPosition += 10;
   doc.setFontSize(14);
-  const orderByType = `Order Type: ${"Visit"}  Date: ${formattedDate}`;
+  const orderByType = `Order Mode: ${checked ? "Phone":"Visit"}  Date: ${formattedDate}`;
   doc.setFont('helvetica', 'normal'); // Set the font to normal
   doc.text(orderByType, 10, yPosition);
 
@@ -243,7 +245,7 @@ const generatePDF = (orderList, orderno) => {
     orderList[screwName].forEach((item, i) => {
       // Add item details
 
-      const itemText = ` ${item.Size}  -  ${item.Quantity}   ${item.Scheme}`;
+      const itemText = ` ${item.Size}  -  ${item.Quantity.toUpperCase()}   ${item.Scheme}`;
       doc.setFontSize(14);
       doc.setFont('helvetica', 'normal'); // Set the font to normal
       doc.text(itemText, 10, yPosition);
@@ -271,9 +273,28 @@ const updateScheme = (screwName, index, value) => {
     updatedOrderList[screwName][index].Scheme = value;
     return updatedOrderList;
   });
-};
+}
 
-console.log("newoderlist",orderList)
+
+let totalCount = 0;
+
+// Iterate through each screwName key and add the length of the array to totalCount
+Object.keys(orderList).forEach((screwName) => {
+  totalCount += orderList[screwName].length;
+});
+
+
+console.log("dsserertgvxsww",totalCount)
+
+const [selectedRadio, setSelectedRadio] = useState(""); // State to store the selected radio value
+
+  // Function to handle radio button change
+  const handleRadioChange = (e) => {
+    const value = e.target.value;
+    setSelectedRadio(value === selectedRadio ? null : value); // Toggle the selected radio value
+  };
+
+  console.log("selectedRadio",selectedRadio)
 
 return (
     <div>
@@ -303,17 +324,21 @@ return (
                           <h5 className='firmname-tag-h6'>City: <span style={{color:"black"}}>{shopKeepeerData?.City}</span></h5>
                           </Col>
                           <Col xs="12" sm="6" lg="6">
-                          <h5 className='firmname-tag-h6'>Mode: <span style={{color:"black"}}>Visit</span></h5>
+                          <h5 className='firmname-tag-h6'>Mode: <span style={{color:"black"}}>{checked ? "Phone":"Visit"}</span></h5>
                           </Col>
                         </Row>
                       </Col>
                     </Row>  
                     <hr/>  
-                    {console.log("orderListff",orderList)}           
+                             
                     <div className='pdf-class'>
                     {Object.keys(orderList).map((screwName, index) => (
      <div key={index}>
-       <h4 style={{ fontWeight:"700",color:"maroon"}}>{screwName}</h4>
+       {console.log("ordekkrListff",orderList[screwName]?.length)} 
+       {orderList[screwName]?.length > 0 ?<>
+        <h4 style={{ fontWeight:"700",color:"maroon"}}>{screwName}</h4>
+       
+       </> : ""}
        {/* <ul> */}
          {orderList[screwName].map((item, i) => (
            <h6 key={i} style={{ listStyle: "none" }}>
@@ -331,7 +356,7 @@ return (
                style={{ width: '75px', border: "1px solid gray", height: "30px", }}
                onChange={(e) => updateScheme(screwName, i, e.target.value)}
              />
-             <img src="cancel1.png" onClick={() => removeFromOrderListFunction(screwName, i)} style={{ width: "40px",marginLeft:"20px" }}/>
+             <img src="cancel1.png" onClick={() => removeFromOrderListFunction(screwName, i)} style={{ width: "30px",marginLeft:"20px",marginBottom:"5px" }}/>
              {/* <button onClick={() => removeFromOrderListFunction(screwName, i)} style={{marginLeft:"20px",backgroundColor:"red",color:"white",
             borderRadius:"5px",border:"none",fontSize:"16px",height: "30px",width:"70px"}}>Remove</button> */}
            </h6>
@@ -342,7 +367,9 @@ return (
 
                      </div>
                      <hr/>
+                     
                     <button onClick={() => generatePDF(orderList,orderno)}
+                    disabled={totalCount>0?false:true}
                     style={{backgroundColor:"green",color:"white",
                     borderRadius:"5px",border:"none",fontSize:"16px",height: "36px",width:"120px",float:"right"}}
                     >Genrate Order</button>
@@ -359,9 +386,9 @@ return (
             poster="./Jacobandbella.jpg" preLoad="auto" loop className='w-100 video-class'>
               video tag is not supported by your browser</video>
           </div>
-
-          <Row className=' mb-1' >
-            <Col xs={5} sm={5} lg={5} className="d-flex justify-content-start align-items-center">
+             
+          <Row className=' mb-1'>
+            <Col xs={4} sm={4} lg={4} className="d-flex justify-content-start align-items-center">
               <div className="d-flex justify-content-start align-items-center pt-2">
                 <h6 className='screwName-class'>{
                 // data1[0]?.screwName
@@ -369,7 +396,7 @@ return (
                 }</h6>
               </div>
             </Col>
-            <Col xs={5} sm={5} lg={5} className="d-flex justify-content-end">
+            <Col xs={4} sm={4} lg={4} className="d-flex justify-content-end m-0 p-0">
               <div className='search_input-div w-100'>
                 <div className='w-100'>
                   <Form.Control size="sm" type="text" placeholder="Search Size" className='search_input' value={getInput} onChange={(e) => searchData(e)} />
@@ -379,20 +406,38 @@ return (
                 </div>
               </div>
             </Col>
-            <Col xs={2} sm={2} lg={2} className="d-flex justify-content-end ">
+            <Col xs={3} sm={3} lg={3} className="d-flex justify-content-center align-items-center m-0 p-0">
+              <div>
+              <ButtonGroup>
+        <ToggleButton
+          id="toggle-check"
+          type="checkbox"
+          variant={checked ? 'success' : 'secondary'}
+          checked={checked}
+          value="1"
+          onChange={(e) => setChecked(e.currentTarget.checked)}
+          className="toggle-switch d-flex justify-content-center align-items-center"
+          
+        >
+          Phone
+        </ToggleButton>
+      </ButtonGroup>
+              </div>
+            </Col>
+            <Col xs={1} sm={1} lg={1} className="d-flex justify-content-end">
             <div className='d-flex justify-content-end align-items-center' style={{ width: "40px"}} >
               {/* <button onClick={showOrderModal}>order</button> */}
-                  {orderList != "" ? <>
-                    <img src="takeorder1.webp" style={{ width: "28px", cursor: "pointer", }}  onClick={showOrderModal} />
-                  
-                  </>:""}
+                  {totalCount > 0 ? <>
+                    <img src="takeorder1.webp" style={{ width: "22px", cursor: "pointer"}}  onClick={showOrderModal} /> </>
+                  :""
+                  }
                 
                 </div>
             </Col>
           </Row>
 
           <div className="m-0 p-0 table-main-div heughtset">
-          {console.log("datatatat",priceListData?.priceListData?.data?.[0].Price)}
+          {console.log("datatatat",priceListData?.priceListData?.data)}
             <Table bordered className='m-0 p-0' id="HtmlToPdf" responsive>
 
               <thead className='bg-light' style={{ position: "sticky", top: "-2px", background: "white", zIndex: "5", height: "40px", }}>
@@ -438,7 +483,7 @@ return (
                       </td>
 
                       <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }} className='p-2'>
-                      <input type='text' placeholder='Scheme' 
+                      <input type='text' placeholder='Info' 
                         ref={inputSchemeRef} 
                       style={{ width: '75px',border:"1px solid black",height:"28px" }}
                       defaultValue={scheme} 
