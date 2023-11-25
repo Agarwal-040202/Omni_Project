@@ -49,6 +49,8 @@
     padding-left: 10px;
     font-weight: 700;
     font-family: sans-serif;
+    align-items: center;
+    padding-top: 7px;
 }
 .tabel-row{
     transition: transform 1s;
@@ -73,6 +75,11 @@ vertical-scroll::-webkit-scrollbar-thumb{
 
 } 
 
+.firmname-tag-h6{
+    font-size: 20px;
+    color: maroon;
+
+}
 @media(max-width:800px){
    
     .video-class{
