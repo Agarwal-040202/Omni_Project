@@ -65,7 +65,7 @@
 
 .toggle-switch {
     width: 55px; /* Width of the toggle switch */
-    height: 30px; /* Height of the toggle switch */
+    height: 26px; /* Height of the toggle switch */
     border-radius: 15px; /* Adjust border-radius to create the switch shape */
     overflow: hidden;
     position: relative;
