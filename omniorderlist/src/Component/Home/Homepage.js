@@ -6,14 +6,32 @@ const Homepage = () => {
 
 
     return (
-        < div style={{ maxHeight: "90vh", height: "auto", overflow: "hidden", 
-        // background: "black" 
-        }}>
+        <div
+  style={{
+    position: "relative",
+    maxHeight: "90vh",
+    overflow: "hidden",
+    // border: "1px solid red",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgb(0,0,0,0.9)"
 
-            <video autoPlay loop src="./Omniscrew1.mp4" muted allowFullscreen style={{ pointerEvents: "none", maxWidth: "100%", width: "100%" }} >
-            </video>
+  }}
+>
+  <video
+    autoPlay
+    loop
+    muted
+    playsInline
+    src="./Omniscrew1.mp4"
+    style={{
+      width: "100%",
+      height: "auto",
+    }}
+  ></video>
+</div>
 
-        </div>
     )
 }
 

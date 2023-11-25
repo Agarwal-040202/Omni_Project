@@ -11,7 +11,7 @@ import Otpadmin from './Component/OTPScreen/Otpadmin';
 import CommToaster from './Component/CustomToaster/CommToaster';
 import MyContext from './MyContext';
 import Loaderpage from './Component/LoaderPage/Loaderpage';
-import FooterPAge from './Component/FooterPage/FooterPage';
+import FooterPage from './Component/FooterPage/FooterPage';
 import Fourbox from './Component/fourbox/Fourbox';
 import FieldMember from './Component/FieldMember/FieldMember';
 import ShopkeeperTableDetails from './Component/Shopkeepr Details/ShopkeeperTableDetails';
@@ -74,12 +74,9 @@ function App() {
           <Route exact path="/aboutus" element={<AboutUS/>} />
           <Route exact path="/orderbyshopkeeper" element={<OrderByShopkeeper/>} />
           <Route exact path="/dashboard" element={<Dashboard/>} />
-
-
-
         </Routes>
        
-        <FooterPAge />
+        <FooterPage/>
       </div>
       {showToast.open &&
         <CommToaster {...showToast} />}

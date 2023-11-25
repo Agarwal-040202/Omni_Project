@@ -2,7 +2,7 @@ import React from "react";
 import "./footerpage.css"
 import { Row, Col } from "react-bootstrap"
 
-const FooterPAge = () => {
+const FooterPage = () => {
 
     return (
         <>
@@ -109,4 +109,4 @@ const FooterPAge = () => {
     )
 }
 
-export default FooterPAge
+export default FooterPage
