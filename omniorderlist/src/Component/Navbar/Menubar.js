@@ -348,10 +348,10 @@ const Menubar = () => {
 
           <Nav className=' navbar-Div1 menu-list-div mt-0 p-0 pt-1 justify-content-end m-0'>
               <div className="d-flex gap-2">
-              {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/fullcut" || linkDataProps?.pathname == "/drywall" ?  
+              {/* {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/fullcut" || linkDataProps?.pathname == "/drywall" ?  
                  <div>
                      <img src="notepad1.jpg" style={{width:"20px"}} />
-                  </div> : ""}
+                  </div> : ""} */}
                  
 
                 <div className="d-flex justify-content-center align-items-center">
