@@ -152,9 +152,24 @@ const Otpcode = (props) => {
 
                     </div>
                     <div className='d-flex justify-content-end'>
-                        <Button className='btn-submit' onClick={handleSubmit}>
+
+                        <div  onClick={handleSubmit}
+                        style={{backgroundColor:"maroon",
+                      color:"white",
+                      padding:"6px",
+                      cursor:"pointer",
+                      borderRadius:"5px",
+                    fontWeight:"normal"
+                    }}
+                        >
+                          Submit
+                        </div>
+
+                        {/* <Button className='btn-submit' style={{
+                            
+                        }} onClick={handleSubmit}>
                             Submit
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
             </>}
