@@ -1,12 +1,119 @@
 import React from "react";
 import "./footerpage.css"
-import { Row, Col } from "react-bootstrap"
+// import { Row, Col } from "react-bootstrap"
+import {Row,Col} from "antd"
 
 const FooterPage = () => {
 
     return (
         <>
-            <footer className="footer">
+        
+        <Row style={{background: "rgb(0,0,0,0.9)"}} >
+            
+            <Col xs={24} sm={24} md={24} lg={24} xl={8} >
+            
+            <div className="footer-column">
+                    <div>
+                        <img
+                            src="./Omni-Logo-2.png"
+                        // style={{ width: "80px" }}
+                        />
+                    </div>
+                    <div className="">
+                        <span style={{ color: "white", marginLeft: "20px" }}>
+                            SINCE 1992
+                        </span>
+                    </div>
+
+                    <div className="mt-3">
+                        <h3 style={{ color: "wheat" }}>About US</h3>
+                        <p style={{ color: "white" }}>R P STEEL Established in 1992, Brand Omni has emerged as a pioneer of Stainless Steel Screws in India. </p>
+                        <p style={{ color: "white" }}>After years of hard work R P STEEL through its brand Omni has now become the leading manufacture in stainless steel screws whose products are sold across India.</p>
+                    </div>
+
+                </div>
+
+            </Col>
+            <Col xs={24} sm={24} md={24} lg={24} xl={8}>
+            <div className="footer-column1 col-div-1 ">
+                    <div style={{}}>
+                        <div className="d-flex gap-3 ancher-div">
+                            <a href="#">Home</a>
+                            <a href="#">Product</a>
+                            <a href="#">Gallary</a>
+                            <a href="#">About US</a>
+                            <a href="#">Contact US</a>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </Col>
+            <Col xs={24} sm={24} md={24} lg={24} xl={8} >
+            <div className="footer-column col-div-2">
+                    <div className="footer-image-two-div">
+                        <img
+                            src="./sliderimg9.png"
+                            style={{ width: "80px" }}
+                        />
+                    </div>
+
+                    <div className="mt-3">
+                        <h3 style={{ color: "wheat" }}>Contact US</h3>
+
+                        <Row className="mt-3" style={{}}>
+                            <Col xs={4} sm={2} md={2} lg={4} xl={4}>
+                                <div>
+                                    <div>
+                                        <img src="location1.jpg" className="iconClass" />
+
+                                    </div>
+                                </div>
+                            </Col>
+                            <Col xs={20} sm={22} md={22} lg={20} xl={20} >
+                                <div className="mx-1">
+                                    <p style={{ color: "white" }}><span>R P STEEL</span><br />
+                                        Sandasar, Talab Ganipura, Jhajjar Road,
+                                        Rohtak, Haryana – 124 001</p>
+                                </div>
+                            </Col>
+
+                        </Row>
+                        <Row>
+                            <Col xs={4} sm={4} md={2} lg={4} xl={4}> 
+                            <div>
+                                <img src="phone4.png"  className="iconClass"/>
+                            </div>
+                            </Col>
+                            <Col xs={20} sm={20} md={22} lg={20} xl={20}>
+                                <div className="mx-1">
+                                    <p style={{ color: "white" }}><span>+91 981 2020 428</span><br />
+                                        +91 981 2065 585</p>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={4} sm={4} md={2} lg={4} xl={4} >
+                                <div style={{  }}>
+                                    <img src="email8.png" className="iconClass"/>
+
+                                </div>
+                            </Col>
+                            <Col xs={20} sm={20} md={22} lg={20} xl={20}>
+                                <div className="mx-1">
+                                    <p style={{ color: "white" }}>info@omniscrews.com</p>
+                                </div>
+                            </Col>
+                        </Row>
+
+
+                    </div>
+                </div>
+            </Col>
+        </Row>
+        
+            {/* <footer className="footer">
                 <div className="footer-column">
                     <div>
                         <img
@@ -100,8 +207,7 @@ const FooterPage = () => {
 
                     </div>
                 </div>
-
-            </footer >
+            </footer > */}
             <div className="d-flex justify-content-center" style={{ background: "rgb(0,0,0,0.9)" }}>
                 <h6 style={{ color: "whitesmoke" }}>Copyright 2016 © Omni Screws.</h6>
             </div>
