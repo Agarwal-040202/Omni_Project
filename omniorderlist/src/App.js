@@ -22,6 +22,7 @@ import ContactUS from './Component/ContactUS';
 import AboutUS from './Component/AboutUS';
 import OrderByShopkeeper from './Component/ShopkeeperOrder/OrderByShopkeeper';
 import Dashboard from './Component/AdminDashboard/Dashboard/Dashboard';
+import Corporatevideo from './Component/CorporateVideo/Corporatevideo';
 
 // Import other components here
 

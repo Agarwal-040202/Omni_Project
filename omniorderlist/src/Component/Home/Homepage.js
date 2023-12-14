@@ -2,12 +2,14 @@ import React, { useEffect } from 'react'
 import Sliderpage from '../Sliderpage/Sliderpage'
 // import "../Home/homepage.css"
 import ReactPlayer from 'react-player'
+import Corporatevideo from '../CorporateVideo/Corporatevideo'
 const Homepage = () => {
 
 
     return (
+      <>
         <div
-  style={{
+        style={{
     position: "relative",
     maxHeight: "90vh",
     overflow: "hidden",
@@ -31,7 +33,9 @@ const Homepage = () => {
     }}
   ></video>
 </div>
+<Corporatevideo/>
 
+</>
     )
 }
 
