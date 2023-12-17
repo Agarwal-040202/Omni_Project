@@ -3,6 +3,7 @@ import Sliderpage from '../Sliderpage/Sliderpage'
 // import "../Home/homepage.css"
 import ReactPlayer from 'react-player'
 import Corporatevideo from '../CorporateVideo/Corporatevideo'
+import Certificate from '../Certificate/Certificate'
 const Homepage = () => {
 
 
@@ -34,6 +35,7 @@ const Homepage = () => {
   ></video>
 </div>
 <Corporatevideo/>
+<Certificate/>
 
 </>
     )
