@@ -5,8 +5,7 @@ const Certificate = () => {
   return (
     <>
     <div className='d-flex justify-content-center'>
-        <h2 className='headind-class-h2'>Certificate</h2>
-       {/* new code push */}
+        <h2 className='headind-class-h2 fancy-heading'>Certificate</h2>
         </div>
         <Row>
             <Col xs={24} lg={16} className='col-text-1'>
