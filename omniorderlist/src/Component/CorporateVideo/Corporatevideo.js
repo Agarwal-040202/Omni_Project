@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import "./corporate.css"
 
 const Corporatevideo = () => {
   const [muteVideo, setMuteVideo] = useState(true);
@@ -13,8 +14,8 @@ const Corporatevideo = () => {
 
   return (
     <>
-    <div className='d-flex justify-content-center'>
-        <h2 className='headind-class-h2'>Corporate Video</h2>
+    <div className='d-flex justify-content-center pt-1 pb-1'>
+        <h2 className='headind-class-h2 fancy-heading'>Corporate Video</h2>
         </div>
     <div style={{
       display: 'flex',
