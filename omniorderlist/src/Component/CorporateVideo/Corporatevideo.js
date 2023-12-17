@@ -12,6 +12,10 @@ const Corporatevideo = () => {
   };
 
   return (
+    <>
+    <div className='d-flex justify-content-center'>
+        <h2 className='headind-class-h2'>Corporate Video</h2>
+        </div>
     <div style={{
       display: 'flex',
       justifyContent: 'center',
@@ -31,6 +35,7 @@ const Corporatevideo = () => {
         onClick={toggleMute}
       ></video>
     </div>
+    </>
   );
 };
 
