@@ -86,12 +86,14 @@ const LoginForm = () => {
       }
       else {
 
-        console.log("sdfsdf",JsonObj)
+        console.log("JsonObjJsonObj",JsonObj)
         try {
           dispatch(showUser1(JsonObj))
           setStatusState(true)
 
         } catch (err) {
+        console.log("JsonObjJsonObjError",JsonObj)
+
           handleShopToast(true, 'Error', 'Invalid user name and password.')
 
         }

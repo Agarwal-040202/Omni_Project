@@ -16,6 +16,8 @@ import autoTableStyles from 'jspdf-autotable'
 import { useDispatch, useSelector } from "react-redux"
 import { getPriceListData } from "../../../Redux/Slice/priceLisleSlice/priceListSlice"
 // import omnipdf from "../../../public/images/OmniBroucher2022.pdf"
+import { useNavigate } from 'react-router-dom';
+
 import {Select} from "antd"
 const { Option } = Select;
 
@@ -23,6 +25,9 @@ const { Option } = Select;
 
 
 const Commoncomponent = (props) => {
+
+  const navigate = useNavigate();
+
  
   const UserRole = JSON.parse(sessionStorage?.getItem("personalInfo")) || ""
   const shopKeepeerData = JSON.parse(sessionStorage?.getItem("shopKeeperData")) || ""
@@ -222,64 +227,68 @@ const [loader , setLoader] = useState(false)
 
 const generatePDF = (orderList, orderno) => {
   const doc = new jsPDF();
-  let yPosition = 10; // Adjust the Y position where the content starts
+  let yPosition = 10;
   const pageWidth = doc.internal.pageSize.getWidth();
 
-  // Add the title with a custom text color
-  doc.setFontSize(16);
-  doc.setTextColor(176, 48, 96); // Maroon color (RGB values)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Omni Screw Order', pageWidth / 2, yPosition, 'center');
   
-  // Reset text color to the default
-  doc.setTextColor(0); // Set the text color back to black
 
-  yPosition += 10;
+  // Title
+  doc.setFontSize(24);
+  doc.setTextColor(176, 48, 96);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Omni Screw Order', pageWidth / 2, yPosition, { align: 'center' });
+  doc.setTextColor(0);
+  yPosition += 20;
+
+  // Order details
   doc.setFontSize(14);
+  doc.setFont('helvetica', 'normal');
   const orderByText = `Order Number: ${orderno}, Order By: ${UserRole?.User_Name}`;
-  doc.setFont('helvetica', 'normal'); // Set the font to normal
-  doc.text(orderByText, 10, yPosition);
+  doc.text(orderByText, 15, yPosition);
 
-
-  doc.setTextColor(0); // Set the text color back to black
-  // shopKeepeerData?.Firm_Name,shopKeepeerData?.City,
+  const orderByType = `Order Mode: ${checked ? 'Phone' : 'Visit'}, Date: ${formattedDate}`;
   yPosition += 10;
-  doc.setFontSize(14);
-  const orderByType = `Order Mode: ${checked ? "Phone":"Visit"}  Date: ${formattedDate}`;
-  doc.setFont('helvetica', 'normal'); // Set the font to normal
-  doc.text(orderByType, 10, yPosition);
+  doc.text(orderByType, 15, yPosition);
 
-  doc.setTextColor(0); // Set the text color back to black
-  yPosition += 10;
-  doc.setFontSize(14);
   const shopKeeperData = `Firm Name: ${shopKeepeerData?.Firm_Name}, City: ${shopKeepeerData?.City}`;
-  doc.setFont('helvetica', 'normal'); // Set the font to normal
-  doc.text(shopKeeperData, 10, yPosition);
+  yPosition += 10;
+  doc.text(shopKeeperData, 15, yPosition);
 
-  yPosition += 10; // Move down after the title
+  yPosition += 20;
 
+  
+
+  // Order list
   Object.keys(orderList).forEach((screwName, index) => {
-    // Add screwName as a heading
-
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold'); // Set the font to bold
-    doc.text(screwName, 10, yPosition);
-    yPosition += 10; // Move down after the heading
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.text(screwName, 15, yPosition);
+    yPosition += 10;
 
     orderList[screwName].forEach((item, i) => {
-      // Add item details
-
-      const itemText = ` ${item.Size}  -  ${item.Quantity.toUpperCase()}   ${item.Scheme}`;
+      const itemText = `${item.Size} - ${item.Quantity.toUpperCase()} ${item.Scheme}`;
       doc.setFontSize(14);
-      doc.setFont('helvetica', 'normal'); // Set the font to normal
-      doc.text(itemText, 10, yPosition);
-      yPosition += 10; // Move down after each item
+      doc.setFont('helvetica', 'normal');
+      doc.text(itemText, 20, yPosition);
+      yPosition += 10;
     });
+
+    yPosition += 10;
   });
 
-  // Save or download the PDF
-  doc.save('order_list.pdf');
+  doc.save(`${shopKeepeerData?.Firm_Name}.pdf`);
+
+  // window.location.reload();
+  navigate("/fourbox"
+//   , {
+//     // userRole:"",
+//     // userCode: respos.data[0]?.User_Code,
+//     state: ""
+// })
+  )
+
 };
+
 
 
 
