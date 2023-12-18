@@ -112,32 +112,63 @@ export const register = (req, res) => {
 
 // field member login code start
 
+// export const fieldmemberlogin = (req, res) => {
+    
+//     console.log('reqreqjj', req)
+//     const q = "SELECT * FROM register_user WHERE Email_Id = ? && User_Code = ?"
+//     db.query(q, [req.body.Email_Id,req.body.User_Code], (err, data) => {
+
+//         if (err) return res.status(500).json(err);
+
+//         if (data?.length === 0) return res.status(404).json("User not found");
+
+//         const checkPassword = bcrypt.compare(req.body.Password, data[0].Password)
+
+//         if (!checkPassword) return res.status(400).json("Wrong user name and password.")
+
+//         const token = jwt.sign({ User_Id: data[0].User_Id }, "secretkey")
+
+//         const { Password, ...others } = data[0]
+//         console.log('kkkktttt', others)
+
+//         res.cookie("accessToken", token, {
+
+//             httpOnly: true,
+
+//         }).status(200).json(others);
+
+//     })
+// }
+
 export const fieldmemberlogin = (req, res) => {
-    console.log('reqreqjj', req)
-    const q = "SELECT * FROM register_user WHERE Email_Id = ? && User_Code = ?"
-    db.query(q, [req.body.Email_Id,req.body.User_Code], (err, data) => {
-
+    console.log('reqreqjj', req);
+    const q = "SELECT * FROM register_user WHERE Email_Id = ? && User_Code = ?";
+    
+    db.query(q, [req.body.Email_Id, req.body.User_Code], (err, data) => {
         if (err) return res.status(500).json(err);
+        
+        if (!data || data.length === 0) return res.status(404).json("User not found");
+        
+        const userData = data[0];
+        
+        bcrypt.compare(req.body.Password, userData.Password, (bcryptErr, checkPassword) => {
+            if (bcryptErr) return res.status(500).json(bcryptErr);
+            
+            if (!checkPassword) return res.status(400).json("Wrong username and password.");
+            
+            const token = jwt.sign({ User_Id: userData.User_Id }, "secretkey");
+            
+            const { Password, ...others } = userData;
+            
+            console.log('kkkktttt', others);
+            
+            res.cookie("accessToken", token, {
+                httpOnly: true,
+            }).status(200).json(others);
+        });
+    });
+};
 
-        if (data?.length === 0) return res.status(404).json("User not found");
-
-        const checkPassword = bcrypt.compare(req.body.Password, data[0].Password)
-
-        if (!checkPassword) return res.status(400).json("Wrong user name and password.")
-
-        const token = jwt.sign({ User_Id: data[0].User_Id }, "secretkey")
-
-        const { Password, ...others } = data[0]
-        console.log('kkkktttt', others)
-
-        res.cookie("accessToken", token, {
-
-            httpOnly: true,
-
-        }).status(200).json(others);
-
-    })
-}
 // field member login code end
 
 
