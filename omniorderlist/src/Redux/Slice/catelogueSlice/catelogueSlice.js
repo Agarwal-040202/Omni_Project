@@ -1,3 +1,87 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import OmniUrl from "../../../URL/Url";
+
+
+const {insertCatalogueDataURL} = OmniUrl
+
+// Add new field member
+const initialState = {
+  catalogueDetailStatus: "", // Corrected variable name
+  catalogueDetailError: "",  // Corrected variable name
+  catalogueDetailLoaded: false, // Corrected variable name
+  catalogueRecord: null, // Added this variable to store the record
+};
+
+export const catalogueDetail = createAsyncThunk(
+  "catalogueDetail", // Corrected action name
+  async (catalogueData, { rejectWithValue }) => {
+    console.log("catalogueData", catalogueData);
+    try {
+      const response = await axios.post(
+        insertCatalogueDataURL, // Corrected URL
+        catalogueData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const catalogueRecord = response.data;
+      console.log("catalogueRecord", catalogueRecord);
+
+      // localStorage.setItem("catalogueRecord", JSON.stringify(catalogueRecord));
+
+      return catalogueRecord;
+    } catch (error) {
+      console.log(error.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+const catalogueDetailSlice = createSlice({
+  name: "catalogueDetail",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(catalogueDetail.pending, (state, action) => {
+      return {
+        ...state,
+        catalogueDetailStatus: "pending",
+        catalogueDetailLoaded: true,
+      };
+    });
+    builder.addCase(catalogueDetail.fulfilled, (state, action) => {
+      if (action.payload) {
+        return {
+          ...state,
+          catalogueDetailLoaded: false,
+          catalogueRecord: action.payload, // Updated variable name
+          catalogueDetailStatus: "Success",
+        };
+      } else {
+        return state;
+      }
+    });
+    builder.addCase(catalogueDetail.rejected, (state, action) => {
+      return {
+        ...state,
+        catalogueDetailStatus: "rejected",
+        catalogueDetailError: action.payload,
+      };
+    });
+  },
+});
+
+export default catalogueDetailSlice.reducer; // Corrected export name
+
+
+
+
+
+
 // import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // import axios from "axios"
 
@@ -80,77 +164,3 @@
 // export default calelogueDetailSlice.reducer;
 
 
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
-// Add new field member
-const initialState = {
-  catalogueDetailStatus: "", // Corrected variable name
-  catalogueDetailError: "",  // Corrected variable name
-  catalogueDetailLoaded: false, // Corrected variable name
-  catalogueRecord: null, // Added this variable to store the record
-};
-
-export const catalogueDetail = createAsyncThunk(
-  "catalogueDetail", // Corrected action name
-  async (catalogueData, { rejectWithValue }) => {
-    console.log("catalogueData", catalogueData);
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/catalogue/insertcatalogue", // Corrected URL
-        catalogueData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const catalogueRecord = response.data;
-      console.log("catalogueRecord", catalogueRecord);
-
-      // localStorage.setItem("catalogueRecord", JSON.stringify(catalogueRecord));
-
-      return catalogueRecord;
-    } catch (error) {
-      console.log(error.response.data);
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-const catalogueDetailSlice = createSlice({
-  name: "catalogueDetail",
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(catalogueDetail.pending, (state, action) => {
-      return {
-        ...state,
-        catalogueDetailStatus: "pending",
-        catalogueDetailLoaded: true,
-      };
-    });
-    builder.addCase(catalogueDetail.fulfilled, (state, action) => {
-      if (action.payload) {
-        return {
-          ...state,
-          catalogueDetailLoaded: false,
-          catalogueRecord: action.payload, // Updated variable name
-          catalogueDetailStatus: "Success",
-        };
-      } else {
-        return state;
-      }
-    });
-    builder.addCase(catalogueDetail.rejected, (state, action) => {
-      return {
-        ...state,
-        catalogueDetailStatus: "rejected",
-        catalogueDetailError: action.payload,
-      };
-    });
-  },
-});
-
-export default catalogueDetailSlice.reducer; // Corrected export name

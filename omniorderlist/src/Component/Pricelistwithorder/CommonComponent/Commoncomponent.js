@@ -381,17 +381,17 @@ return (
              <input
                type="text"
                value={item.Quantity}
-               style={{ width: '65px', border: "1px solid gray", height: "30px",marginLeft:"20px" }}
+               style={{ width: '65px', border: "1px solid gray", height: "30px",marginLeft:"20px",fontWeight:"500" }}
                onChange={(e) => updateQuantity(screwName, i, e.target.value)}
              />{" "}
              Dis:{" "}
              <input
                type="text"
                value={item.Scheme}
-               style={{ width: '75px', border: "1px solid gray", height: "30px", }}
+               style={{ width: '75px', border: "1px solid gray", height: "30px",fontWeight:"500" }}
                onChange={(e) => updateScheme(screwName, i, e.target.value)}
              />
-             <img src="cancel1.png" onClick={() => removeFromOrderListFunction(screwName, i)} style={{ width: "30px",marginLeft:"20px",marginBottom:"5px" }}/>
+             <img src="cancel1.png" onClick={() => removeFromOrderListFunction(screwName, i)} style={{ width: "30px",marginLeft:"20px",marginBottom:"5px" ,cursor:"pointer"}}/>
              {/* <button onClick={() => removeFromOrderListFunction(screwName, i)} style={{marginLeft:"20px",backgroundColor:"red",color:"white",
             borderRadius:"5px",border:"none",fontSize:"16px",height: "30px",width:"70px"}}>Remove</button> */}
            </h6>
@@ -512,7 +512,7 @@ return (
                       placeholder='Qty'
                       id="qtyInput"
                       ref={inputRef.current[index]}
-                      style={{ width: '65px',border:"1px solid black",height:"28px"}}
+                      style={{ width: '65px',border:"1px solid black",height:"28px",fontWeight:"500"}}
                       defaultValue={quantity} 
                       onChange={(e) => setQuantity(e.target.value)}
                       /> 
@@ -522,14 +522,14 @@ return (
                       <input type='text' 
                       placeholder='Info' 
                         ref={inputSchemeRef.current[index]} 
-                      style={{ width: '75px',border:"1px solid black",height:"28px" }}
+                      style={{ width: '75px',border:"1px solid black",height:"28px",fontWeight:"500" }}
                       defaultValue={scheme} 
                       onChange={(e) => setScheme(e.target.value)}
                       /> 
                       </td>
                       <td style={{ border: "1px solid black", textAlign: "center" }}>
                     {/* Add button */}
-                    <img src="addicone.jpg" style={{ width: "38px" }} onClick={() => 
+                    <img src="addicone.jpg" style={{ width: "38px",cursor:"pointer" }} onClick={() => 
           addToOrderListFunction(data)
           // Clear input fields after adding
         } />
