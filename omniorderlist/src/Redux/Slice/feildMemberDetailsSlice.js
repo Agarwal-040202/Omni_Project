@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios"
+import OmniUrl from "../../URL/Url";
 
-
+const { addFieldMemberDetailsURL } = OmniUrl;
 
 //add new field member
 const initialState = {
@@ -16,7 +17,7 @@ export const fileldMemberDetail = createAsyncThunk(
         console.log("fileldMemberData", fileldMemberData);
         try {
             const response = await axios.post(
-                "http://localhost:8000/api/users/userdetail",
+                addFieldMemberDetailsURL,
                 fileldMemberData,
                 {
                     headers: {

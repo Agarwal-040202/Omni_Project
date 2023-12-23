@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios"
+import OmniUrl from "../../URL/Url";
 
-
-
+const { fieldmemberloginURL,registerFieldMemberURL } = OmniUrl;
 //register user
 const initialState = {
     // token: JSON?.parse(localStorage.getItem("token")) || "",
@@ -22,7 +22,7 @@ export const registerUser = createAsyncThunk(
         console.log("userData", userData);
         try {
             const response = await axios.post(
-                "http://localhost:8000/api/auth/register",
+                registerFieldMemberURL,
                 userData,
                 {
                     headers: {
@@ -46,7 +46,7 @@ export const registerUser = createAsyncThunk(
 export const showUser1 = createAsyncThunk("showUser1", async (user, { rejectWithValue }) => {
     console.log("user",user)
     try {
-        const response = await axios.post("http://localhost:8000/api/auth/fieldmemberlogin", user, {
+        const response = await axios.post(fieldmemberloginURL, user, {
             headers: {
                 'Content-Type': 'application/json'
             },

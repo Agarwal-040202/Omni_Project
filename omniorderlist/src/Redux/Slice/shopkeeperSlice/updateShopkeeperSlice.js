@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import OmniUrl from "../../../URL/Url";
+
+const {updateShopkeeperDetailURL} = OmniUrl
 
 const initialState = {
     updateShopKeeperDetailStatus: "",
@@ -16,7 +19,7 @@ export const updateShopkeeperData = createAsyncThunk(
             //       updateFiledMemberData1
             // }
             const response = await axios.put(
-                "http://localhost:8000/api/shopkeeper/update/shopkeeperId",
+                updateShopkeeperDetailURL,
                 updateShopkeeperData1,
                 {
                     headers: {
