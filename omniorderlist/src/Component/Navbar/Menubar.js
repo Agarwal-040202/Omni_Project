@@ -111,96 +111,123 @@ const Menubar = () => {
           style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
           >
 
-            S Steel 410
+            S S SCREWS
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li>  
               <Link
                   to={{
-                    pathname: "/fullcut",
+                    pathname: "/cskphillip",
 
                   }} state={"1"}
                   className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
-                    Fullcut 410 Chipboard</Link></li>
-            <li><Link
+                    CSK PHILLIPS
+                    </Link>
+                    </li>
+            <li>
+              <Link
                   to={{
-                    pathname: "/drywall",
+                    pathname: "/panphillip",
 
                   }} state={"2"}
                   className="menu-Link "
-                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>Drywall 410</Link></li>
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    PAN PHILLIPS
+                    </Link></li>
             <li>
             <Link
                   to={{
-                    pathname: "/drywall",
-
-                  }} state={"1"}
-                  className="menu-Link "
-                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    CSK Phillips SDS
-                  </Link>
-            </li>
-            <li>
-            <Link
-                  to={{
-                    pathname: "/drywall",
-
-                  }} state={"1"}
-                  className="menu-Link "
-                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    Pan Phillips SDS
-                    </Link>
-            </li>
-            <li>
-            <Link
-                  to={{
-                    pathname: "/drywall",
-
-                  }} state={"1"}
-                  className="menu-Link "
-                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    Hex SDS
-                    </Link>
-            </li>
-          </ul>
-        </li>
-
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-          style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
-          >
-
-            S Steel
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li>  
-              <Link
-                  to={{
-                    pathname: "/cskphillselftap",
+                    pathname: "/cskslotted",
 
                   }} state={"3"}
-                  className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
-                    CSK Phillips Self Tapping</Link></li>
-            <li><Link
-                  to={{
-                    pathname: "/drywall",
-
-                  }} state={"1"}
                   className="menu-Link "
                   style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    CSK Phillips Self Tapping Wood
+                    CSK SLOTTED
+                  </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/panslotted",
+
+                  }} state={"4"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    PAN SLOTTED
+                    </Link>
+            </li>
+            <li>  
+              <Link
+                  to={{
+                    pathname: "/cskslottedwood",
+
+                  }} state={"5"}
+                  className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
+                    CSK SLOTTED WOOD</Link></li>
+            <li>
+              <Link
+                  to={{
+                    pathname: "/cskphilipwood",
+
+                  }} state={"6"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    CSK PHILLIPS WOOD
                     </Link></li>
             <li>
             <Link
                   to={{
-                    pathname: "/drywall",
+                    pathname: "/drywall410",
 
-                  }} state={"1"}
+                  }} state={"7"}
                   className="menu-Link "
                   style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    CSK Phillips Chipboard
-                  </Link>
+                    DRYWALL 410
+                    </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/cskphilpsds410",
+
+                  }} state={"8"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    CSK PHILLIPS SDS
+                    </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/panphilpsds410",
+
+                  }} state={"9"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    PAN PHILLIPS SDS
+                    </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/hexheadsdsepdm410",
+
+                  }} state={"10"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    HEX SDS EPDM 410
+                    </Link>
+            </li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/hexheadsdsmetalbondedepdm410",
+
+                  }} state={"11"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    HEX SDS METAL BONDED EPDM 410
+                    </Link>
             </li>
           </ul>
         </li>
@@ -211,70 +238,202 @@ const Menubar = () => {
           style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
           >
 
-            Finsh Screw
+CHIPBOARD SCREWS
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li>  
               <Link
                   to={{
-                    pathname: "/fullcut",
+                    pathname: "/cskphillipchipboard",
 
-                  }} state={"0"}
+                  }} state={"12"}
                   className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
-                    Gypsum Chrome MS</Link></li>
-            <li><Link
+                    CSK PHILLIPS CHIPBOARD</Link></li>
+            <li>
+              <Link
                   to={{
-                    pathname: "/drywall",
+                    pathname: "/omnicutchipboard",
 
-                  }} state={"1"}
+                  }} state={"13"}
                   className="menu-Link "
                   style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    Black MS
+                    OMNI CUT CHIPBOARD
+                    </Link></li>
+                    <li>
+              <Link
+                  to={{
+                    pathname: "/fullcut410",
+
+                  }} state={"14"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    FULLCUT 410
+                    </Link></li>
+           
+          </ul>
+        </li>
+
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+          style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
+          >
+
+            MACHINE SCREWS
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>  
+              <Link
+                  to={{
+                    pathname: "/combiwithwashermachine",
+
+                  }} state={"15"}
+                  className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
+                    COMBINATION WITH WASHER
+                    </Link></li>
+            <li><Link
+                  to={{
+                    pathname: "/machinebswthread",
+
+                  }} state={"16"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    CSK SLOTTED BSW THREAD
                     </Link></li>
             <li>
             <Link
                   to={{
-                    pathname: "/drywall",
+                    pathname: "/machinemmthread",
 
-                  }} state={"1"}
+                  }} state={"17"}
                   className="menu-Link "
                   style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    White Zink Fullcut MS
+                    CSK SLOTTED MM THREAD
                   </Link>
             </li>
             <li>
             <Link
                   to={{
-                    pathname: "/drywall",
+                    pathname: "/cskphillmachinemmthread",
 
-                  }} state={"1"}
+                  }} state={"18"}
                   className="menu-Link "
                   style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    Antique SS
+                    CSK PHILLIPS MM THREAD
                     </Link>
+            </li>
+            
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+          style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
+          >
+
+            M.S. SCREWS
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>  
+              <Link
+                  to={{
+                    pathname: "/zinkchipboard",
+
+                  }} state={"19"}
+                  className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
+                    ZINK CHIPBOARD
+                    </Link></li>
+            <li><Link
+                  to={{
+                    pathname: "/blackgypsum",
+
+                  }} state={"20"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    BLACK GYPSUM
+                    </Link></li>
+            <li>
+            <Link
+                  to={{
+                    pathname: "/chromefinish",
+
+                  }} state={"21"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    WHITE CHROME FINISH
+                  </Link>
             </li>
             <li>
             <Link
                   to={{
-                    pathname: "/drywall",
+                    pathname: "/combinationwithwasherms",
 
-                  }} state={"1"}
+                  }} state={"22"}
                   className="menu-Link "
                   style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    Rose Gold SS
+                    COMBINATION WITH WASHER M.S.
                     </Link>
             </li>
-            <li>
-            <Link
+            
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+          style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
+          >
+
+            CARRIAGE BOLTS
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>  
+              <Link
                   to={{
-                    pathname: "/drywall",
+                    pathname: "/carriagebolt12mm",
 
-                  }} state={"1"}
+                  }} state={"23"}
+                  className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
+                    CARRIAGE BOLTS 12 MM
+                    </Link></li>
+            <li><Link
+                  to={{
+                    pathname: "/carriagebolt14mm",
+
+                  }} state={"24"}
                   className="menu-Link "
                   style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
-                    Brass SS
-                    </Link>
-            </li>
+                    CARRIAGE BOLTS 14 MM
+                    </Link></li>
+            
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+          style={{color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600}}
+          >
+
+            NAILS
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>  
+              <Link
+                  to={{
+                    pathname: "/nailsheadless",
+
+                  }} state={"25"}
+                  className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
+                    NAILS HEADLESS
+                    </Link></li>
+            <li><Link
+                  to={{
+                    pathname: "/nailroundhead",
+
+                  }} state={"26"}
+                  className="menu-Link "
+                  style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }}>
+                    NAILS ROUND HEAD
+                    </Link></li>
+            
           </ul>
         </li>
 
