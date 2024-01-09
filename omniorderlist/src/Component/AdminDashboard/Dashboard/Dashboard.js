@@ -46,6 +46,7 @@ const Dashboard = () => {
           const data = XLSX.utils.sheet_to_json(worksheet)
           setExcelData(data)
           dispatch(catalogueDetail(data));
+          window.location.reload();
 
       }
       else{
