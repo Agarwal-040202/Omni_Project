@@ -97,11 +97,25 @@ const Menubar = () => {
                 </div>
 
               </Link>
-              {console.log("hhhlhlhl",linkDataProps?.pathname)}
-       {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/fullcut" || linkDataProps?.pathname == "/drywall" || linkDataProps?.pathname == "/cskphillselftap" ?
+              {console.log("hhhlhlhl",linkDataProps)}
+       {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/cskphillip" 
+       || linkDataProps?.pathname == "/panphillip" || linkDataProps?.pathname == "/cskslotted" || linkDataProps?.pathname == "/panslotted"
+       || linkDataProps?.pathname == "/cskslottedwood" || linkDataProps?.pathname == "/cskphilipwood" 
+       || linkDataProps?.pathname == "/drywall410"
+       || linkDataProps?.pathname == "/cskphilpsds410" || linkDataProps?.pathname == "/panphilpsds410" 
+       || linkDataProps?.pathname == "/hexheadsdsepdm410"
+       || linkDataProps?.pathname == "/hexheadsdsmetalbondedepdm410" || linkDataProps?.pathname == "/cskphillipchipboard" 
+       || linkDataProps?.pathname == "/omnicutchipboard"
+       || linkDataProps?.pathname == "/fullcut410" || linkDataProps?.pathname == "/combiwithwashermachine" 
+       || linkDataProps?.pathname == "/machinebswthread"
+       || linkDataProps?.pathname == "/machinemmthread" || linkDataProps?.pathname == "/cskphillmachinemmthread" 
+       || linkDataProps?.pathname == "/zinkchipboard" || linkDataProps?.pathname == "/blackgypsum" || linkDataProps?.pathname == "/chromefinish" 
+       || linkDataProps?.pathname == "/combinationwithwasherms"
+       || linkDataProps?.pathname == "/carriagebolt12mm" || linkDataProps?.pathname == "/carriagebolt14mm" 
+       || linkDataProps?.pathname == "/nailsheadless"  || linkDataProps?.pathname == "/nailroundhead"?
        <>
        <div style={{marginRight:"10px"}}>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav "  />
+          <Navbar.Toggle aria-controls="responsive-navbar-nav"  />
           </div>
           <Navbar.Collapse id="responsive-navbar-nav menu-list-items " style={{ justifyContent: "" }} >
             <Nav className=" nav-tag">
@@ -289,7 +303,7 @@ CHIPBOARD SCREWS
 
                   }} state={"15"}
                   className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500,paddingLeft:"5px" }} data="LinkData">
-                    COMBINATION WITH WASHER
+                    COMBINATION WITH WASHER S S
                     </Link></li>
             <li><Link
                   to={{
