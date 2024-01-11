@@ -308,7 +308,7 @@ export const updateShopkeeperDetail = (req, res) => {
           return res.status(500).json(err);
         }
 
-        console.log("User details updated successfully!");
+        console.log("Shopkeeper details updated successfully!");
         return res.status(200).json({
           status: 200,
           data: updatedData[0],
