@@ -38,6 +38,7 @@ const Commoncomponent = (props) => {
   const dispatch = useDispatch();
   const inputRef = useRef([])
   const inputSchemeRef = useRef([]);
+  const searchInputRef = useRef(null)
   const { priceListData } = useSelector((state) => state);
   const [sorceVideo, setSourceVideo1] = useState('');
   const [getInput, setInput] = useState('');
@@ -130,10 +131,12 @@ useEffect(() => {
       
     }
   });
+  // searchInputRef.current.value=''
+  setInput("")
 }, [screwName]);
   
 
-  console.log("linkDataProps", linkDataProps)
+  console.log("linkDataPropsllll", linkDataProps.state)
 
 
   console.log("linksdfdsf", menuState)
@@ -233,12 +236,12 @@ const generatePDF = (orderList, orderno) => {
   
 
   // Title
-  doc.setFontSize(24);
+  doc.setFontSize(20);
   doc.setTextColor(176, 48, 96);
   doc.setFont('helvetica', 'bold');
   doc.text('Omni Screw Order', pageWidth / 2, yPosition, { align: 'center' });
   doc.setTextColor(0);
-  yPosition += 20;
+  yPosition += 10;
 
   // Order details
   doc.setFontSize(14);
@@ -247,33 +250,32 @@ const generatePDF = (orderList, orderno) => {
   doc.text(orderByText, 15, yPosition);
 
   const orderByType = `Order Mode: ${checked ? 'Phone' : 'Visit'}, Date: ${formattedDate}`;
-  yPosition += 10;
+  yPosition += 7;
   doc.text(orderByType, 15, yPosition);
-
+  // doc.setTextColor(115, 48, 96);
+  // doc.setFont('helvetica', 'bold');
   const shopKeeperData = `Firm Name: ${shopKeepeerData?.Firm_Name}, City: ${shopKeepeerData?.City}`;
-  yPosition += 10;
+  yPosition += 7;
   doc.text(shopKeeperData, 15, yPosition);
 
-  yPosition += 20;
-
-  
+  yPosition += 7;
 
   // Order list
   Object.keys(orderList).forEach((screwName, index) => {
-    doc.setFontSize(18);
+    doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
     doc.text(screwName, 15, yPosition);
-    yPosition += 10;
+    yPosition += 7;
 
     orderList[screwName].forEach((item, i) => {
       const itemText = `${item.Size} - ${item.Quantity.toUpperCase()} ${item.Scheme}`;
-      doc.setFontSize(14);
+      doc.setFontSize(12);
       doc.setFont('helvetica', 'normal');
       doc.text(itemText, 20, yPosition);
-      yPosition += 10;
+      yPosition += 7;
     });
 
-    yPosition += 10;
+    yPosition += 1;
   });
 
   doc.save(`${shopKeepeerData?.Firm_Name}.pdf`);
@@ -365,7 +367,7 @@ return (
                       </Col>
                     </Row>  
                     <hr/>  
-                             
+                             <div className="position-relative" style={{ height: "200px", "overflow-y": "scroll" }}>
                     <div className='pdf-class'>
                     {Object.keys(orderList).map((screwName, index) => (
      <div key={index}>
@@ -401,6 +403,7 @@ return (
    ))}
 
                      </div>
+                     </div>
                      <hr/>
                      
                     <button onClick={() => generatePDF(orderList,orderno)}
@@ -413,17 +416,22 @@ return (
             </Modal>
     
     }
-      
+      <div style={{backgroundColor:"white",height:"auto"}}>
+        <img src={linkDataProps.state == 1 ? "./main-banner-2.jpg" : linkDataProps.state == 2 ? "./main-banner11.jpg" : linkDataProps.state == 3 ? "" :"" } className='img-fluid'/>
+        {/* main-banner11 */}
+      </div>
         <div className="Main-Layoyt-Div py-1 pb-2 px-3">
-          <div>
+          
+          {/* <div>
             {console.log("jjjjjkhkjjjj", data1[0]?.src, sorceVideo)}
             <video src="/videodata/FullCut410.mp4" muted autoPlay={"autoplay"} 
             poster="./Jacobandbella.jpg" preLoad="auto" loop className='w-100 video-class'>
               video tag is not supported by your browser</video>
-          </div>
-             
-          <Row className=' mb-1'>
-            <Col xs={4} sm={4} lg={4} className="d-flex justify-content-start align-items-center">
+          </div> */}
+
+
+             <Row>
+             <Col xs={12} sm={12} lg={12} className="d-flex justify-content-start align-items-center m-0 p-0">
               <div className="d-flex justify-content-start align-items-center pt-2">
                 <h6 className='screwName-class'>{
                 // data1[0]?.screwName
@@ -431,17 +439,22 @@ return (
                 }</h6>
               </div>
             </Col>
-            <Col xs={4} sm={4} lg={4} className="d-flex justify-content-end m-0 p-0">
+             </Row>
+          <Row className=' mb-1'>
+           
+            <Col xs={7} sm={7} lg={7} className="d-flex justify-content-end m-0 p-0">
               <div className='search_input-div w-100'>
                 <div className='w-100'>
-                  <Form.Control size="sm" type="text" placeholder="Search Size" className='search_input' value={getInput} onChange={(e) => searchData(e)} />
+                  <Form.Control 
+                  
+                  size="sm" type="text" placeholder="Search Size" className='search_input' value={getInput} onChange={(e) => searchData(e)} />
                 </div>
                 <div className='d-flex justify-content-end align-items-center' style={{ width: "30px" }}>
                   <img src="searchicon2.png" className='w-75' />
                 </div>
               </div>
             </Col>
-            <Col xs={3} sm={3} lg={3} className="d-flex justify-content-center align-items-center m-0 p-0">
+            <Col xs={4} sm={4} lg={4} className="d-flex justify-content-center align-items-center m-0 p-0">
               <div>
               <ButtonGroup>
         <ToggleButton
@@ -470,7 +483,6 @@ return (
                 </div>
             </Col>
           </Row>
-
           <div className="m-0 p-0 table-main-div heughtset">
           {console.log("datatatat",priceListData?.priceListData?.data)}
             <Table bordered className='m-0 p-0' id="HtmlToPdf" responsive>
@@ -521,7 +533,7 @@ return (
                       <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }} className='p-2'>
                       <input type='text' 
                       placeholder='Info' 
-                        ref={inputSchemeRef.current[index]} 
+                      ref={inputSchemeRef.current[index]} 
                       style={{ width: '75px',border:"1px solid black",height:"28px",fontWeight:"500" }}
                       defaultValue={scheme} 
                       onChange={(e) => setScheme(e.target.value)}

@@ -60,7 +60,7 @@ const LoginForm = () => {
   }, [loginStatus])
 
   const userDetailFunction = (e) => {
-    setUserDetailState({ ...userDetailState, [e.target.name]: e.target.value, ["User_Id"]: userIDState, ["User_Code"]: userCodeState, ["Password"]: password })
+    setUserDetailState({ ...userDetailState, [e.target.name]: e.target.value, ["User_Id"]: userIDState, ["User_Code"]: userCodeState})
   }
 
   console.log("userDetailStatejkj", userDetailState, password)
@@ -104,31 +104,31 @@ const LoginForm = () => {
 
     if (showRegisterPageState == true) {
 
-      if (userDetailState == "" || password == "" || comparePassword == "") {
+      if (userDetailState == "" ) {
         handleShopToast(true, 'Error', 'Please fills all fields.')
         return;
       }
-      else if (validateState == false) {
-        handleShopToast(true, 'Error', 'Password is not Valid.')
+      // else if (validateState == false) {
+      //   handleShopToast(true, 'Error', 'Password is not Valid.')
 
-      }
-      else if (password !== comparePassword) {
-        handleShopToast(true, 'Error', 'Password is mismatched.')
-        return;
-      }
+      // }
+      // else if (password !== comparePassword) {
+      //   handleShopToast(true, 'Error', 'Password is mismatched.')
+      //   return;
+      // }
 
       else {
 
         try {
           dispatch(registerUser(userDetailState))
-          setShowLoder(true)
-          console.log("kjkjkkk", token)
-          setTimeout(() => {
-            handleShopToast(true, 'Success', 'User register sucessfully.')
-            Form.current.reset();
-            window.location.reload()
-            setUserDetailState("")
-          }, 3000)
+          // setShowLoder(true)
+          // console.log("kjkjkkk", token)
+          // setTimeout(() => {
+          //   handleShopToast(true, 'Success', 'User register sucessfully.')
+          //   Form.current.reset();
+          //   window.location.reload()
+          //   setUserDetailState("")
+          // }, 3000)
 
         }
         catch (err) {
@@ -223,116 +223,6 @@ const LoginForm = () => {
 
 
 
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-
-  // if ((loaction.state == "Admin") || loaction.state == ("Field Member")) {
-
-  //   if (memberEmailState == "" || memberPasswordState == "") {
-  //     handleShopToast(true, 'Error', 'Please fills both fields.')
-
-  //   }
-  //   else {
-
-  //     try {
-  //       let JsonObj = {
-  //         "Email_Id": memberEmailState,
-  //         "Password": memberPasswordState
-  //       }
-  //       console.log("JsonObj", JsonObj)
-  //       const res = await axios.post("http://localhost:8000/api/auth/fieldmemberlogin", JsonObj, {
-  //         // withCredentials: true,
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         }
-  //       })
-  //       if (res) {
-  //         console.log("respokknse", res)
-  //         handleShopToast(true, 'Sucess', 'Login is successfully.')
-
-  //       }
-  //     }
-  //     catch (err) {
-  //       console.log("responseError", err)
-
-  //       handleShopToast(true, 'Error', 'Something is wrong.')
-  //     }
-
-  //   }
-
-  // }
-
-
-
-  //   if (showRegisterPageState == true) {
-
-  //     if (userRollState == "" || userNameState == "" || userEmailState == "" || userContactState == "" || password == "" || comparePassword == "") {
-  //       handleShopToast(true, 'Error', 'Please fills all fields.')
-  //       return;
-  //     }
-  //     else if (validateState == false) {
-  //       handleShopToast(true, 'Error', 'Password is not Valid.')
-
-  //     }
-  //     else if (password !== comparePassword) {
-  //       handleShopToast(true, 'Error', 'Password is mismatched.')
-  //       return;
-  //     }
-
-  //     else {
-  //       try {
-
-  //         const inputObject = { userIDState, userRollState, userCodeState, userNameState, userContactState, userEmailState, password }
-  //         console.log("inputObject", inputObject)
-
-  //         let inputObject2 = JSON.stringify(inputObject)
-
-  //         let JsonObj = {
-  //           "User_Id": userIDState,
-  //           "User_Role": userRollState,
-  //           "User_Code": userCodeState,
-  //           "User_Name": userNameState,
-  //           "Contact": userContactState,
-  //           "Email_Id": userEmailState,
-  //           "Password": password
-
-  //         }
-
-  //         console.log('inputObject2', JsonObj)
-
-  //         const respos = await axios.post("http://localhost:8000/api/auth/register", JsonObj, {
-  //           headers: {
-  //             'Content-Type': 'application/json'
-  //           }
-  //         });
-
-  //         console.log("responsejjj", respos)
-
-  //         if (respos) {
-  //           console.log("respohhhnse", respos)
-  //           setShowLoder(true)
-  //           handleShopToast(true, 'Success', 'User register sucessfully.')
-
-  //         }
-  //       }
-  //       catch (error) {
-  //         console.log("response", error)
-
-  //         handleShopToast(true, 'Error', 'Something is wrong.')
-
-  //       }
-  //     }
-
-  //   }
-
-
-  // };
-
-
-
-
-
-
   return (
     <div className="main-Div">
 
@@ -386,7 +276,7 @@ const LoginForm = () => {
                       <button>Sign In</button>
                     </div>
 
-                    {loaction.state == "Admin" ? <> <div className="text sign-up-text">
+                    {loaction.state?.UserRole == "Admin" ? <> <div className="text sign-up-text">
                       Don't have an account?{" "}
                       <label for="flip" onClick={registerHererFunction}>Register Here</label>
                     </div></> : ""}
@@ -477,7 +367,8 @@ const LoginForm = () => {
                         name="Password"
                         placeholder="Enter your password"
                         // value={password} 
-                        onChange={(e) => handlePasswordChange(e)}
+                        // onChange={(e) => handlePasswordChange(e)}
+                        onChange={(e) => userDetailFunction(e)}
                         autoComplete="new-password"
                       />
                     </div>
@@ -489,7 +380,8 @@ const LoginForm = () => {
                         name="password"
                         type="Password"
                         placeholder="Re-Enter your password"
-                        onChange={reEnterPasswordChange}
+                        // onChange={reEnterPasswordChange}
+                        onChange={(e) => userDetailFunction(e)}
                         autoComplete="new-password"
                       />
                     </div>
