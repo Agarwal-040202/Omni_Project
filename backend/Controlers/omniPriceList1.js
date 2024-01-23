@@ -679,3 +679,239 @@ export const getPriceList26Detail = (req, res) => {
         });
     });
 }
+
+// cskphillipantique price list 27
+
+export const getPriceList27Detail = (req, res) => {
+    
+    // CHECK IF USER EXISTS
+    const checkQuery = "SELECT * FROM cskphillipsatique";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error cskphillipsatique retrieving data.",
+            });
+        }
+       
+        console.log("Price List 3 data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price cskphillipsatique data retrieved successfully.",
+        });
+    });
+}
+
+// cskphillip rose gold price list 28
+
+export const getPriceList28Detail = (req, res) => {
+    
+    // CHECK IF USER EXISTS
+    const checkQuery = "SELECT * FROM cskphillipsrosegold";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error cskphillipsrosegold retrieving data.",
+            });
+        }
+       
+        console.log("Price List 3 data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price cskphillipsrosegold data retrieved successfully.",
+        });
+    });
+}
+
+// cskphillips autoblack finish price list 29
+
+export const getPriceList29Detail = (req, res) => {
+    
+    // CHECK IF USER EXISTS
+    const checkQuery = "SELECT * FROM cskphillipsautoblackfinish";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error cskphillips auto black finish retrieving data.",
+            });
+        }
+       
+        console.log("Price List 3 data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price cskphillips auto black finish data retrieved successfully.",
+        });
+    });
+}
+
+// fullcut 410 antique price list 30
+
+export const getPriceList30Detail = (req, res) => {
+    
+    // CHECK IF USER EXISTS
+    const checkQuery = "SELECT * FROM fullcut410antique";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error fullcut410 antique retrieving data.",
+            });
+        }
+       
+        console.log("Price List 3 data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price fullcut410 antique data retrieved successfully.",
+        });
+    });
+}
+
+// kitchenbasketscrew price list 31
+
+export const getPriceList31Detail = (req, res) => {
+    
+    // CHECK IF USER EXISTS
+    const checkQuery = "SELECT * FROM kitchenbasketscrew";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error kitchenbasketscrew retrieving data.",
+            });
+        }
+       
+        console.log("kitchenbasketscrew data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price kitchenbasketscrew data retrieved successfully.",
+        });
+    });
+}
+
+// cskphillipgolden price list 32
+
+export const getPriceList32Detail = (req, res) => {
+    
+    // CHECK IF USER EXISTS
+    const checkQuery = "SELECT * FROM cskphillipgolden";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error cskphillipgolden retrieving data.",
+            });
+        }
+       
+        console.log("cskphillipgolden data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price cskphillipgolden data retrieved successfully.",
+        });
+    });
+}
+
+
+// drywall410antique price list 33
+
+export const getPriceList33Detail = (req, res) => {
+    
+    // CHECK IF USER EXISTS
+    const checkQuery = "SELECT * FROM drywall410antique";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error drywall410antique retrieving data.",
+            });
+        }
+       
+        console.log("drywall410antique data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price drywall410antique data retrieved successfully.",
+        });
+    });
+}
+
+// drywall410golden price list 34
+
+export const getPriceList34Detail = (req, res) => {
+    
+    // CHECK IF USER EXISTS
+    const checkQuery = "SELECT * FROM drywall410golden";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error drywall410golden retrieving data.",
+            });
+        }
+       
+        console.log("drywall410golden data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price drywall410golden data retrieved successfully.",
+        });
+    });
+}
+
+// fullcut410golden price list 35
+
+export const getPriceList35Detail = (req, res) => {
+    
+    // CHECK IF USER EXISTS
+    const checkQuery = "SELECT * FROM fullcut410golden";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error fullcut410golden retrieving data.",
+            });
+        }
+       
+        console.log("fullcut410golden data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price fullcut410golden data retrieved successfully.",
+        });
+    });
+}
+
