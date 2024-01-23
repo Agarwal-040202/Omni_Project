@@ -91,7 +91,7 @@ const AddressComponentNew = ({ setNewContactInfo }, ref) => {
             county: address?.county,
             State: address?.State,
             Pincode: address?.zip,
-            Country: address?.country,
+            Country: address?.Country,
             addressLine2: "",
             Address1: inputSearchaddressRef?.current?.value,
             createdBy: loginUserId,
@@ -243,9 +243,11 @@ function extractAddress(place) {
             address.State = types.includes("administrative_area_level_1") ? value : address?.State;
             address.county = types.includes("administrative_area_level_2") ? value : address?.county;
             address.zip = types.includes("postal_code") ? value : address?.zip;
-            address.Country = types.includes("Country") || types.includes("Country") ? value : address?.Country;
+            address.Country = types.includes("country") ? value : address?.Country;
+
         });
     }
+    console.log("sdfsd",address?.Country,address)
     return address;
 };
 

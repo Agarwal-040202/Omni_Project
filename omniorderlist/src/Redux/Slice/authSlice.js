@@ -82,7 +82,7 @@ const authSlice = createSlice({
             sessionStorage.removeItem("loggedUserId");
             sessionStorage.removeItem("personalInfo");
             sessionStorage.clear();
-
+            
             return{
                 ...state,
                 token:"",

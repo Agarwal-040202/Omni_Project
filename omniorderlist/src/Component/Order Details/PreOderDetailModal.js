@@ -28,11 +28,11 @@ const PreOderDetailModal = (props) => {
   const [selectedValue, setSelectedValue] = useState("");
   const [filteredShopkeepers, setFilteredShopkeepers] = useState([]);
   const [showButton, setShowButton] = useState(true);
-  const [showCommonComponent,setShowCommonComponent] = useState(false)
+  const [showCommonComponent, setShowCommonComponent] = useState(false)
 
-  console.log("koikoioioi",latitude,longitude)
+  console.log("koikoioioi", latitude, longitude)
 
-  
+
 
   useEffect(() => {
     functionS();
@@ -46,28 +46,28 @@ const PreOderDetailModal = (props) => {
     }
   };
 
-  console.log("shopKeeperData",selectedShopkeeper);
+  console.log("shopKeeperData", selectedShopkeeper);
   const serializedData = JSON.stringify(selectedShopkeeper);
-sessionStorage.setItem('shopKeeperData', serializedData);
+  sessionStorage.setItem('shopKeeperData', serializedData);
 
   sessionStorage.setItem('shopKeeperData', serializedData);
 
   const [name, setName] = useState("");
   // search shopkeeper code start
 
-  useEffect(() => {
-    // Filter shopkeepers based on selected state
-    if (address?.state) {
-      const filteredData = shopKeeperData?.data?.filter(
-        (item) => (item.State === address?.state && item.City === address?.city) 
-      );
-      console.log("filteredData", filteredData);
-      setFilteredShopkeepers(filteredData);
-    } else {
-      // If no state is selected, show all shopkeepers
-      setFilteredShopkeepers(shopKeeperData?.data);
-    }
-  }, [address?.state, shopKeeperData]);
+  // useEffect(() => {
+  //   // Filter shopkeepers based on selected state
+  //   if (address?.state) {
+  //     const filteredData = shopKeeperData?.data?.filter(
+  //       (item) => (item.State === address?.state && item.City === address?.city)
+  //     );
+  //     console.log("filteredData", filteredData);
+  //     setFilteredShopkeepers(filteredData);
+  //   } else {
+  //     // If no state is selected, show all shopkeepers
+  //     setFilteredShopkeepers(shopKeeperData?.data);
+  //   }
+  // }, [address?.state, shopKeeperData]);
 
   console.log("jlkjkjl", filteredShopkeepers);
 
@@ -78,8 +78,10 @@ sessionStorage.setItem('shopKeeperData', serializedData);
     const result = filteredShopkeepers?.find((item) => {
       return (
         item.Firm_Name === value &&
-        item.State === address?.state &&
-        item.City === address?.city
+        item.State === indiaState &&
+        item.City === selectedCity
+        // item.State === address?.state &&
+        // item.City === address?.city
         // item.State === "Haryana" &&
         // item.City === "Panipat1"
       );
@@ -94,7 +96,7 @@ sessionStorage.setItem('shopKeeperData', serializedData);
     }
   }, [selectedShopkeeper]);
 
-  console.log("selectedValue", selectedValue, selectedShopkeeper);
+  console.log("selectedValue", selectedShopkeeper);
 
   // search shopekeeper code end
 
@@ -124,6 +126,213 @@ sessionStorage.setItem('shopKeeperData', serializedData);
     }
   }, []);
   //   let { formattedAddress, country, state, city, pincode} = jsonAddress;
+
+  // find the state name code
+
+  const [indiaState, setIndiaState] = useState('');
+  const [cities, setCities] = useState([]);
+
+  const stateNames = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal"
+  ];
+
+  const apiKey = "AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI"; // Replace with your API key
+
+  const handleStateChange = (state) => {
+    setIndiaState(state);
+  };
+
+
+
+  const [selectedCity, setSelectedCity] = useState(null);
+
+  const citiesByState = {
+    "Delhi": [
+      "New Delhi",
+      "Delhi",
+      "Noida",
+      "Gurgaon",
+      "Faridabad",
+      "Ghaziabad",
+      "Greater Noida",
+      "Loni",
+      "Dwarka",
+      "Kalkaji",
+      "Mayur Vihar",
+      "Pitampura",
+      "Vasant Kunj",
+      "Vasant Vihar",
+      "Connaught Place",
+      "Saket",
+      "Chanakyapuri",
+      "Karol Bagh",
+      "Rohini",
+      "Lajpat Nagar",
+      "Nehru Place",
+      "Okhla",
+      "Hauz Khas",
+      "South Delhi",
+      "East Delhi",
+      "North Delhi",
+      "West Delhi",
+      "Central Delhi",
+      "Shahdara",
+      "Patparganj",
+      "Model Town",
+      "Dilshad Garden",
+      "Rajouri Garden",
+      "Paharganj",
+      "Jangpura",
+      "Sarita Vihar",
+      "Mukherjee Nagar",
+      "Preet Vihar",
+      "Daryaganj",
+      "Vikas Puri",
+      "Munirka",
+      "Kirti Nagar",
+      "Civil Lines",
+      "Khan Market",
+      "Laxmi Nagar",
+      "Kamla Nagar",
+      "Ashok Vihar",
+      "Defence Colony",
+      "Geeta Colony",
+      "Malviya Nagar",
+      "Safdarjung",
+      "Kailash Colony",
+      "Green Park",
+      "Shalimar Bagh",
+      "Chandni Chowk",
+      "Najafgarh",
+      "Punjabi Bagh",
+      "Hauz Qazi",
+      "Sadar Bazaar",
+      "Vivek Vihar"
+   
+    
+  ],
+    "Haryana":
+    [
+      "Ambala",
+      "Ambala Cantt",
+      "Asankhurd",
+      "Babain",
+      "Bahadurgarh",
+      "Barara",
+      "Barwala",
+      "Bawal",
+      "Bhiwani",
+      "Charkhi Dadri",
+      "Cheeka",
+      "Dharuhera",
+      "Ellenabad",
+      "Faridabad",
+      "Fatehabad",
+      "Ganaur",
+      "Gharaunda",
+      "Gohana",
+      "Gorakhpur",
+      "Gurgaon",
+      "Hansi",
+      "Hasangarh",
+      "Hisar",
+      "Hodal",
+      "Indri",
+      "Jagadhri",
+      "Jakhal",
+      "Jhajjar",
+      "Jind",
+      "Julana",
+      "Kaithal",
+      "Kalanaur",
+      "Kalka",
+      "Karnal",
+      "Kharkhauda",
+      "Kosli",
+      "Kurukshetra",
+      "Ladwa",
+      "Mahendragarh",
+      "Mandi Dabwali",
+      "Naraingarh",
+      "Narwana",
+      "Narnaund",
+      "Narnaul",
+      "Narwana",
+      "Nilokheri",
+      "Nuh",
+      "Palwal",
+      "Panchkula",
+      "Panipat",
+      "Pehowa",
+      "Pinjore",
+      "Pundri",
+      "Rania",
+      "Ratia",
+      "Rewari",
+      "Rohtak",
+      "Safidon",
+      "Samalkha",
+      "Shahabad",
+      "Sirsa",
+      "Siwani",
+      "Sohna",
+      "Sonipat",
+      "Thanesar",
+      "Tohana",
+      "Tosham",
+      "Uchana",
+      "Yamuna Nagar"
+    ],
+   
+    "Uttarakhand": ["Dehradun","Haridwar"]
+    // Add more states and their cities as needed
+  };
+
+  const handleCityChange = (event) => {
+    setSelectedCity(event);
+    if (address?.state) {
+      const filteredData = shopKeeperData?.data?.filter(
+        (item) => (item.State === indiaState && item.City === event)
+      );
+      console.log("filteredData", filteredData);
+      setFilteredShopkeepers(filteredData);
+    } else {
+      // If no state is selected, show all shopkeepers
+      setFilteredShopkeepers(shopKeeperData?.data);
+    }
+  };
+
+
+ 
+
+  // end the state name code
 
   const fetchAddress = (latitude, longitude) => {
     // Replace 'YOUR_API_KEY' with your Google Maps Geocoding API key
@@ -170,9 +379,9 @@ sessionStorage.setItem('shopKeeperData', serializedData);
     return component ? component.long_name : "";
   };
 
-  console.log("lkkhkjhkwwwjiit", address?.formattedAddress);
+  console.log("lkkhkjhkwwwjiit", address?.state);
 
-  const handleChange = () => {};
+  const handleChange = () => { };
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -186,9 +395,15 @@ sessionStorage.setItem('shopKeeperData', serializedData);
 
   console.log("jkjkdfdfdkkj", props.showPreOrderDetailModal);
 
-  const callCommonComponentFunction = () =>{
+  const callCommonComponentFunction = () => {
     setShowCommonComponent(true)
   }
+
+  useEffect(() => {
+    setIndiaState(address?.state)
+  }, [address?.state])
+
+  console.log("Current India State:", indiaState, selectedCity);
 
   return (
     <div>
@@ -225,11 +440,12 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                         <Col span={24} className="form-control  w-100">
                           <div>
                             <h6 className="info-tag-h6">
-                              Filed Member Current Location
+                              {/* Filed Member Current Location */}
+                              Select State
                             </h6>
                           </div>
 
-                          <Row>
+                          {/* <Row>
                             <Col span={24} className="w-100">
                               <Input
                                 type="text"
@@ -243,7 +459,7 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                                 style={{ color: "black" }}
                               />
                             </Col>
-                          </Row>
+                          </Row> */}
 
                           <Row span={24} className="">
                             <Col span={12} xs={24} sm={24} md={12} lg={12}>
@@ -267,7 +483,34 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                               lg={12}
                               className="d-flex justify-content-end"
                             >
-                              <Input
+
+
+                              <Select
+                                placeholder="Select a State"
+                                onChange={(e) => handleStateChange(e)}
+                                value={ indiaState || null }
+                                
+                                style={{
+                                  width: "100%",
+                                  marginBottom: "10px",
+                                  height: "36px",
+                                  borderRadius: "5px",
+                                }}
+                              >
+                                {stateNames?.map((state, index) => (
+                                  <Select.Option key={index} value={state}
+                                
+                                  >
+                                    {state}
+                                  </Select.Option>
+                                ))}
+                              </Select>
+
+                              
+
+                              {/* {selectedState && selectedCity && <p>Selected City: {selectedCity}</p>} */}
+
+                              {/* <Input
                                 type="text"
                                 placeholder="State"
                                 name="company_n"
@@ -277,12 +520,35 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                                 disabled={true}
                                 value={address?.state}
                                 style={{ color: "black" }}
-                              />
+                              /> */}
                             </Col>
                           </Row>
                           <Row span={24} className="">
                             <Col span={12} xs={24} sm={24} md={12} lg={12}>
-                              <Input
+                            {indiaState && (
+                                <div>
+                                  {/* <label>Select a City:</label> */}
+                                  <Select onChange={handleCityChange}
+                                    placeholder="Select a City"
+                                    defaultValue={selectedCity || null}
+                                    showSearch
+                                    style={{
+                                      width: "100%",
+                                      marginBottom: "10px",
+                                      height: "36px",
+                                      borderRadius: "5px",
+                                    }}
+                                    >
+                                    {/* <option value={null}>Select City</option> */}
+                                    {citiesByState[indiaState]?.map((city, index) => (
+                                      <Select.Option key={index} value={city}>
+                                        {city}
+                                      </Select.Option>
+                                    ))}
+                                  </Select>
+                                </div>
+                              )}
+                              {/* <Input
                                 type="text"
                                 placeholder="City"
                                 name="company_n"
@@ -292,9 +558,9 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                                 disabled={true}
                                 value={address?.city}
                                 style={{ color: "black" }}
-                              />
+                              /> */}
                             </Col>
-                            <Col
+                            {/* <Col
                               span={12}
                               xs={24}
                               sm={24}
@@ -313,7 +579,7 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                                 value={address?.zipCode}
                                 style={{ color: "black" }}
                               />
-                            </Col>
+                            </Col> */}
                           </Row>
                           {/* <Row>
                             <Col span={24} className="w-100">
@@ -334,7 +600,7 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                           <div>
                             <h6 className="info-tag-h6">Shopkeeper Detail</h6>
                           </div>
-                          {console.log("jkljhlhh",filteredShopkeepers, shopKeeperData?.data)}
+                          {console.log("Shopkeeper Detail", filteredShopkeepers, shopKeeperData?.data)}
                           <Row>
                             <Col span={24} xs={24} sm={24} md={24} lg={24}>
                               <Select
@@ -501,12 +767,12 @@ sessionStorage.setItem('shopKeeperData', serializedData);
                             disabled={showButton}
                             onClick={callCommonComponentFunction}
                           >
-                            
+
                             <Link
                               to={{
                                 pathname: "pricelist",
-                                state: { stateData: "lkhl" },
-                              }}
+                                // state: { stateData: "lkhl" },
+                              }}state={"1"}
                               style={{ color: "white", textDecoration: "none" }}
                             >
                               Take Order
