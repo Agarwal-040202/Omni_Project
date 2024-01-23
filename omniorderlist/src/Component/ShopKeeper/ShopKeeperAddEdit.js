@@ -70,11 +70,15 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
     }
 
     const handleChangeInput = (e) => {
-        let { id, value } = e.target
+        let { id, value } = e.target;
+        console.log('Before Update - personalInfo:', personalInfo);
         setPersonalInfo(prev => ({
-            ...prev, [id]: value
-        }))
-    }
+            ...prev,
+            [id]: value
+        }));
+        console.log('After Update - personalInfo:', personalInfo);
+    };
+    
 
     const validate = () => {
         let errMsg;
@@ -163,7 +167,7 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
             ...personalInfo,
             ...newContactInfo
         }
-        console.log('objodadadbjobj', obj1)
+        console.log('objodadadbjobj',personalInfo,actionType, obj1)
         try {
             if(actionType == 'EDIT'){
                 
@@ -186,10 +190,12 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
     }
  
     const callFunction = () => {
+        console.log("shopkeeperDetailStatus",updateShopKeeperDetailStatus)
         if (shopkeeperDetailStatus == "pending" || updateShopKeeperDetailStatus == "pending") {
             setShowLoder(true)
         }
         else if (updateShopKeeperDetailStatus == "Success" && actionType == 'EDIT') {
+            setShowLoder(true)
             handleShopToast(true, 'Success', 'Shopkeeper update sucessfully.')
             funForListCall()
             handleClose()
@@ -200,7 +206,7 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
             funForListCall()
             handleClose()    
         }
-        else if (shopkeeperDetailStatus == "rejected") {
+        else if (shopkeeperDetailStatus == "rejected" || updateShopKeeperDetailStatus == "rejected") {
 
             handleShopToast(true, 'Error', 'Something wronge');
             setShowLoder(true)
