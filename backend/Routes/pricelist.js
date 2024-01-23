@@ -26,6 +26,15 @@ import {
     getPriceList24Detail,
     getPriceList25Detail,
     getPriceList26Detail,
+    getPriceList27Detail,
+    getPriceList28Detail,
+    getPriceList29Detail,
+    getPriceList30Detail,
+    getPriceList31Detail,
+    getPriceList32Detail,
+    getPriceList33Detail,
+    getPriceList34Detail,
+    getPriceList35Detail,
 } from "../Controlers/omniPriceList1.js"
 
 const router = express.Router()
@@ -57,6 +66,18 @@ router.get("/pricelist23", getPriceList23Detail)
 router.get("/pricelist24", getPriceList24Detail)
 router.get("/pricelist25", getPriceList25Detail)
 router.get("/pricelist26", getPriceList26Detail)
+router.get("/pricelist27", getPriceList27Detail)
+router.get("/pricelist28", getPriceList28Detail)
+router.get("/pricelist29", getPriceList29Detail)
+router.get("/pricelist30", getPriceList30Detail)
+router.get("/pricelist31", getPriceList31Detail)
+router.get("/pricelist32", getPriceList32Detail)
+router.get("/pricelist33", getPriceList33Detail)
+router.get("/pricelist34", getPriceList34Detail)
+router.get("/pricelist35", getPriceList35Detail)
+
+
+
 
 
 
