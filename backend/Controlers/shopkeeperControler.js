@@ -15,8 +15,8 @@ export const addShopkeeperDetail = (req, res) => {
         Shopkeeper_Last_Name,
         Contact,
         Whatsup_Contact,
-        GST_Number,
-        Shopkeeper_Email,
+        // GST_Number,
+        // Shopkeeper_Email,
         Address1,
         Country,
         State,
@@ -26,7 +26,7 @@ export const addShopkeeperDetail = (req, res) => {
     } = req.body;
 
     // CHECK IF USER EXISTS
-    const checkQuery = "SELECT * FROM shopkeeperdetails WHERE GST_Number = ?";
+    const checkQuery = "SELECT * FROM shopkeeperdetails WHERE Whatsup_Contact = ?";
     db.query(checkQuery, [Shopkeeper_ID], (err, data) => {
         if (err) {
             console.log(err);
@@ -37,9 +37,9 @@ export const addShopkeeperDetail = (req, res) => {
             return res.status(409).json("Shopkeeper already exists!");
         }
 
-        const insertQuery = "INSERT INTO shopkeeperdetails (`Logged_User_ID`, `Logged_Email_ID`, `Logged_User_Role`, `Created_By`,`Updated_By`, `Is_Active`,`Created_At`, `Shopkeeper_ID`, `Firm_Name`, `Shopkeeper_First_Name`, `Shopkeeper_Last_Name`, `Contact`, `Whatsup_Contact`, `GST_Number`, `Shopkeeper_Email`, `Address1`, `Country`, `State`, `City`, `Pincode`, `Village_Street`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        const insertQuery = "INSERT INTO shopkeeperdetails (`Logged_User_ID`, `Logged_Email_ID`, `Logged_User_Role`, `Created_By`,`Updated_By`, `Is_Active`,`Created_At`, `Shopkeeper_ID`, `Firm_Name`, `Shopkeeper_First_Name`, `Shopkeeper_Last_Name`, `Contact`, `Whatsup_Contact`,  `Address1`, `Country`, `State`, `City`, `Pincode`, `Village_Street`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        const values = [Logged_User_ID, Logged_Email_ID, Logged_User_Role, Created_By, Updated_By, Is_Active, Created_At, Shopkeeper_ID, Firm_Name, Shopkeeper_First_Name, Shopkeeper_Last_Name, Contact, Whatsup_Contact, GST_Number, Shopkeeper_Email, Address1, Country, State, City, Pincode, Village_Street];
+        const values = [Logged_User_ID, Logged_Email_ID, Logged_User_Role, Created_By, Updated_By, Is_Active, Created_At, Shopkeeper_ID, Firm_Name, Shopkeeper_First_Name, Shopkeeper_Last_Name, Contact, Whatsup_Contact, Address1, Country, State, City, Pincode, Village_Street];
 
         db.query(insertQuery, values, (err, result) => {
             if (err) {
@@ -211,8 +211,8 @@ export const updateShopkeeperDetail = (req, res) => {
     Shopkeeper_Last_Name,
     Contact,
     Whatsup_Contact,
-    GST_Number,
-    Shopkeeper_Email,
+    // GST_Number,
+    // Shopkeeper_Email,
     Address1,
     Country,
     State,
@@ -225,12 +225,12 @@ export const updateShopkeeperDetail = (req, res) => {
   const checkDuplicateQuery = `
     SELECT Shopkeeper_ID
     FROM shopkeeperdetails
-    WHERE GST_Number = ?
+    WHERE Whatsup_Contact = ?
   `;
 
-  db.query(checkDuplicateQuery, [GST_Number], (err, duplicateResult) => {
+  db.query(checkDuplicateQuery, [Whatsup_Contact], (err, duplicateResult) => {
     if (err) {
-      console.error("Error checking for duplicate GST_Number:", err);
+      console.error("Error checking for duplicate Whatsup_Contact:", err);
       return res.status(500).json(err);
     }
 
@@ -258,8 +258,6 @@ export const updateShopkeeperDetail = (req, res) => {
         Shopkeeper_Last_Name = ?,
         Contact = ?,
         Whatsup_Contact = ?,
-        GST_Number = ?,
-        Shopkeeper_Email = ?,
         Address1 = ?,
         Country = ?,
         State = ?,
@@ -282,8 +280,8 @@ export const updateShopkeeperDetail = (req, res) => {
       Shopkeeper_Last_Name,
       Contact,
       Whatsup_Contact,
-      GST_Number,
-      Shopkeeper_Email,
+      // GST_Number,
+      // Shopkeeper_Email,
       Address1,
       Country,
       State,
