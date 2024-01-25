@@ -205,20 +205,33 @@ const Commoncomponent = (props) => {
 
 
   // Step 9: Handle removing an item from the order list
+  // const removeFromOrderListFunction = (screwName, index) => {
+  //   if (orderList[screwName]) {
+  //     setOrderList((prevOrderList) => ({
+  //       ...prevOrderList,
+  //       [screwName]: prevOrderList[screwName].filter((item, i) => i !== index),
+  //     }));
+  //   }
+  // };
+
   const removeFromOrderListFunction = (screwName, index) => {
-    if (orderList[screwName]) {
-      setOrderList((prevOrderList) => ({
+    setOrderList((prevOrderList) => {
+      const updatedList = {
         ...prevOrderList,
         [screwName]: prevOrderList[screwName].filter((item, i) => i !== index),
-      }));
-    }
+      };
+
+      // If the updated array's length is 0, remove the screwName key
+      if (updatedList[screwName].length === 0) {
+        delete updatedList[screwName];
+      }
+
+      return updatedList;
+    });
   };
 
 
-
   console.log("orderList", orderList)
-
-
 
   const showOrderModal = () => {
     setShowModal(true)
@@ -304,50 +317,50 @@ const Commoncomponent = (props) => {
     // });
 
     // new code with pdf one or more
-// Loop through orderList to add pages
-// Iterate through orderList and add pages
+    // Loop through orderList to add pages
+    // Iterate through orderList and add pages
 
-Object.keys(orderList).forEach((screwName, index) => {
+    Object.keys(orderList).forEach((screwName, index) => {
 
-  // const updatedInfo = updateInfo(screwName, orderList[screwName].Info);
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.text(`${screwName}`, 15, yPosition);
-  yPosition += 7;
-
-  let itemsCount = 0;
-
-  orderList[screwName].forEach((item, i) => {
-    if (itemsCount < itemsPerPage) {
-      const itemText = `${item.Size} - ${item.Quantity.toUpperCase()} ${item.Scheme}`;
+      // const updatedInfo = updateInfo(screwName, orderList[screwName].Info);
       doc.setFontSize(12);
-      doc.setFont('helvetica', 'normal');
-      doc.text(itemText, 20, yPosition);
-      yPosition += 6;
-      itemsCount++;
-    } else {
-      // Move to the next page
-      doc.addPage();
-      yPosition = 10; // Reset yPosition for the new page
-      itemsCount = 0;
-    }
-  });
+      doc.setFont('helvetica', 'bold');
+      doc.text(`${screwName}`, 15, yPosition);
+      yPosition += 7;
 
-  yPosition += 1;
-});
+      let itemsCount = 0;
+
+      orderList[screwName].forEach((item, i) => {
+        if (itemsCount < itemsPerPage) {
+          const itemText = `${item.Size} - ${item.Quantity.toUpperCase()} ${item.Scheme}`;
+          doc.setFontSize(12);
+          doc.setFont('helvetica', 'normal');
+          doc.text(itemText, 20, yPosition);
+          yPosition += 6;
+          itemsCount++;
+        } else {
+          // Move to the next page
+          doc.addPage();
+          yPosition = 10; // Reset yPosition for the new page
+          itemsCount = 0;
+        }
+      });
+
+      yPosition += 1;
+    });
 
     // end 
 
-    
-    if(formattedText != ""){
+
+    if (formattedText != "") {
       yPosition += 5;
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
       const POPByText1 = `REMARKS:`;
       doc.text(POPByText1, 15, yPosition);
     }
-    
-    
+
+
 
     yPosition += 5;
     doc.setFontSize(12);
@@ -456,14 +469,14 @@ Object.keys(orderList).forEach((screwName, index) => {
   };
 
 
-  const addPopFunction = () =>{
+  const addPopFunction = () => {
     setFormattedText(textareaValue.toUpperCase());
 
     handlePOPClose()
 
   }
 
-  console.log("formattedText",formattedText)
+  console.log("formattedText", formattedText)
 
   return (
     <div>
@@ -527,7 +540,7 @@ Object.keys(orderList).forEach((screwName, index) => {
                           <input
                             type="text"
                             value={item.Quantity}
-                            style={{ width: '65px', border: "1px solid gray", height: "30px", marginLeft: "20px", fontWeight: "500" }}
+                            style={{ width: '55px', border: "1px solid gray", height: "30px", marginLeft: "16px", fontWeight: "500" }}
                             onChange={(e) => updateQuantity(screwName, i, e.target.value)}
                           />{" "}
                           {/* Dis:{" "}
@@ -537,9 +550,9 @@ Object.keys(orderList).forEach((screwName, index) => {
                             style={{ width: '75px', border: "1px solid gray", height: "30px", fontWeight: "500" }}
                             onChange={(e) => updateScheme(screwName, i, e.target.value)}
                           /> */}
-                          <img src="/cancel1.png" onClick={() => removeFromOrderListFunction(screwName, i)} style={{ width: "30px", marginLeft: "20px", marginBottom: "5px", cursor: "pointer" }} />
+                          <img src="/cancel1.png" onClick={() => removeFromOrderListFunction(screwName, i)} style={{ width: "24px", marginLeft: "16px", marginBottom: "5px", cursor: "pointer" }} />
                           {/* <button onClick={() => removeFromOrderListFunction(screwName, i)} style={{marginLeft:"20px",backgroundColor:"red",color:"white",
-            borderRadius:"5px",border:"none",fontSize:"16px",height: "30px",width:"70px"}}>Remove</button> */}
+                             borderRadius:"5px",border:"none",fontSize:"16px",height: "30px",width:"70px"}}>Remove</button> */}
                         </h6>
                       ))}
                       {/* </ul> */}
@@ -598,7 +611,7 @@ Object.keys(orderList).forEach((screwName, index) => {
             <div className='d-flex justify-content-end'>
 
               <button
-               onClick={addPopFunction}
+                onClick={addPopFunction}
                 style={{
                   backgroundColor: "green", color: "white",
                   borderRadius: "5px", border: "none", fontSize: "16px", height: "36px", width: "60px", float: "right",
@@ -610,20 +623,24 @@ Object.keys(orderList).forEach((screwName, index) => {
         </Modal>
       }
       {console.log("linkDataProps.state", linkDataProps.state)}
-      <div style={{ backgroundColor: "white", height: "auto" }}>
-        <img src="/main-banner11.jpg" className='img-fluid'/>
-        {/* <img src={linkDataProps.state == 1 ? "/main-banner11.jpg" : linkDataProps.state == 2 ? "/main-banner11.jpg" : linkDataProps.state == 3 ? "" : ""} className='img-fluid' /> */}
-        
-        {/* main-banner11 */}
-      </div>
+
+      {/* <img src={linkDataProps.state == 1 ? "/main-banner11.jpg" : linkDataProps.state == 2 ? "/main-banner11.jpg" : linkDataProps.state == 3 ? "" : ""} className='img-fluid' /> */}
+
       <div className="Main-Layoyt-Div py-1 pb-2 px-3">
 
-        {/* <div>
-            {console.log("jjjjjkhkjjjj", data1[0]?.src, sorceVideo)}
-            <video src="/videodata/FullCut410.mp4" muted autoPlay={"autoplay"} 
-            poster="./Jacobandbella.jpg" preLoad="auto" loop className='w-100 video-class'>
+        {
+          linkDataProps.state == 1 || linkDataProps.state == 7 || linkDataProps.state == 14 ? <div>
+            <video src={linkDataProps.state == 1 ? "/videodata/CskPhillips.mp4" : linkDataProps.state == 7 ? "/videodata/DrywellScrews410.mp4"  : linkDataProps.state == 14 ? "/videodata/FullCut410.mp4" : ""} muted autoPlay={"autoplay"}
+              poster="./Jacobandbella.jpg" preLoad="auto" loop className='w-100 video-class'>
               video tag is not supported by your browser</video>
-          </div> */}
+          </div> :
+            <div style={{ backgroundColor: "white", height: "auto" }}>
+              <img src="/main-banner11.jpg" className='img-fluid' />
+
+            </div>
+        }
+
+
 
 
         <Row>
