@@ -100,10 +100,7 @@ const PreOderDetailModal = (props) => {
 
   // search shopekeeper code end
 
-  // new code start
-
-
-  // new code
+  
 
   useEffect(() => {
     // Check if geolocation is supported by the browser
@@ -163,7 +160,6 @@ const PreOderDetailModal = (props) => {
     "West Bengal"
   ];
 
-  const apiKey = "AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI"; // Replace with your API key
 
   const handleStateChange = (state) => {
     setIndiaState(state);
@@ -243,6 +239,7 @@ const PreOderDetailModal = (props) => {
       "Ambala",
       "Ambala Cantt",
       "Asankhurd",
+      "Assandh",
       "Babain",
       "Bahadurgarh",
       "Barara",
@@ -330,6 +327,7 @@ const PreOderDetailModal = (props) => {
   };
 
 
+  const apiKey = "AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI"; // Replace with your API key
  
 
   // end the state name code
@@ -489,7 +487,7 @@ const PreOderDetailModal = (props) => {
                                 placeholder="Select a State"
                                 onChange={(e) => handleStateChange(e)}
                                 value={ indiaState || null }
-                                
+                                showSearch
                                 style={{
                                   width: "100%",
                                   marginBottom: "10px",
@@ -703,7 +701,7 @@ const PreOderDetailModal = (props) => {
                           </Row>
 
                           <Row span={24} className="">
-                            <Col span={12} xs={24} sm={24} md={12} lg={12}>
+                            {/* <Col span={12} xs={24} sm={24} md={12} lg={12}>
                               <Input
                                 type="text"
                                 placeholder="GST Number"
@@ -715,7 +713,7 @@ const PreOderDetailModal = (props) => {
                                 disabled={true}
                                 style={{ color: "black" }}
                               />
-                            </Col>
+                            </Col> */}
                             <Col
                               span={12}
                               xs={24}
@@ -730,7 +728,7 @@ const PreOderDetailModal = (props) => {
                                 autoComplete="off"
                                 onChange={handleChange}
                                 value={selectedShopkeeper?.Whatsup_Contact}
-                                className="personal-ingo-textbox8"
+                                // className="personal-ingo-textbox8"
                                 disabled={true}
                                 style={{ color: "black" }}
                               />

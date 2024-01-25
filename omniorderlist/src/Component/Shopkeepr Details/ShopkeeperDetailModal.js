@@ -15,7 +15,7 @@ import AddNewComponent from '../AddressComponent/AddNewComponent';
 import AddressComponentNew from './AddressComponentNew';
 
 const newObjPersonal = () => {
-    return { Firm_Name: '', Shopkeeper_First_Name: '', Shopkeeper_Last_Name: "", Contact: '', Whatsup_Contact: '', GST_Number: '', Shopkeeper_Email: '' }
+    return { Firm_Name: '', Shopkeeper_First_Name: '', Shopkeeper_Last_Name: "", Contact: '', Whatsup_Contact: ''}
 }
 const ShopkeeperDetailModal = (props) => {
     const addressInfoComRef = useRef('');
