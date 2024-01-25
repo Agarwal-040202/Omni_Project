@@ -387,11 +387,37 @@ export const admincode = (req, res) => {
 
 
 
+// export const logout = (req, res) => {
+
+//     res.clearCookie("accessToken", {
+//         secure: true,
+//         sameSite: "none"
+//     }).status(200).json("User has been logged out")
+
+// }
+
 export const logout = (req, res) => {
+    // Set the target logout date and time (replace with your desired date)
+    const targetLogoutDate = new Date('2024-02-01T00:00:00');
+    
+    // Check the current date and time
+    const currentDate = new Date();
 
-    res.clearCookie("accessToken", {
-        secure: true,
-        sameSite: "none"
-    }).status(200).json("User has been logged out")
+    // Compare the current date with the target logout date
+    if (currentDate >= targetLogoutDate) {
+        // Clear the access token cookie
+        res.clearCookie("accessToken", {
+            secure: true,
+            sameSite: "none"
+        });
 
-}
+        // Perform additional logout actions if needed
+        console.log('Logging out...');
+
+        // Send a response indicating successful logout
+        return res.status(200).json("User has been logged out");
+    } else {
+        // Send a response indicating that the target logout date has not been reached
+        return res.status(200).json("Target logout date not reached");
+    }
+};

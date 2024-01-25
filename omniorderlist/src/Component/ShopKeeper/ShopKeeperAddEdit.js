@@ -16,7 +16,7 @@ import AddressComponentNew from './AddressComponentNew.js';
 
 
 const newObjPersonal = () => {
-    return { Firm_Name: '', Shopkeeper_First_Name: '', Shopkeeper_Last_Name: "", Contact: '', Whatsup_Contact: '', GST_Number: '', Shopkeeper_Email: '' }
+    return { Firm_Name: '', Shopkeeper_First_Name: '', Shopkeeper_Last_Name: "", Contact: '', Whatsup_Contact: '' }
 }
 const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, editInfo, funForListCall }) => {
 
@@ -34,9 +34,9 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
     const [personalInfo, setPersonalInfo] = useState({ ...newObjPersonal() })
     const { shopkeeperDetailStatus, shopkeeperDetailError } = useSelector((State) => State.addNewShopkeeper)
 
-    const {  updateShopKeeperDetailStatus, updateShopKeeperDetailError,updateShopKeeperRecored } = useSelector((State) => State.updateshopkeeperData)
+    const { updateShopKeeperDetailStatus, updateShopKeeperDetailError, updateShopKeeperRecored } = useSelector((State) => State.updateshopkeeperData)
 
-    console.log('updateShopKeailStatus', updateShopKeeperDetailStatus, updateShopKeeperDetailError,updateShopKeeperRecored)
+    console.log('updateShopKeailStatus', updateShopKeeperDetailStatus, updateShopKeeperDetailError, updateShopKeeperRecored)
 
     const [newContactInfo, setNewContactInfo] = useState({})
     const [getStatusState, setStatusState] = useState(false)
@@ -46,8 +46,8 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
     useEffect(() => {
         if (actionType == 'EDIT') {
             console.log('editInfoeditInfo', actionType == 'EDIT', editInfo)
-            setPersonalInfo(prev=>({
-                ...prev,...editInfo
+            setPersonalInfo(prev => ({
+                ...prev, ...editInfo
             }))
             setUserIDState(editInfo?.Shopkeeper_ID)
             addressInfoComRef.current.updateAddressFun(editInfo)
@@ -78,11 +78,11 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
         }));
         console.log('After Update - personalInfo:', personalInfo);
     };
-    
+
 
     const validate = () => {
         let errMsg;
-        let { Firm_Name, Shopkeeper_First_Name, Shopkeeper_Last_Name, Contact, Whatsup_Contact, GST_Number, Shopkeeper_Email } = personalInfo
+        let { Firm_Name, Shopkeeper_First_Name, Shopkeeper_Last_Name, Contact, Whatsup_Contact } = personalInfo
 
         switch (true) {
             case Firm_Name === undefined || Firm_Name === '' || Firm_Name === null:
@@ -100,12 +100,12 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
             case Whatsup_Contact === '':
                 errMsg = 'Enter Whatsup Contact';
                 break;
-            case GST_Number === '':
-                errMsg = 'Enter GST Number';
-                break;
-            case Shopkeeper_Email === '':
-                errMsg = 'Enter Shopkeeper Email';
-                break;
+            // case GST_Number === '':
+            //     errMsg = 'Enter GST Number';
+            //     break;
+            // case Shopkeeper_Email === '':
+            //     errMsg = 'Enter Shopkeeper Email';
+            //     break;
 
             default:
                 return true;
@@ -127,23 +127,23 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
     // const utcDateStr = editInfo?.Created_At;
     const utcDateStr = editInfo?.Created_At;
     const utcDate = new Date(utcDateStr);
-    
+
     const year = utcDate.getUTCFullYear(); // Get the year (e.g., 2023)
     const month = utcDate.getUTCMonth() + 1; // Get the month (0-based index, so add 1)
     const day = utcDate.getUTCDate() + 1; // Get the day of the month and add 1
-    
+
     // Format month and day to have leading zeros if needed
     const formattedMonth = month < 10 ? `0${month}` : `${month}`;
     const formattedDay = day < 10 ? `0${day}` : `${day}`;
-    
+
     // Create the formatted date string in the "YYYY-MM-DD" format
     const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
-    
-    // console.log(formattedDate); // Output: "2023-09-20"
-    
-   
 
-console.log("formattedDate",formattedDate); // Output: "2023-09-19"
+    // console.log(formattedDate); // Output: "2023-09-20"
+
+
+
+    console.log("formattedDate", formattedDate); // Output: "2023-09-19"
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -167,20 +167,20 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
             ...personalInfo,
             ...newContactInfo
         }
-        console.log('objodadadbjobj',personalInfo,actionType, obj1)
+        console.log('objodadadbjobj', personalInfo, actionType, obj1)
         try {
-            if(actionType == 'EDIT'){
-                
-                setStatusState(true)
-            dispatch(updateShopkeeperData(obj1));
-            callFunction() 
+            if (actionType == 'EDIT') {
 
-            }else{
+                setStatusState(true)
+                dispatch(updateShopkeeperData(obj1));
+                callFunction()
+
+            } else {
                 setStatusState(true)
                 dispatch(shopkeeperDetails(obj1));
-                callFunction() 
+                callFunction()
             }
-             
+
 
         } catch (err) {
             console.log('err', err)
@@ -188,9 +188,9 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
         }
 
     }
- 
+
     const callFunction = () => {
-        console.log("shopkeeperDetailStatus",updateShopKeeperDetailStatus)
+        console.log("shopkeeperDetailStatus", updateShopKeeperDetailStatus)
         if (shopkeeperDetailStatus == "pending" || updateShopKeeperDetailStatus == "pending") {
             setShowLoder(true)
         }
@@ -201,10 +201,10 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
             handleClose()
 
         }
-        else if(actionType == 'ADD' && shopkeeperDetailStatus == "Success" ){
+        else if (actionType == 'ADD' && shopkeeperDetailStatus == "Success") {
             handleShopToast(true, 'Success', 'Shopkeeper add sucessfully.')
             funForListCall()
-            handleClose()    
+            handleClose()
         }
         else if (shopkeeperDetailStatus == "rejected" || updateShopKeeperDetailStatus == "rejected") {
 
@@ -238,37 +238,37 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
                                                     <Row>
                                                         <Col span={24} xs={24} sm={24} md={24} lg={24}>
                                                             <Input type="text" placeholder="Enter Firm Name" name="Firm_Name" autoComplete="off" id='Firm_Name' style={{ marginBottom: "10px", height: "36px", borderRadius: "5px" }}
-                                                             value={personalInfo?.Firm_Name}    onChange={(e) => handleChangeInput(e)}
+                                                                value={personalInfo?.Firm_Name} onChange={(e) => handleChangeInput(e)}
                                                             />
                                                         </Col>
                                                     </Row>
                                                     <Row span={24} className=''>
                                                         <Col span={12} xs={24} sm={24} md={12} lg={12}>
                                                             <Input type="text" placeholder="First Name" name="Shopkeeper_First_Name" autoComplete="off" id='Shopkeeper_First_Name' className='personal-ingo-textbox'
-                                                              value={personalInfo?.Shopkeeper_First_Name}       onChange={(e) => handleChangeInput(e)}
+                                                                value={personalInfo?.Shopkeeper_First_Name} onChange={(e) => handleChangeInput(e)}
                                                             />
                                                         </Col>
                                                         <Col span={12} xs={24} sm={24} md={12} lg={12} className='d-flex justify-content-end'>
                                                             <Input type="text" placeholder="Last Name" name="Shopkeeper_Last_Name" id="Shopkeeper_Last_Name" autoComplete="off" className='personal-ingo-textbox'
-                                                               value={personalInfo?.Shopkeeper_Last_Name}      onChange={(e) => handleChangeInput(e)}
+                                                                value={personalInfo?.Shopkeeper_Last_Name} onChange={(e) => handleChangeInput(e)}
                                                             />
                                                         </Col>
                                                     </Row>
                                                     <Row span={24} className=''>
                                                         <Col span={12} xs={24} sm={24} md={12} lg={12}>
                                                             <Input type="text" placeholder="Contact" autoComplete="off" name="Contact" id="Contact" className='personal-ingo-textbox'
-                                                            minlength="10" maxlength="10"
-                                                              value={personalInfo?.Contact}     onChange={(e) => handleChangeInput(e)} />
+                                                                minlength="10" maxlength="10"
+                                                                value={personalInfo?.Contact} onChange={(e) => handleChangeInput(e)} />
                                                         </Col>
                                                         <Col span={12} xs={24} sm={24} md={12} lg={12} className='d-flex justify-content-end'>
                                                             <Input type="text" placeholder="Whatsup Conatct" name="Whatsup_Contact" id="Whatsup_Contact" autoComplete="off" className='personal-ingo-textbox'
-                                                             minlength="10" maxlength="10"
-                                                              value={personalInfo?.Whatsup_Contact}     onChange={(e) => handleChangeInput(e)}
+                                                                minlength="10" maxlength="10"
+                                                                value={personalInfo?.Whatsup_Contact} onChange={(e) => handleChangeInput(e)}
                                                             />
                                                         </Col>
 
                                                     </Row>
-                                                    <Row span={24} className=''>
+                                                    {/* <Row span={24} className=''>
 
                                                         <Col span={12} xs={24} sm={24} md={12} lg={12}>
                                                             <Input type="text" placeholder="Business Registration Number" name="GST_Number" id="GST_Number" autoComplete="off"
@@ -279,7 +279,7 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
                                                             <Input type="text" placeholder="Email Id" id="Shopkeeper_Email" name='Shopkeeper_Email' autoComplete="off" className='personal-ingo-textbox8'
                                                               value={personalInfo?.Shopkeeper_Email}      onChange={(e) => handleChangeInput(e)} />
                                                         </Col>
-                                                    </Row>
+                                                    </Row> */}
                                                 </Col>
                                             </Row>
                                             <AddressComponentNew ref={addressInfoComRef} setNewContactInfo={setNewContactInfo} />
@@ -295,8 +295,8 @@ console.log("formattedDate",formattedDate); // Output: "2023-09-19"
                                                 </Link>
                                             </div>
                                             <div>
-                                                <Button type="submit" style={{ backgroundColor: "maroon", width: "140px", border: "none", height: "40px",color:"white" }}>
-                                                  {actionType=='ADD' ?'SAVE':'UPDATE'}
+                                                <Button type="submit" style={{ backgroundColor: "maroon", width: "140px", border: "none", height: "40px", color: "white" }}>
+                                                    {actionType == 'ADD' ? 'SAVE' : 'UPDATE'}
                                                 </Button>
                                             </div>
                                         </Col>

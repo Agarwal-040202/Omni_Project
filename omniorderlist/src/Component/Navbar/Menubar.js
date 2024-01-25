@@ -63,7 +63,7 @@ const Menubar = () => {
     setFakeState(!fakeState)
   }, [linkDataProps])
 
- 
+
 
   return (
     <div>
@@ -123,27 +123,27 @@ const Menubar = () => {
                 ?
                 <>
                   <div style={{ marginRight: "10px" }}>
-                    <Navbar.Toggle 
-                    aria-controls="responsive-navbar-nav" 
+                    <Navbar.Toggle
+                      aria-controls="responsive-navbar-nav"
                     />
                   </div>
-                  <Navbar.Collapse 
-                  id="responsive-navbar-nav menu-list-items"
+                  <Navbar.Collapse
+                    id="responsive-navbar-nav menu-list-items"
                   //  style={{ justifyContent: "" }} 
-                   >
+                  >
                     <Nav className="nav-tag" >
 
-                      <li className="nav-item dropdown" 
-                      
+                      <li className="nav-item dropdown"
+
                       >
                         <a
-                        
-                        className="nav-link dropdown-toggle" 
-                        href="#" id="navbarDropdownMenuLink" 
-                        role="button" 
-                        data-bs-toggle="dropdown" 
-                        aria-expanded="false"
-                        style={{ color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}
+
+                          className="nav-link dropdown-toggle"
+                          href="#" id="navbarDropdownMenuLink"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          style={{ color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}
                         >
                           S S SCREWS
                         </a>
@@ -369,7 +369,7 @@ const Menubar = () => {
                               style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500, paddingLeft: "5px" }}>
                               FULLCUT 410
                             </Link></li>
-                            <li>
+                          <li>
                             <Link
                               to={{
                                 pathname: "/fullcut410antique",
@@ -379,7 +379,7 @@ const Menubar = () => {
                               style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500, paddingLeft: "5px" }}>
                               FULLCUT 410 ANTIQUE
                             </Link></li>
-                            <li>
+                          <li>
                             <Link
                               to={{
                                 pathname: "/fullcut410golden",
@@ -532,7 +532,7 @@ const Menubar = () => {
                           style={{ color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}
                         >
 
-                         KBS
+                          KBS
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                           <li>
@@ -651,12 +651,18 @@ const Menubar = () => {
                  <div>
                      <img src="notepad1.jpg" style={{width:"20px"}} />
                   </div> : ""} */}
+                  {linkDataProps?.pathname == "/fourbox" ? "" : <div style={{ width: "20px" }}>
 
+                    <Link to="/fourbox">
+                      <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
+                    </Link>
+
+                  </div>}
 
                   <div className="d-flex justify-content-center align-items-center">
                     <h6 className="mt-1" style={{ cursor: "pointer" }} onClick={showFildeMemberFuction}>{UserRole.Email_Id}</h6>
                   </div>
-                  <div className="d-flex justify-content-end " style={{ width: "30px" }} onClick={logoutFunction}>
+                  <div className="d-flex justify-content-end " style={{ width: "22px" }} onClick={logoutFunction}>
                     <img src="/logoutcircle.svg" className="img-fluid" style={{ cursor: "pointer" }} />
                   </div>
                 </div>

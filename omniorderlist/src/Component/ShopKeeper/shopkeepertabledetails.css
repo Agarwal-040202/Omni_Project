@@ -27,7 +27,14 @@
     /* border: none; */
 }
 
+.citySelect{
+  margin-left: 10px;
+}
+
 @media(max-width:600px){
+  .citySelect{
+    margin-left: 0px;
+  }
   .button-submit-col{
     
     display: flex;
