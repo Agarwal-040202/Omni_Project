@@ -69,15 +69,30 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
         setShowAddEditModal(false)
     }
 
+    // const handleChangeInput = (e) => {
+    //     let { id, value } = e.target;
+    //     console.log('Before Update - personalInfo:', personalInfo);
+    //     setPersonalInfo(prev => ({
+    //         ...prev,
+    //         [id]: value
+    //     }));
+    //     console.log('After Update - personalInfo:', personalInfo);
+    // };
+
     const handleChangeInput = (e) => {
         let { id, value } = e.target;
-        console.log('Before Update - personalInfo:', personalInfo);
+    
+        // Convert the specified fields to uppercase
+        if (id === 'Firm_Name' || id === 'Shopkeeper_First_Name' || id === 'Shopkeeper_Last_Name') {
+            value = value.toUpperCase();
+        }
+    
         setPersonalInfo(prev => ({
             ...prev,
             [id]: value
         }));
-        console.log('After Update - personalInfo:', personalInfo);
     };
+    
 
 
     const validate = () => {
@@ -290,12 +305,12 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
                                         <Col span={24} className="d-flex justify-content-between">
                                             <div>
                                                 <Link to="#" onClick={handleClose}>
-                                                    <Commonbackbutton backButtonText={"Cancel"} backbuttonwidth={135} />
+                                                    <Commonbackbutton backButtonText={"Cancel"} backbuttonwidth={105} />
 
                                                 </Link>
                                             </div>
                                             <div>
-                                                <Button type="submit" style={{ backgroundColor: "maroon", width: "140px", border: "none", height: "40px", color: "white" }}>
+                                                <Button type="submit" style={{ backgroundColor: "maroon", width: "110px", border: "none", height: "40px", color: "white" }}>
                                                     {actionType == 'ADD' ? 'SAVE' : 'UPDATE'}
                                                 </Button>
                                             </div>
