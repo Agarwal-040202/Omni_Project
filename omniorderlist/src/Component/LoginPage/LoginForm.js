@@ -269,9 +269,9 @@ const LoginForm = () => {
                       />
                     </div>
 
-                    <div className="text">
+                    {/* <div className="text">
                       <a href="#">Forgot password?</a>
-                    </div>
+                    </div> */}
                     <div className="Login-Submit-div">
                       <button>Sign In</button>
                     </div>

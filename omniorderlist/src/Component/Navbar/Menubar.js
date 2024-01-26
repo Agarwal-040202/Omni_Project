@@ -341,7 +341,7 @@ const Menubar = () => {
                           CHIPBOARD SCREWS
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <li>
+                          {/* <li>
                             <Link
                               to={{
                                 pathname: "/cskphillipchipboard",
@@ -358,7 +358,7 @@ const Menubar = () => {
                               className="menu-Link "
                               style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500, paddingLeft: "5px" }}>
                               OMNI CUT CHIPBOARD
-                            </Link></li>
+                            </Link></li> */}
                           <li>
                             <Link
                               to={{
@@ -707,7 +707,7 @@ const Menubar = () => {
                 <div className="d-flex justify-content-center align-items-center flex-column">
                   <div className="">
                     <img
-                      src="./Omni-Logo-2.png"
+                      src="/Omni-Logo-2.png"
                       style={{ width: "80px" }}
                     />
                   </div>
@@ -748,7 +748,7 @@ const Menubar = () => {
                     SCREWS VIDEO
                   </Link>
                 </Nav.Link> */}
-                <Nav.Link href="#">
+                {/* <Nav.Link href="#">
                   <Link to="/orderbyshopkeeper" className="menu-Link">
                     SHOPKEEPER
                   </Link>
@@ -757,7 +757,7 @@ const Menubar = () => {
                   <Link to="/contactus" className="menu-Link">
                     CONTACT US
                   </Link>
-                </Nav.Link>
+                </Nav.Link> */}
                 <Nav.Link href="#">
                   <Link to="/aboutus" className="menu-Link">
                     ABOUT US
