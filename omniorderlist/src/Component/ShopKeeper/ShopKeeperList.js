@@ -477,7 +477,7 @@ const ShopKeeperList = () => {
               </Col>
             </Row>
             <Row className="mt-2">
-              <Col span={6} xs={24} sm={6} md={6} lg={6}>
+                          <Col span={6} xs={24} sm={6} md={6} lg={6}>
                 <Select
                   placeholder="Select a State"
                   onChange={(e) => handleStateChange(e)}

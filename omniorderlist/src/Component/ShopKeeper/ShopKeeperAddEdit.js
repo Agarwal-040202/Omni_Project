@@ -81,18 +81,18 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
 
     const handleChangeInput = (e) => {
         let { id, value } = e.target;
-    
+
         // Convert the specified fields to uppercase
         if (id === 'Firm_Name' || id === 'Shopkeeper_First_Name' || id === 'Shopkeeper_Last_Name') {
             value = value.toUpperCase();
         }
-    
+
         setPersonalInfo(prev => ({
             ...prev,
             [id]: value
         }));
     };
-    
+
 
 
     const validate = () => {
@@ -168,6 +168,7 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
             return;
         }
         console.log('personalInfojobj', personalInfo)
+        const { Address1, City, Country, Village_Street, State,Pincode } = newContactInfo;
 
 
         const obj1 = {
@@ -180,10 +181,17 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
             Created_At: actionType == 'EDIT' ? formattedDate : getFormattedDate(),
             Shopkeeper_ID: userIDState,
             ...personalInfo,
-            ...newContactInfo
+
+            Address1: Address1,
+            City: City,
+            Country: Country,
+            Village_Street: Village_Street,
+            State: State,
+            Pincode: Pincode,
+
         }
         console.log('objodadadbjobj', personalInfo, actionType, obj1)
-        try {
+                try {
             if (actionType == 'EDIT') {
 
                 setStatusState(true)
