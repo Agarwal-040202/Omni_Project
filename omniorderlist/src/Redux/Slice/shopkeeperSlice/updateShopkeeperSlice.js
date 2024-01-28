@@ -28,7 +28,6 @@ export const updateShopkeeperData = createAsyncThunk(
                 }
             );
 
-            // console.log("hjhhkhkhhkhkhkhk", josnObj)
             const updateShopkeeperData2 = response.data;
             console.log("updateShopkeeperData2", updateShopkeeperData2);
 

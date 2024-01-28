@@ -482,6 +482,7 @@ const ShopKeeperList = () => {
                   placeholder="Select a State"
                   onChange={(e) => handleStateChange(e)}
                   value={indiaState || null}
+                  showSearch
                   style={{
                     width: "100%",
                     marginBottom: "5px",
