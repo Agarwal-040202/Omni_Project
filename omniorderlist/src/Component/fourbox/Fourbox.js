@@ -89,32 +89,30 @@ const Fourbox = () => {
             </Col>
 
             <Col span={6} xs={24} sm={12} md={12} lg={6} xl={6} className="d-flex justify-content-center align-items-center">
-              <div>
+              {/* <div>
                 <Link className="linkstyles" to="/rejectedlist">
                   <Card className="Main-Card-Div Animation-Card-Bottom Main-Card-Div-Left" >
 
                     <Card.Body className="d-flex justify-content-center align-items-center " >
                       <Card.Img src="dispalyorder1.png" style={{ zIndex: "1" }} className='w-50' />
                     </Card.Body>
-                    {/* <div  style={{  }}> */}
-                    {/* style={{backgroundColor:"white",borderBottomLeftRadius:"50px",borderBottomRightRadius:"50px"}} */}
-                    <Card.Header className="text-center" style={{ backgroundColor: "maroon", borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px" }}>Display Order</Card.Header>
-                    {/* </div> */}
+                    
+                    <Card.Header className="text-center" style={{ backgroundColor: "maroon", borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px" }}>
+                    Display Order</Card.Header>
 
                   </Card>
                 </Link>
-              </div>
+              </div> */}
             </Col>
 
             <Col span={6} xs={24} sm={12} md={12} lg={6} xl={6} className="d-flex justify-content-center align-items-center">
-              <div>
+              {/* <div>
                 <Link className="linkstyles" to="/addcompanydetails" >
                   <Card className="Main-Card-Div Animation-Card-Right Main-Card-Div-Left" >
                     <Card.Body className="d-flex justify-content-center align-items-center " >
                       <Card.Img src="editorder1.webp" style={{ zIndex: "1" }} className='w-50' />
                     </Card.Body>
 
-                    {/* style={{backgroundColor:"white",borderBottomLeftRadius:"50px",borderBottomRightRadius:"50px"}} */}
                     <Card.Header className="text-center" style={{ backgroundColor: "maroon", borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px" }}>
                       Edit Old Order
                     </Card.Header>
@@ -122,7 +120,7 @@ const Fourbox = () => {
 
                   </Card>
                 </Link>
-              </div>
+              </div> */}
             </Col>
 
             {/* <Col span={6} xs={24} sm={12} md={12} lg={6} xl={6} className="d-flex justify-content-center align-items-center ">
