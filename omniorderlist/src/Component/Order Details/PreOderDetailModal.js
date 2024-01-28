@@ -11,9 +11,12 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getShopkeeperData } from "../../Redux/Slice/getShopkeeperDataSlice";
 import Commoncomponent from "../Pricelistwithorder/CommonComponent/Commoncomponent";
+import { indianStates } from '../StateandCity/State';
+import { citiesByState } from "../StateandCity/City";
 
 const PreOderDetailModal = (props) => {
   const dispatch = useDispatch();
+  const allStateNames = Object.values(indianStates);
 
   const { shopKeeperData } = useSelector((State) => State.getShopKeeperData);
 
@@ -122,195 +125,17 @@ const PreOderDetailModal = (props) => {
       setLoading(false);
     }
   }, []);
-  //   let { formattedAddress, country, state, city, pincode} = jsonAddress;
 
   // find the state name code
 
   const [indiaState, setIndiaState] = useState('');
   const [cities, setCities] = useState([]);
 
-  const stateNames = [
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttar Pradesh",
-    "Uttarakhand",
-    "West Bengal"
-  ];
-
-
   const handleStateChange = (state) => {
     setIndiaState(state);
   };
 
-
-
   const [selectedCity, setSelectedCity] = useState(null);
-
-  const citiesByState = {
-    "Delhi": [
-      "New Delhi",
-      "Delhi",
-      "Noida",
-      "Gurgaon",
-      "Faridabad",
-      "Ghaziabad",
-      "Greater Noida",
-      "Loni",
-      "Dwarka",
-      "Kalkaji",
-      "Mayur Vihar",
-      "Pitampura",
-      "Vasant Kunj",
-      "Vasant Vihar",
-      "Connaught Place",
-      "Saket",
-      "Chanakyapuri",
-      "Karol Bagh",
-      "Rohini",
-      "Lajpat Nagar",
-      "Nehru Place",
-      "Okhla",
-      "Hauz Khas",
-      "South Delhi",
-      "East Delhi",
-      "North Delhi",
-      "West Delhi",
-      "Central Delhi",
-      "Shahdara",
-      "Patparganj",
-      "Model Town",
-      "Dilshad Garden",
-      "Rajouri Garden",
-      "Paharganj",
-      "Jangpura",
-      "Sarita Vihar",
-      "Mukherjee Nagar",
-      "Preet Vihar",
-      "Daryaganj",
-      "Vikas Puri",
-      "Munirka",
-      "Kirti Nagar",
-      "Civil Lines",
-      "Khan Market",
-      "Laxmi Nagar",
-      "Kamla Nagar",
-      "Ashok Vihar",
-      "Defence Colony",
-      "Geeta Colony",
-      "Malviya Nagar",
-      "Safdarjung",
-      "Kailash Colony",
-      "Green Park",
-      "Shalimar Bagh",
-      "Chandni Chowk",
-      "Najafgarh",
-      "Punjabi Bagh",
-      "Hauz Qazi",
-      "Sadar Bazaar",
-      "Vivek Vihar"
-   
-    
-  ],
-    "Haryana":
-    [
-      "Ambala",
-      "Ambala Cantt",
-      "Asankhurd",
-      "Assandh",
-      "Babain",
-      "Bahadurgarh",
-      "Barara",
-      "Barwala",
-      "Bawal",
-      "Bhiwani",
-      "Charkhi Dadri",
-      "Cheeka",
-      "Dharuhera",
-      "Ellenabad",
-      "Faridabad",
-      "Fatehabad",
-      "Ganaur",
-      "Gharaunda",
-      "Gohana",
-      "Gorakhpur",
-      "Gurgaon",
-      "Hansi",
-      "Hasangarh",
-      "Hisar",
-      "Hodal",
-      "Indri",
-      "Jagadhri",
-      "Jakhal",
-      "Jhajjar",
-      "Jind",
-      "Julana",
-      "Kaithal",
-      "Kalanaur",
-      "Kalka",
-      "Karnal",
-      "Kharkhauda",
-      "Kosli",
-      "Kurukshetra",
-      "Ladwa",
-      "Mahendragarh",
-      "Mandi Dabwali",
-      "Naraingarh",
-      "Narwana",
-      "Narnaund",
-      "Narnaul",
-      "Narwana",
-      "Nilokheri",
-      "Nuh",
-      "Palwal",
-      "Panchkula",
-      "Panipat",
-      "Pehowa",
-      "Pinjore",
-      "Pundri",
-      "Rania",
-      "Ratia",
-      "Rewari",
-      "Rohtak",
-      "Safidon",
-      "Samalkha",
-      "Shahabad",
-      "Sirsa",
-      "Siwani",
-      "Sohna",
-      "Sonipat",
-      "Thanesar",
-      "Tohana",
-      "Tosham",
-      "Uchana",
-      "Yamuna Nagar"
-    ],
-   
-    "Uttarakhand": ["Dehradun","Haridwar"]
-    // Add more states and their cities as needed
-  };
 
   const handleCityChange = (event) => {
     setSelectedCity(event);
@@ -495,7 +320,7 @@ const PreOderDetailModal = (props) => {
                                   borderRadius: "5px",
                                 }}
                               >
-                                {stateNames?.map((state, index) => (
+                                {allStateNames?.map((state, index) => (
                                   <Select.Option key={index} value={state}
                                 
                                   >
@@ -598,7 +423,7 @@ const PreOderDetailModal = (props) => {
                           <div>
                             <h6 className="info-tag-h6">Shopkeeper Detail</h6>
                           </div>
-                          {console.log("Shopkeeper Detail", filteredShopkeepers, shopKeeperData?.data)}
+                          {/* {console.log("Shopkeeper Detail", filteredShopkeepers, shopKeeperData?.data)} */}
                           <Row>
                             <Col span={24} xs={24} sm={24} md={24} lg={24}>
                               <Select
@@ -746,7 +571,7 @@ const PreOderDetailModal = (props) => {
                           {/* <Button style={{ backgroundColor: "maroon" }}>Back</Button> */}
                           <Commonbackbutton
                             backButtonText={"Cancel"}
-                            backbuttonwidth={102}
+                            backbuttonwidth={86}
                           />
                         </Link>
                       </div>

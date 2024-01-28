@@ -14,10 +14,17 @@ import "./shopkeeperdetailmodal.css"
 import AddNewComponent from '../AddressComponent/AddNewComponent';
 import AddressComponentNew from './AddressComponentNew.js';
 
-
 const newObjPersonal = () => {
-    return { Firm_Name: '', Shopkeeper_First_Name: '', Shopkeeper_Last_Name: "", Contact: '', Whatsup_Contact: '' }
-}
+    
+    return {
+        Firm_Name: '',
+        Shopkeeper_First_Name: '',
+        Shopkeeper_Last_Name: '',
+        Contact: '',
+        Whatsup_Contact: '',
+    };
+};
+
 const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, editInfo, funForListCall }) => {
 
     const addressInfoComRef = useRef('');
@@ -46,8 +53,11 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
     useEffect(() => {
         if (actionType == 'EDIT') {
             console.log('editInfoeditInfo', actionType == 'EDIT', editInfo)
+            const UserRole = JSON.parse(sessionStorage?.getItem("personalInfo")) || "";
             setPersonalInfo(prev => ({
-                ...prev, ...editInfo
+                ...prev, ...editInfo,
+                Updated_By: actionType === 'EDIT' ? UserRole?.Email_Id : '',
+
             }))
             setUserIDState(editInfo?.Shopkeeper_ID)
             addressInfoComRef.current.updateAddressFun(editInfo)
@@ -67,17 +77,9 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
 
     const handleClose = () => {
         setShowAddEditModal(false)
+        window.location.reload();
     }
 
-    // const handleChangeInput = (e) => {
-    //     let { id, value } = e.target;
-    //     console.log('Before Update - personalInfo:', personalInfo);
-    //     setPersonalInfo(prev => ({
-    //         ...prev,
-    //         [id]: value
-    //     }));
-    //     console.log('After Update - personalInfo:', personalInfo);
-    // };
 
     const handleChangeInput = (e) => {
         let { id, value } = e.target;
@@ -168,7 +170,7 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
             return;
         }
         console.log('personalInfojobj', personalInfo)
-        const { Address1, City, Country, Village_Street, State,Pincode } = newContactInfo;
+        const { Address1, City, Country, Village_Street, State, Pincode } = newContactInfo;
 
 
         const obj1 = {
@@ -190,9 +192,11 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
             Pincode: Pincode,
 
         }
-        console.log('objodadadbjobj', personalInfo, actionType, obj1)
-                try {
+
+
+        try {
             if (actionType == 'EDIT') {
+                console.log('objodadadbjobj', personalInfo, actionType, obj1)
 
                 setStatusState(true)
                 dispatch(updateShopkeeperData(obj1));
@@ -204,7 +208,6 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
                 callFunction()
             }
 
-
         } catch (err) {
             console.log('err', err)
             handleShopToast(true, 'Error', 'Something went wrong.');
@@ -212,8 +215,10 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
 
     }
 
+
     const callFunction = () => {
         console.log("shopkeeperDetailStatus", updateShopKeeperDetailStatus)
+
         if (shopkeeperDetailStatus == "pending" || updateShopKeeperDetailStatus == "pending") {
             setShowLoder(true)
         }
@@ -222,7 +227,6 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
             handleShopToast(true, 'Success', 'Shopkeeper update sucessfully.')
             funForListCall()
             handleClose()
-
         }
         else if (actionType == 'ADD' && shopkeeperDetailStatus == "Success") {
             handleShopToast(true, 'Success', 'Shopkeeper add sucessfully.')
@@ -230,7 +234,6 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
             handleClose()
         }
         else if (shopkeeperDetailStatus == "rejected" || updateShopKeeperDetailStatus == "rejected") {
-
             handleShopToast(true, 'Error', 'Something wronge');
             setShowLoder(true)
 
