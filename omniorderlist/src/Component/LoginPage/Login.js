@@ -11,7 +11,7 @@ const Login = () => {
 
 const auth = useSelector((state)=>state.auth)
 
-console.log("auth",auth)
+// console.log("auth",auth)
 
     const [memberEmailState, setMemberEmailState] = useState("")
     const [memberPasswordState, setMemberPasswordState] = useState("")

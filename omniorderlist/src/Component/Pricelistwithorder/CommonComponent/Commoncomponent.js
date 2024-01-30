@@ -32,7 +32,7 @@ const Commoncomponent = (props) => {
   const UserRole = JSON.parse(sessionStorage?.getItem("personalInfo")) || ""
   const shopKeepeerData = JSON.parse(sessionStorage?.getItem("shopKeeperData")) || ""
 
-  console.log("dsffsf", shopKeepeerData?.Firm_Name, shopKeepeerData?.City, UserRole?.User_Name)
+  // console.log("dsffsf", shopKeepeerData?.Firm_Name, shopKeepeerData?.City, UserRole?.User_Name)
 
   const linkDataProps = useLocation();
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ const Commoncomponent = (props) => {
   const [showPopModalState, setShowPopModalState] = useState(false);
   const [showModal, setShowModal] = useState(false)
 
-  console.log("priceListDatafff", checked, priceListData?.priceListData?.data)
+  // console.log("priceListDatafff", checked, priceListData?.priceListData?.data)
 
   useEffect(() => {
     functionS()
@@ -72,7 +72,7 @@ const Commoncomponent = (props) => {
 
   // const outputString = userCodeState.replace(/[a-zA-Z]/g, '');
 
-  console.log("userIDState", userCodeState)
+  // console.log("userIDState", userCodeState)
 
   // Create a new Date object to represent the current date
   const currentDate = new Date();
@@ -88,7 +88,7 @@ const Commoncomponent = (props) => {
   const seconds = currentDate.getSeconds(); // Get the seconds component
   const orderno = seconds + userCodeState
 
-  console.log("seconds", currentDate); // Output: The current seconds value (e.g., 0, 1, 2, ... 59)
+  // console.log("seconds", currentDate); // Output: The current seconds value (e.g., 0, 1, 2, ... 59)
 
 
   const functionS = () => {
@@ -97,7 +97,7 @@ const Commoncomponent = (props) => {
 
     }
     catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   }
 
@@ -138,16 +138,16 @@ const Commoncomponent = (props) => {
   }, [screwName]);
 
 
-  console.log("linkDataPropsllll", linkDataProps.state)
+  // console.log("linkDataPropsllll", linkDataProps.state)
 
 
-  console.log("linksdfdsf", menuState)
+  // console.log("linksdfdsf", menuState)
 
   const searchData = (e) => {
     setInput(e.target.value)
 
   }
-  console.log("lkjljkljl", getInput)
+  // console.log("lkjljkljl", getInput)
 
   useEffect(() => {
     if (priceListData && priceListData.priceListData && priceListData.priceListData.data) {
@@ -200,19 +200,8 @@ const Commoncomponent = (props) => {
   };
 
 
-  console.log("ppuretyuiouy", JSON.stringify(orderList, null, 2));
-  console.log("sdfsdfs", orderList)
-
-
-  // Step 9: Handle removing an item from the order list
-  // const removeFromOrderListFunction = (screwName, index) => {
-  //   if (orderList[screwName]) {
-  //     setOrderList((prevOrderList) => ({
-  //       ...prevOrderList,
-  //       [screwName]: prevOrderList[screwName].filter((item, i) => i !== index),
-  //     }));
-  //   }
-  // };
+  // console.log("ppuretyuiouy", JSON.stringify(orderList, null, 2));
+  // console.log("sdfsdfs", orderList)
 
   const removeFromOrderListFunction = (screwName, index) => {
     setOrderList((prevOrderList) => {
@@ -231,7 +220,7 @@ const Commoncomponent = (props) => {
   };
 
 
-  console.log("orderList", orderList)
+  // console.log("orderList", orderList)
 
   const showOrderModal = () => {
     setShowModal(true)
@@ -412,7 +401,7 @@ const Commoncomponent = (props) => {
   });
 
 
-  console.log("dsserertgvxsww", totalCount)
+  // console.log("dsserertgvxsww", totalCount)
 
   const [selectedRadio, setSelectedRadio] = useState(""); // State to store the selected radio value
 
@@ -422,7 +411,7 @@ const Commoncomponent = (props) => {
     setSelectedRadio(value === selectedRadio ? null : value); // Toggle the selected radio value
   };
 
-  console.log("selectedRadio", selectedRadio)
+  // console.log("selectedRadio", selectedRadio)
   // const [updateInfoState, setUpdateInfoState] = useState("")
   const [searchInput, setSearchInput] = useState('');
   const [currentScrewName, setCurrentScrewName] = useState('');
@@ -459,7 +448,7 @@ const Commoncomponent = (props) => {
   //   return value; // Return the updated value
   // };
 
-  console.log("ppuretyuiouy", JSON.stringify(orderList, null, 2));
+  // console.log("ppuretyuiouy", JSON.stringify(orderList, null, 2));
 
   const [textareaValue, setTextareaValue] = useState('');
   const [formattedText, setFormattedText] = useState('');
@@ -476,7 +465,7 @@ const Commoncomponent = (props) => {
 
   }
 
-  console.log("formattedText", formattedText)
+  // console.log("formattedText", formattedText)
 
   return (
     <div>
@@ -516,7 +505,7 @@ const Commoncomponent = (props) => {
                 <div className='pdf-class'>
                   {Object.keys(orderList).map((screwName, index) => (
                     <div key={index}>
-                      {console.log("ordekkrListff", orderList[screwName]?.length)}
+                      {/* {console.log("ordekkrListff", orderList[screwName]?.length)} */}
                       {orderList[screwName]?.length > 0 ? <div className='d-flex justify-content-between mb-2'>
                         <div>
                           <h4 style={{ fontWeight: "700", color: "maroon" }}>{screwName} </h4>
@@ -622,7 +611,7 @@ const Commoncomponent = (props) => {
           </Modal.Body>
         </Modal>
       }
-      {console.log("linkDataProps.state", linkDataProps.state)}
+      {/* {console.log("linkDataProps.state", linkDataProps.state)} */}
 
       {/* <img src={linkDataProps.state == 1 ? "/main-banner11.jpg" : linkDataProps.state == 2 ? "/main-banner11.jpg" : linkDataProps.state == 3 ? "" : ""} className='img-fluid' /> */}
 
@@ -630,14 +619,27 @@ const Commoncomponent = (props) => {
 
         {
           linkDataProps.state == 1 || linkDataProps.state == 7 || linkDataProps.state == 14 ? <div>
-            <video src={linkDataProps.state == 1 ? "/videodata/CskPhillips.mp4" : linkDataProps.state == 7 ? "/videodata/DrywellScrews410.mp4"  : linkDataProps.state == 14 ? "/videodata/FullCut410.mp4" : ""} muted autoPlay={"autoplay"}
+            <video src={linkDataProps.state == 1 ? "/videodata/CskPhillips.mp4" : linkDataProps.state == 7 ? "/videodata/DrywellScrews410.mp4" : linkDataProps.state == 14 ? "/videodata/FullCut410.mp4" : ""} muted autoPlay={"autoplay"}
               poster="./Jacobandbella.jpg" preLoad="auto" loop className='w-100 video-class'>
               video tag is not supported by your browser</video>
           </div> :
-            <div style={{ backgroundColor: "white", height: "auto" }}>
-              <img src="/main-banner11.jpg" className='img-fluid' />
+            linkDataProps.state == 2 || linkDataProps.state == 3 || linkDataProps.state == 4 || linkDataProps.state == 5 || linkDataProps.state == 6 ||
+            linkDataProps.state == 10 || linkDataProps.state == 11 ?
 
-            </div>
+              <div style={{ backgroundColor: "white", height: "auto" }}>
+                <img src={linkDataProps.state == 2 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/S.S.-C.S.K.-Pan-Phillips-Self-Taping-Screws.jpg" 
+                : linkDataProps.state == 3 || linkDataProps.state == 4 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/S.S.-C.S.K.-Pan-Sloted-Self-Taping-Screws-2.jpg" 
+                : linkDataProps.state == 5 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/S.S.-C.S.K.-Phillips-Self-Tapping-Wood-Screws-2.jpg" 
+                : linkDataProps.state == 6 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/Ss...jpg" 
+                : linkDataProps.state == 10 || linkDataProps.state == 11 ? "https://www.omniscrews.com/wp-content/uploads/2017/09/bannerPicOmni.jpg" : "" } className='img-fluid' />
+
+              </div>
+              : 
+              <div style={{ backgroundColor: "white", height: "auto" }}>
+              
+                <img src="/main-banner11.jpg" className='img-fluid' />
+
+              </div>
         }
 
 
@@ -702,7 +704,7 @@ const Commoncomponent = (props) => {
           </Col>
         </Row>
         <div className="m-0 p-0 table-main-div heughtset">
-          {console.log("datatatat", priceListData?.priceListData?.data)}
+          {/* {console.log("datatatat", priceListData?.priceListData?.data)} */}
           <Table bordered className='m-0 p-0' id="HtmlToPdf" responsive>
 
             <thead className='bg-light' style={{ position: "sticky", top: "-2px", background: "white", zIndex: "5", height: "40px", }}>

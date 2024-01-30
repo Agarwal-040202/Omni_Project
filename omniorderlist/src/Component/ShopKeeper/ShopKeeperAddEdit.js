@@ -36,19 +36,19 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
 
 
 
-    console.log('userIDStateuserIDState', userIDState)
+    // console.log('userIDStateuserIDState', userIDState)
 
     const [personalInfo, setPersonalInfo] = useState({ ...newObjPersonal() })
     const { shopkeeperDetailStatus, shopkeeperDetailError } = useSelector((State) => State.addNewShopkeeper)
 
     const { updateShopKeeperDetailStatus, updateShopKeeperDetailError, updateShopKeeperRecored } = useSelector((State) => State.updateshopkeeperData)
 
-    console.log('updateShopKeailStatus', updateShopKeeperDetailStatus, updateShopKeeperDetailError, updateShopKeeperRecored)
+    // console.log('updateShopKeailStatus', updateShopKeeperDetailStatus, updateShopKeeperDetailError, updateShopKeeperRecored)
 
     const [newContactInfo, setNewContactInfo] = useState({})
     const [getStatusState, setStatusState] = useState(false)
-    console.log("personalInfopersonalInfo", personalInfo)
-    console.log('actiontype', actionType, editInfo)
+    // console.log("personalInfopersonalInfo", personalInfo)
+    // console.log('actiontype', actionType, editInfo)
 
     useEffect(() => {
         if (actionType == 'EDIT') {
@@ -160,7 +160,7 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
 
 
 
-    console.log("formattedDate", formattedDate); // Output: "2023-09-19"
+    // console.log("formattedDate", formattedDate); // Output: "2023-09-19"
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -169,7 +169,7 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
         if (addressInfoComRef.current.checkvalidation()) {
             return;
         }
-        console.log('personalInfojobj', personalInfo)
+        // console.log('personalInfojobj', personalInfo)
         const { Address1, City, Country, Village_Street, State, Pincode } = newContactInfo;
 
 
@@ -196,7 +196,7 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
 
         try {
             if (actionType == 'EDIT') {
-                console.log('objodadadbjobj', personalInfo, actionType, obj1)
+                // console.log('objodadadbjobj', personalInfo, actionType, obj1)
 
                 setStatusState(true)
                 dispatch(updateShopkeeperData(obj1));
@@ -209,7 +209,7 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
             }
 
         } catch (err) {
-            console.log('err', err)
+            // console.log('err', err)
             handleShopToast(true, 'Error', 'Something went wrong.');
         }
 
@@ -217,7 +217,7 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
 
 
     const callFunction = () => {
-        console.log("shopkeeperDetailStatus", updateShopKeeperDetailStatus)
+        // console.log("shopkeeperDetailStatus", updateShopKeeperDetailStatus)
 
         if (shopkeeperDetailStatus == "pending" || updateShopKeeperDetailStatus == "pending") {
             setShowLoder(true)
