@@ -30,7 +30,7 @@ const Otpadmin = (props) => {
     const getOtp = [...otp];
 
     const handleOnChange = (e, index) => {
-        console.log("kkkkkkkkkk", e.target.value)
+        // console.log("kkkkkkkkkk", e.target.value)
 
         getOtp[index] = e.target.value
         setOtp(getOtp)
@@ -46,11 +46,11 @@ const Otpadmin = (props) => {
 
     }
 
-    console.log("getOtp", otp, currentOtpValue)
+    // console.log("getOtp", otp, currentOtpValue)
 
 
     const handleKeyDown = (e, index) => {
-        console.log("asdadadad", e.key, index)
+        // console.log("asdadadad", e.key, index)
 
         currentOtpIndex = index
 
@@ -60,7 +60,7 @@ const Otpadmin = (props) => {
 
         }
         if (e.key === 'Backspace' && !e.target.value) {
-            console.log("asdsssadadad", currentOtpIndex)
+            // console.log("asdsssadadad", currentOtpIndex)
             e.preventDefault();
             setActiveOtpIndex(currentOtpIndex - 1)
         }
@@ -83,7 +83,7 @@ const Otpadmin = (props) => {
                     "User_Role": "Admin"
                 }
 
-                console.log('inputObject2', JsonObj)
+                // console.log('inputObject2', JsonObj)
 
                 const respos = await axios.post("http://localhost:8000/api/auth/find/logincode", JsonObj, {
                     headers: {
@@ -91,7 +91,7 @@ const Otpadmin = (props) => {
                     }
                 });
 
-                console.log("response", respos.data[0]?.User_Code)
+                // console.log("response", respos.data[0]?.User_Code)
 
                 const dataObjAdmin = { userCode: respos.data[0]?.User_Code, UserRole: respos.data[0]?.User_Role }
 
@@ -112,7 +112,7 @@ const Otpadmin = (props) => {
                 }
             }
             catch (error) {
-                console.log("responsekkklk", error)
+                // console.log("responsekkklk", error)
 
                 handleShopToast(true, 'Error', 'Please enter the valid code.')
 

@@ -33,7 +33,7 @@ const PreOderDetailModal = (props) => {
   const [showButton, setShowButton] = useState(true);
   const [showCommonComponent, setShowCommonComponent] = useState(false)
 
-  console.log("koikoioioi", latitude, longitude)
+  // console.log("koikoioioi", latitude, longitude)
 
 
 
@@ -45,11 +45,11 @@ const PreOderDetailModal = (props) => {
     try {
       dispatch(getShopkeeperData());
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
-  console.log("shopKeeperData", selectedShopkeeper);
+  // console.log("shopKeeperData", selectedShopkeeper);
   const serializedData = JSON.stringify(selectedShopkeeper);
   sessionStorage.setItem('shopKeeperData', serializedData);
 
@@ -72,7 +72,7 @@ const PreOderDetailModal = (props) => {
   //   }
   // }, [address?.state, shopKeeperData]);
 
-  console.log("jlkjkjl", filteredShopkeepers);
+  // console.log("jlkjkjl", filteredShopkeepers);
 
   // Function to handle change in the Select component
   const onChange = (value) => {
@@ -99,7 +99,7 @@ const PreOderDetailModal = (props) => {
     }
   }, [selectedShopkeeper]);
 
-  console.log("selectedValue", selectedShopkeeper);
+  // console.log("selectedValue", selectedShopkeeper);
 
   // search shopekeeper code end
 
@@ -116,12 +116,12 @@ const PreOderDetailModal = (props) => {
           fetchAddress(latitude, longitude);
         },
         (error) => {
-          console.error("Error getting location:", error);
+          // console.error("Error getting location:", error);
           setLoading(false);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      // console.error("Geolocation is not supported by this browser.");
       setLoading(false);
     }
   }, []);
@@ -143,7 +143,7 @@ const PreOderDetailModal = (props) => {
       const filteredData = shopKeeperData?.data?.filter(
         (item) => (item.State === indiaState && item.City === event)
       );
-      console.log("filteredData", filteredData);
+      // console.log("filteredData", filteredData);
       setFilteredShopkeepers(filteredData);
     } else {
       // If no state is selected, show all shopkeepers
@@ -178,7 +178,7 @@ const PreOderDetailModal = (props) => {
           };
 
           // Log the JSON address data
-          console.log("Address Data (JSON):", jsonAddress);
+          // console.log("Address Data (JSON):", jsonAddress);
 
           // Set the address in state or do further processing as needed
           setAddress(jsonAddress);
@@ -188,7 +188,7 @@ const PreOderDetailModal = (props) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching address:", error);
+        // console.error("Error fetching address:", error);
         setAddress("Error fetching address");
         setLoading(false);
       });
@@ -202,7 +202,7 @@ const PreOderDetailModal = (props) => {
     return component ? component.long_name : "";
   };
 
-  console.log("lkkhkjhkwwwjiit", address?.state);
+  // console.log("lkkhkjhkwwwjiit", address?.state);
 
   const handleChange = () => { };
   const handleSubmit = (e) => {
@@ -216,7 +216,7 @@ const PreOderDetailModal = (props) => {
     setShowModal(true);
   };
 
-  console.log("jkjkdfdfdkkj", props.showPreOrderDetailModal);
+  // console.log("jkjkdfdfdkkj", props.showPreOrderDetailModal);
 
   const callCommonComponentFunction = () => {
     setShowCommonComponent(true)
@@ -226,7 +226,7 @@ const PreOderDetailModal = (props) => {
     setIndiaState(address?.state)
   }, [address?.state])
 
-  console.log("Current India State:", indiaState, selectedCity);
+  // console.log("Current India State:", indiaState, selectedCity);
 
   return (
     <div>

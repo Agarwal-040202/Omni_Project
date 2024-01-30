@@ -40,18 +40,18 @@ const FieldMember = () => {
 
     const { fileldMemberDetailStatus, fileldMemberDetailError } = useSelector((State) => State.fieldMemberDetail)
 
-    console.log('personalkkkllkInfo', fileldMemberDetailError, fileldMemberDetailStatus)
+    // console.log('personalkkkllkInfo', fileldMemberDetailError, fileldMemberDetailStatus)
 
 
     const { updateFileldMemberDetailStatus, updateFileldMemberDetailError } = useSelector((State) => State.updatefieldMember)
 
-    console.log('updateFieldMember', updateFileldMemberDetailStatus, updateFileldMemberDetailError)
+    // console.log('updateFieldMember', updateFileldMemberDetailStatus, updateFileldMemberDetailError)
 
 
     // const formattedDate = new Date(startDate).toLocaleDateString("en-US");
     // console.log("Date", formattedDate)
 
-    console.log("hhhhgututututututu", location?.state?.[0].Gender, location.key, personalInfo?.Gender)
+    // console.log("hhhhgututututututu", location?.state?.[0].Gender, location.key, personalInfo?.Gender)
 
     const userFirstname = UserRole?.User_Name?.trim()?.split(" ")[0];
     const wordsArray = UserRole?.User_Name?.split(" ");
@@ -84,15 +84,15 @@ const FieldMember = () => {
         }
     }, [location])
 
-    console.log("yiyiyiiyiyi", personalInfo)
+    // console.log("yiyiyiiyiyi", personalInfo)
 
 
     const currentDate = new Date();
     const afterConvertDate = currentDate.toLocaleDateString()
-    console.log("date", afterConvertDate)
+    // console.log("date", afterConvertDate)
     const parts = afterConvertDate.split('/');
     const formattedDate = `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
-    console.log("datekkk", formattedDate)
+    // console.log("datekkk", formattedDate)
 
     const systemCurrentData = () => {
         const currentDate1 = new Date();
@@ -127,7 +127,7 @@ const FieldMember = () => {
 
     }, [location])
 
-    console.log("demoState1", address?.addressLine1)
+    // console.log("demoState1", address?.addressLine1)
 
 
     const handleChangeInput = (e) => {
@@ -144,13 +144,13 @@ const FieldMember = () => {
             ...prev, [id]: value
         }))
     }
-    console.log('ppppppppppppalInfo', location.key)
+    // console.log('ppppppppppppalInfo', location.key)
 
     const validate = () => {
         let errMsg;
         let { Gender, Nationality, MaritalStatus, Qualification } = personalInfo;
         // let { Address,  } = contactInfo;
-        console.log("jkjlkjlk", address)
+        // console.log("jkjlkjlk", address)
         switch (true) {
             case Gender === '':
                 errMsg = 'Please select Gender';
@@ -190,7 +190,7 @@ const FieldMember = () => {
         return false;
     };
 
-    console.log("dddddd", demoState,)
+    // console.log("dddddd", demoState,)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -214,7 +214,7 @@ const FieldMember = () => {
 
 
         if (location?.state?.[0].length != 0 && location?.state?.[0] != undefined) {
-            console.log("objjkjkjkj", userID, demoState, obj)
+            // console.log("objjkjkjkj", userID, demoState, obj)
             try {
                 dispatch(updateFiledMemberData(obj));
                 setStatusState(true);
@@ -493,7 +493,7 @@ const FieldMember = () => {
                                         <div>
                                             <h6 className='info-tag-h6'>Conatct Address</h6>
                                         </div>
-                                        {console.log("uiuiiuiuiuu", addressTextBoxState)}
+                                        {/* {console.log("uiuiiuiuiuu", addressTextBoxState)} */}
                                         <AddressComponent
                                             setAd={setAd}
                                             address={address}
@@ -505,7 +505,7 @@ const FieldMember = () => {
                                         />
 
 
-                                        {console.log("hhhhhhhhh", demoState, personalInfo?.Country)}
+                                        {/* {console.log("hhhhhhhhh", demoState, personalInfo?.Country)} */}
                                         <Row span={24}>
                                             <Col span={12}
                                                 xs={24}
@@ -534,7 +534,7 @@ const FieldMember = () => {
                                                 className='d-flex justify-content-end'
 
                                             >
-                                                {console.log("uuuuuuuu", demoState, address?.state, personalInfo?.State)}
+                                                {/* {console.log("uuuuuuuu", demoState, address?.state, personalInfo?.State)} */}
                                                 <Input
                                                     type="text"
                                                     placeholder="State"
@@ -603,7 +603,7 @@ const FieldMember = () => {
 
                         </Row>
 
-                        {console.log("jkjkjkjsdsd", personalInfo)}
+                        {/* {console.log("jkjkjkjsdsd", personalInfo)} */}
                         <Row className="mt-2">
                             <Col span={24} className="d-flex justify-content-between">
                                 <div>

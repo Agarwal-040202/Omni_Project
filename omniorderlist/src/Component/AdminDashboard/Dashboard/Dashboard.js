@@ -8,7 +8,7 @@ const Dashboard = () => {
   const dispatch = useDispatch()
   const {  catalogueDetailStatus,  catalogueDetailError,catalogueRecord } = useSelector((State) => State.catelougeData)
 
-  console.log("lkhlkhlhh",catalogueDetailStatus,catalogueRecord)
+  // console.log("lkhlkhlhh",catalogueDetailStatus,catalogueRecord)
 
     const[excelData, setExcelData]=useState(null)
     const[excelFile, setExcelFile]=useState(null)
@@ -25,16 +25,16 @@ const Dashboard = () => {
             reader.onload=(e)=>{
                 setExcelFile(e.target.result)
             }
-            console.log("selectedFile" , selectedFile.type)
+            // console.log("selectedFile" , selectedFile.type)
 
         }
         else{
-            console.log("selectedFile" , selectedFile)
+            // console.log("selectedFile" , selectedFile)
         }
 
     }
 
-    console.log("excelfile",excelFile)
+    // console.log("excelfile",excelFile)
 
     const handleSubmit = (e)=>{
       e.preventDefault();
@@ -54,7 +54,7 @@ const Dashboard = () => {
       }
     }
 
-    console.log("exceldata",excelData)
+    // console.log("exceldata",excelData)
     
   return (
     <div style={{ height: "87.6vh" }}>

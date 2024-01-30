@@ -20,7 +20,7 @@ const newObjPersonal = () => {
 const ShopkeeperDetailModal = (props) => {
     const addressInfoComRef = useRef('');
     let { handleShopToast, setShowLoder } = useContext(MyContext)
-    console.log('shopkeeperSingleDatashopkeeperSingleDatashopkeeperSingleData', props.shopkeeperSingleData)
+    // console.log('shopkeepeData', props.shopkeeperSingleData)
 
     const dispatch = useDispatch()
 
@@ -36,19 +36,19 @@ const ShopkeeperDetailModal = (props) => {
 
     const { shopkeeperDetailStatus, shopkeeperDetailError } = useSelector((State) => State.addNewShopkeeper)
 
-    console.log('persongfdsdsalInfo', shopkeeperDetailError, shopkeeperDetailStatus)
+    // console.log('persongfdsdsalInfo', shopkeeperDetailError, shopkeeperDetailStatus)
 
     const {  updateShopKeeperDetailStatus, updateShopKeeperDetailError,updateShopKeeperRecored } = useSelector((State) => State.updateshopkeeperData)
 
-    console.log('updateShopKeailStatus', updateShopKeeperDetailStatus, updateShopKeeperDetailError,updateShopKeeperRecored)
+    // console.log('updateShopKeailStatus', updateShopKeeperDetailStatus, updateShopKeeperDetailError,updateShopKeeperRecored)
 
 
     const currentDate = new Date();
     const afterConvertDate = currentDate.toLocaleDateString()
-    console.log("date", afterConvertDate)
+    // console.log("date", afterConvertDate)
     const parts = afterConvertDate.split('/');
     const formattedDate = `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
-    console.log("datekkk", formattedDate)
+    // console.log("datekkk", formattedDate)
 
 
     const getFormattedDate = () => {
@@ -60,12 +60,12 @@ const ShopkeeperDetailModal = (props) => {
         return `${year}-${month}-${day}`;
     };
 
-    console.log("ljljlljllj", getFormattedDate())
+    // console.log("ljljlljllj", getFormattedDate())
 
     const userID = sessionStorage?.getItem("loggedUserId") || ""
     const UserRole = JSON.parse(sessionStorage?.getItem("personalInfo")) || ""
 
-    console.log("lkjlkjjklljjkjk", addressTextBoxState, address, props.shopkeeperSingleData)
+    // console.log("lkjlkjjklljjkjk", addressTextBoxState, address, props.shopkeeperSingleData)
 
 
     useEffect(() => {
@@ -73,7 +73,8 @@ const ShopkeeperDetailModal = (props) => {
         // randemID.slice(0, 6)
     }, [])
 
-    console.log("props.shopkeeperSingleData", props.shopkeeperSingleData)
+    // console.log("props.shopkeeperSingleData", props.shopkeeperSingleData)
+
     useEffect(() => {
         setPersonalInfo(prev => ({
             ...prev,
@@ -118,7 +119,7 @@ const ShopkeeperDetailModal = (props) => {
         setEnterTextBox(true)
     }
 
-    console.log("sdsgsssgsdg",enterTextBox,personalInfo.Firm_Name)
+    // console.log("sdsgsssgsdg",enterTextBox,personalInfo.Firm_Name)
 
     const validate = () => {
         let errMsg;
@@ -166,7 +167,7 @@ const ShopkeeperDetailModal = (props) => {
             return;
         }
 
-    console.log("eeeeddsdsdsd", personalInfo)
+    // console.log("eeeeddsdsdsd", personalInfo)
     
         const obj = {
             Logged_User_ID: userID,
@@ -180,7 +181,7 @@ const ShopkeeperDetailModal = (props) => {
             ...personalInfo,
             ...newContactInfo
         }
-        console.log(obj, "objecfdfdtkjlk")
+        // console.log(obj, "objecfdfdtkjlk")
 
         if(props.shopkeeperSingleData != ""){
             try{
@@ -228,7 +229,7 @@ const ShopkeeperDetailModal = (props) => {
 
     }
 
-    console.log("jkjkkkj", props.showModal)
+    // console.log("jkjkkkj", props.showModal)
 
     return (
         <div>

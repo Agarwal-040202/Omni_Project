@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import "../CustomToaster/customtoaster.css"
 
 export const Customtoaster = (props) => {
-    console.log('propspropsprops', props)
+    // console.log('propspropsprops', props)
     const [show, setShow] = useState(props.showAlertMessage);
 
     let showErrorMsg = props.showErrorMsg
@@ -24,7 +24,7 @@ export const Customtoaster = (props) => {
 
 
 
-    console.log("props", show)
+    // console.log("props", show)
 
     return (
         <div>

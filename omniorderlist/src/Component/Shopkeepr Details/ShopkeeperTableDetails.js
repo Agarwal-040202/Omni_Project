@@ -30,7 +30,7 @@ const ShopkeeperTableDetails = (props) => {
 
         }
         catch (err) {
-            console.log(err)
+            // console.log(err)
         }
     }
 
@@ -51,7 +51,7 @@ const ShopkeeperTableDetails = (props) => {
 
     }
 
-    console.log("shopkeeperSingleData", shopkeeperSingleData)
+    // console.log("shopkeeperSingleData", shopkeeperSingleData)
 
     return (
         <div className='p-3 ' style={{ maxHeight: "90vh", height: "90vh", overflow: "hidden" }}>

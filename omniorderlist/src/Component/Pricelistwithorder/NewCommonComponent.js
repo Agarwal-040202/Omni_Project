@@ -33,7 +33,7 @@ const NewCommonComponent = (props) => {
 
   }, [data1[linkDataProps.state]?.src])
 
-  console.log("tabelDatatabelData", linkDataProps)
+  // console.log("tabelDatatabelData", linkDataProps)
 
   const exportPDF = () => {
     // console.log("gjhgjhgjgj", data1[linkDataProps.state]?.dataMain?.map(data => ({
@@ -62,13 +62,13 @@ const NewCommonComponent = (props) => {
   }
 
 
-  console.log("linksdfdsf", menuState)
+  // console.log("linksdfdsf", menuState)
 
   const searchData = (e) => {
     setInput(e.target.value)
 
   }
-  console.log("lkjljkljl", getInput)
+  // console.log("lkjljkljl", getInput)
 
 
   return (
@@ -89,7 +89,7 @@ const NewCommonComponent = (props) => {
                 <div className="d-flex justify-content-start align-items-center pt-2">
                   <h6 className='screwName-class'>{data1[linkDataProps.state]?.screwName}</h6>
                 </div>
-                {console.log("sdfdddddsfsfs",data1)}
+                {/* {console.log("sdfdddddsfsfs",data1)} */}
               </Col>
               <Col xs={7} sm={7} lg={7} className="d-flex justify-content-end">
                 <div className='search_input-div w-100  '>
@@ -194,7 +194,7 @@ const NewCommonComponent = (props) => {
           
           <div   className="Main-Layoyt-Div py-1 pb-2 px-3">
           <div >
-            {console.log("jjjjjkhkjjjj", data1[0]?.src, sorceVideo)}
+            {/* {console.log("jjjjjkhkjjjj", data1[0]?.src, sorceVideo)} */}
             <video src="/videodata/FullCut410.mp4" muted autoPlay={"autoplay"} 
             poster="./Jacobandbella.jpg" preLoad="auto" loop className='w-100 video-class'>
               video tag is not supported by your browser</video>
