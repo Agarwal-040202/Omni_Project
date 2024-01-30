@@ -10,7 +10,7 @@ const AddressComponentNew = ({ setNewContactInfo }, ref) => {
     const [addressInfo, setaddressInfo] = useState({ ...addressInfoObj() })
     const loginUserId = sessionStorage.getItem("loggedUserId");
     const [showClearButton,setShowshowClearButton]=useState(false)
-    console.log('addressInfoaddressInfo',showClearButton, addressInfo)
+    // console.log('addressInfoaddressInfo',showClearButton, addressInfo)
 
     useImperativeHandle(ref, () => ({
         checkvalidation, updateAddressFun
@@ -18,7 +18,7 @@ const AddressComponentNew = ({ setNewContactInfo }, ref) => {
 
     const checkvalidation = () => {
         const { Address1, Pincode, City, State, Country, Village_Street } = addressInfo
-        console.log('Address1Address1', Address1)
+        // console.log('Address1Address1', Address1)
         if (showClearButton ==false  || Address1 == undefined || Address1 == '' || Address1 == null) {
             handleShopToast(true, 'Error', "Address can't be black");
             return true
@@ -85,7 +85,7 @@ const AddressComponentNew = ({ setNewContactInfo }, ref) => {
 
 
     const funForAddressInfo = (address) => {
-        console.log("dfsfsfsfsf",address)
+        // console.log("dfsfsfsfsf",address)
         const addressInfoDet = {
             City: address?.City,
             county: address?.county,
@@ -105,7 +105,7 @@ const AddressComponentNew = ({ setNewContactInfo }, ref) => {
 
     const handleChangeInput = (e) => {
         const { value, id } = e.target
-        console.log(value, id, 'valueid')
+        // console.log(value, id, 'valueid')
         funForAddressStateUpdate(id, value)
 
     }
@@ -247,7 +247,7 @@ function extractAddress(place) {
 
         });
     }
-    console.log("sdfsd",address?.Country,address)
+    // console.log("sdfsd",address?.Country,address)
     return address;
 };
 

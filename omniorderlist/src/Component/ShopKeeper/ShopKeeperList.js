@@ -341,7 +341,7 @@ const ShopKeeperList = () => {
     try {
       dispatch(getShopkeeperData());
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -392,12 +392,12 @@ const ShopKeeperList = () => {
           fetchAddress(latitude, longitude);
         },
         (error) => {
-          console.error("Error getting location:", error);
+          // console.error("Error getting location:", error);
           setLoading(false);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      // console.error("Geolocation is not supported by this browser.");
       setLoading(false);
     }
   }, []);
@@ -424,7 +424,7 @@ const ShopKeeperList = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching address:", error);
+        // console.error("Error fetching address:", error);
         setAddress("Error fetching address");
         setLoading(false);
       });
@@ -441,7 +441,7 @@ const ShopKeeperList = () => {
     return component ? component.long_name : "";
   };
 
-  console.log("ghhghjhjhhkjhk", address?.state);
+  // console.log("ghhghjhjhhkjhk", address?.state);
 
   const searchData = (e) => {
     setInput(e.target.value);
@@ -567,7 +567,7 @@ const ShopKeeperList = () => {
             </Row>
           </Col>
         </Row>
-        {console.log("editInfo", editInfo)}
+        {/* {console.log("editInfo", editInfo)} */}
         <ShopKeeperAddEdit
           actionType={actionType}
           key={actionType}

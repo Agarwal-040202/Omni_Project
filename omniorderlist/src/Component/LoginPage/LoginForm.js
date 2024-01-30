@@ -17,7 +17,7 @@ const LoginForm = () => {
   const dispatch = useDispatch()
   // const { users, loading, error } = useSelector((state) => state.app)
   const { auth, userLoaded, registerStatus, token, loginStatus } = useSelector((state) => state.auth)
-  console.log("authkkk", loginStatus)
+  // console.log("authkkk", loginStatus)
 
   // console.log("location", loaction.state, users.length, loading, error)
 
@@ -63,14 +63,14 @@ const LoginForm = () => {
     setUserDetailState({ ...userDetailState, [e.target.name]: e.target.value, ["User_Id"]: userIDState, ["User_Code"]: userCodeState})
   }
 
-  console.log("userDetailStatejkj", userDetailState, password)
+  // console.log("userDetailStatejkj", userDetailState, password)
 
   const registerHererFunction = () =>{
     loaction.state =""
   }
 
 
-  console.log("hhjhjhjh", loaction?.state)
+  // console.log("hhjhjhjh", loaction?.state)
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
@@ -86,13 +86,13 @@ const LoginForm = () => {
       }
       else {
 
-        console.log("JsonObjJsonObj",JsonObj)
+        // console.log("JsonObjJsonObj",JsonObj)
         try {
           dispatch(showUser1(JsonObj))
           setStatusState(true)
 
         } catch (err) {
-        console.log("JsonObjJsonObjError",JsonObj)
+        // console.log("JsonObjJsonObjError",JsonObj)
 
           handleShopToast(true, 'Error', 'Invalid user name and password.')
 
@@ -143,7 +143,7 @@ const LoginForm = () => {
   }
 
   const callFunction = () => {
-    console.log("tokentoken", token)
+    // console.log("tokentoken", token)
 
     if (loginStatus == "pending") {
       setShowLoder(true)
@@ -164,7 +164,7 @@ const LoginForm = () => {
 
   // new code using redux end
 
-  console.log("passwordpassword", password)
+  // console.log("passwordpassword", password)
 
   function validatePassword(password) {
     // Password must contain at least one lowercase letter, one uppercase letter, one numeric digit, and be at least 8 characters long

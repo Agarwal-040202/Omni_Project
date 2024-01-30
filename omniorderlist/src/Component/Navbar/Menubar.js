@@ -16,7 +16,7 @@ const Menubar = () => {
 
   const [fakeState, setFakeState] = useState(false)
 
-  console.log("linkDataProps", linkDataProps?.pathname)
+  // console.log("linkDataProps", linkDataProps?.pathname)
   const UserID = sessionStorage.getItem("loggedUserId")
   const UserRole = JSON.parse(sessionStorage.getItem("personalInfo")) || ""
 
@@ -99,7 +99,7 @@ const Menubar = () => {
                 </div>
 
               </Link>
-              {console.log("hhhlhlhl", linkDataProps)}
+              {/* {console.log("hhhlhlhl", linkDataProps)} */}
               {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/cskphillip"
                 || linkDataProps?.pathname == "/panphillip" || linkDataProps?.pathname == "/cskslotted" || linkDataProps?.pathname == "/panslotted"
                 || linkDataProps?.pathname == "/cskslottedwood" || linkDataProps?.pathname == "/cskphilipwood"
