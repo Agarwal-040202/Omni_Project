@@ -23,6 +23,7 @@ import AboutUS from './Component/AboutUS';
 import OrderByShopkeeper from './Component/ShopkeeperOrder/OrderByShopkeeper';
 import Dashboard from './Component/AdminDashboard/Dashboard/Dashboard';
 import Corporatevideo from './Component/CorporateVideo/Corporatevideo';
+import Writemodemodal from './Component/WriteModeModal/Writemodemodal';
 
 // Import other components here
 
@@ -67,14 +68,25 @@ function App() {
           <Route exact path="/adminlogin" element={<LoginForm />} />
           <Route exact path="/addfieldmember" element={<FieldMember />} />
           <Route exact path="/addshopkeeper" element={<ShopKeeperList />} />
+          
           <Route exact path="/fourbox/pricelist" element={<Commoncomponent text={1}/>} />
           <Route exact path="/:id" element={<Commoncomponent text={1}/>} />
           <Route exact path="/fourbox" element={<Fourbox />} />
+          <Route exact path="/writemodemodal" element={<Writemodemodal />} />
+
           {/* <Route exact path="/admindashboard" element={<Adminpannel/>} /> */}
+
+            {/* Private routes for Admin */}
+            {UserData?.User_Role === "Admin" && (
+            <>
+              <Route path="/admindashboard" element={<Adminpannel />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+            </>
+          )}
           <Route exact path="/contactus" element={<ContactUS/>} />
           <Route exact path="/aboutus" element={<AboutUS/>} />
           <Route exact path="/orderbyshopkeeper" element={<OrderByShopkeeper/>} />
-          <Route exact path="/dashboard" element={<Dashboard/>} />
+          {/* <Route exact path="/dashboard" element={<Dashboard/>} /> */}
         </Routes>
        
         <FooterPage/>
