@@ -15,7 +15,7 @@ const FooterPage = () => {
             <div className="footer-column">
                     <div>
                         <img
-                            src="./Omni-Logo-2.png"
+                            src="/Omni-Logo-2.png"
                         // style={{ width: "80px" }}
                         />
                     </div>

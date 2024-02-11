@@ -222,6 +222,8 @@ const Commoncomponent = (props) => {
 
   // console.log("orderList", orderList)
 
+  const [showOrderModalWithTypeState, setShowOrderModalWithTypeState] = useState(false)
+
   const showOrderModal = () => {
     setShowModal(true)
   }
@@ -230,6 +232,15 @@ const Commoncomponent = (props) => {
     setShowModal(false)
 
   }
+
+  const showOrderModalWithType = () => {
+    setShowOrderModalWithTypeState(true)
+  }
+
+  const handelcloseModalWithType = () => {
+    setShowOrderModalWithTypeState(false)
+  }
+
 
   const showPOPModalFunction = () => {
     setShowPopModalState(true)
@@ -268,46 +279,6 @@ const Commoncomponent = (props) => {
     doc.text(shopKeeperData, 15, yPosition);
     yPosition += 10;
 
-    // Order list
-    // Object.keys(orderList).forEach((screwName, index) => {
-    //   doc.setFontSize(12);
-    //   doc.setFont('helvetica', 'bold');
-    //   doc.text(screwName, 15, yPosition) ;
-    //   yPosition += 6;
-
-    //   orderList[screwName].forEach((item, i) => {
-    //     const itemText = `${item.Size} - ${item.Quantity.toUpperCase()} ${item.Scheme}`;
-    //     doc.setFontSize(12);
-    //     doc.setFont('helvetica', 'normal');
-    //     doc.text(itemText, 20, yPosition);
-    //     yPosition += 6;
-    //   });
-
-    //   yPosition += 1;
-    // });
-
-    // new code 
-    // Object.keys(orderList).forEach((screwName, index) => {
-    //   const updatedInfo = updateInfo(screwName, orderList[screwName].Info); // Use the updated value
-    //   doc.setFontSize(12);
-    //   doc.setFont('helvetica', 'bold');
-    //   doc.text(`${screwName}   ${updatedInfo == (undefined) ? "" : updatedInfo.toUpperCase()}`, 15, yPosition);
-    //   yPosition += 6;
-
-    //   orderList[screwName].forEach((item, i) => {
-    //     const itemText = `${item.Size} - ${item.Quantity.toUpperCase()} ${item.Scheme}`;
-    //     doc.setFontSize(12);
-    //     doc.setFont('helvetica', 'normal');
-    //     doc.text(itemText, 20, yPosition);
-    //     yPosition += 6;
-    //   });
-
-    //   yPosition += 1;
-    // });
-
-    // new code with pdf one or more
-    // Loop through orderList to add pages
-    // Iterate through orderList and add pages
 
     Object.keys(orderList).forEach((screwName, index) => {
 
@@ -349,8 +320,6 @@ const Commoncomponent = (props) => {
       doc.text(POPByText1, 15, yPosition);
     }
 
-
-
     yPosition += 5;
     doc.setFontSize(12);
     doc.setTextColor(128, 0, 0);
@@ -361,16 +330,8 @@ const Commoncomponent = (props) => {
 
     doc.save(`${shopKeepeerData?.Firm_Name} (${shopKeepeerData?.City}).pdf`);
 
-    // doc.save(`${shopKeepeerData?.Firm_Name}.pdf`);
-
     // window.location.reload();
-    navigate("/fourbox"
-      //   , {
-      //     // userRole:"",
-      //     // userCode: respos.data[0]?.User_Code,
-      //     state: ""
-      // })
-    )
+    navigate("/fourbox")
 
   };
 
@@ -400,9 +361,6 @@ const Commoncomponent = (props) => {
 
   });
 
-
-  // console.log("dsserertgvxsww", totalCount)
-
   const [selectedRadio, setSelectedRadio] = useState(""); // State to store the selected radio value
 
   // Function to handle radio button change
@@ -411,8 +369,7 @@ const Commoncomponent = (props) => {
     setSelectedRadio(value === selectedRadio ? null : value); // Toggle the selected radio value
   };
 
-  // console.log("selectedRadio", selectedRadio)
-  // const [updateInfoState, setUpdateInfoState] = useState("")
+
   const [searchInput, setSearchInput] = useState('');
   const [currentScrewName, setCurrentScrewName] = useState('');
 
@@ -437,19 +394,6 @@ const Commoncomponent = (props) => {
     }
   }, [currentScrewName]);
 
-
-  // const updateInfo = (screwName, value) => {
-  //   setOrderList((prevOrderList) => {
-  //     const updatedOrderList = { ...prevOrderList };
-  //     updatedOrderList[screwName].Info = value;
-  //     setUpdateInfoState(value);
-  //     return updatedOrderList;
-  //   });
-  //   return value; // Return the updated value
-  // };
-
-  // console.log("ppuretyuiouy", JSON.stringify(orderList, null, 2));
-
   const [textareaValue, setTextareaValue] = useState('');
   const [formattedText, setFormattedText] = useState('');
 
@@ -460,15 +404,14 @@ const Commoncomponent = (props) => {
 
   const addPopFunction = () => {
     setFormattedText(textareaValue.toUpperCase());
-
     handlePOPClose()
 
   }
 
-  // console.log("formattedText", formattedText)
-
   return (
     <div>
+
+
       {
         showModal == true &&
         <Modal show={showModal} onHide={handleClose}
@@ -505,24 +448,13 @@ const Commoncomponent = (props) => {
                 <div className='pdf-class'>
                   {Object.keys(orderList).map((screwName, index) => (
                     <div key={index}>
-                      {/* {console.log("ordekkrListff", orderList[screwName]?.length)} */}
                       {orderList[screwName]?.length > 0 ? <div className='d-flex justify-content-between mb-2'>
                         <div>
                           <h4 style={{ fontWeight: "700", color: "maroon" }}>{screwName} </h4>
                         </div>
-                        {/* {console.log("updateInfoState", updateInfoState)} */}
-                        {/* <div>
-                          Add Info:
-                          <input
-                            type='text'
-                            placeholder='Add any Information'
-                            defaultValue={updateInfoState}
-                            onChange={(e) => updateInfo(screwName, e.target.value)}
-                          />
 
-                        </div> */}
                       </div> : ""}
-                      {/* <ul> */}
+
                       {orderList[screwName].map((item, i) => (
                         <h6 key={i} style={{ listStyle: "none" }}>
                           {item.Size}
@@ -532,19 +464,13 @@ const Commoncomponent = (props) => {
                             style={{ width: '55px', border: "1px solid gray", height: "30px", marginLeft: "16px", fontWeight: "500" }}
                             onChange={(e) => updateQuantity(screwName, i, e.target.value)}
                           />{" "}
-                          {/* Dis:{" "}
-                          <input
-                            type="text"
-                            value={item.Scheme}
-                            style={{ width: '75px', border: "1px solid gray", height: "30px", fontWeight: "500" }}
-                            onChange={(e) => updateScheme(screwName, i, e.target.value)}
-                          /> */}
+
                           <img src="/cancel1.png" onClick={() => removeFromOrderListFunction(screwName, i)} style={{ width: "24px", marginLeft: "16px", marginBottom: "5px", cursor: "pointer" }} />
                           {/* <button onClick={() => removeFromOrderListFunction(screwName, i)} style={{marginLeft:"20px",backgroundColor:"red",color:"white",
                              borderRadius:"5px",border:"none",fontSize:"16px",height: "30px",width:"70px"}}>Remove</button> */}
                         </h6>
                       ))}
-                      {/* </ul> */}
+
                     </div>
                   ))}
 
@@ -573,6 +499,9 @@ const Commoncomponent = (props) => {
 
       }
 
+
+
+      {/* POP MODAL CODE START */}
       {
         showPopModalState == true &&
         <Modal show={showPopModalState}
@@ -611,32 +540,887 @@ const Commoncomponent = (props) => {
           </Modal.Body>
         </Modal>
       }
-      {/* {console.log("linkDataProps.state", linkDataProps.state)} */}
 
-      {/* <img src={linkDataProps.state == 1 ? "/main-banner11.jpg" : linkDataProps.state == 2 ? "/main-banner11.jpg" : linkDataProps.state == 3 ? "" : ""} className='img-fluid' /> */}
+      {/* POP MODAL CODE END */}
+
+      {/* WITH TYPE MODE CODE START */}
+
+      {
+        showOrderModalWithTypeState == true &&
+        <Modal show={showOrderModalWithTypeState}
+          onHide={handelcloseModalWithType}
+          centered
+          backdrop={false}
+          size="lg"
+          style={{ zIndex: 9 }}
+        >
+          <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
+            <Modal.Title style={{ color: "white" }}>Omni Order List</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+             
+                  <h4 className='firmname-tag-h6'>Shopkeeper Details</h4>
+                
+              <div>
+                <input
+                  type='text'
+                  placeholder='Enter your Shopkeeper Name'
+                  className='w-100'
+                  style={{
+                    height: "40px",
+                    borderRadius: "8px",
+                    border: "2px solid #ccc",
+                    paddingLeft: "10px",
+                    fontSize: "16px",
+                    fontWeight: "normal",
+                    marginBottom: "10px",
+                    outline: "none",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)"
+                  }}
+                />
+
+                <input
+                  type='text'
+                  placeholder='Enter city'
+                  className='w-100'
+                  style={{
+                    height: "40px",
+                    borderRadius: "8px",
+                    border: "2px solid #ccc",
+                    paddingLeft: "10px",
+                    fontSize: "16px",
+                    fontWeight: "normal",
+                    marginBottom: "10px",
+                    outline: "none",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)"
+                  }}
+                />
+              </div>
+
+               <div className='d-flex justify-content-between '>
+               <div style={{ display:"flex", justifyContent:"center", alignItems:"center" }}>
+                 <h4 className='firmname-tag-h6'>Order Details</h4>
+               </div>
+               <div style={{ width: "36px", display:"flex", justifyContent:"center", alignItems:"center" }}>
+                 <img src="/pdfview.png" className='img-fluid' />
+               </div>
+             </div>
+
+              <div className="position-relative mt-1" style={{ height: "200px", "overflow-y": "scroll" }}>
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        CSK PHILLIPS
+                      </div>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        CSK PHILLIPS ANTIQUE
+                      </div>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse " aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        CSK PHILLIPS ROSEGOLD
+                      </div>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse " aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                        CSK PHILLIPS GOLDEN
+
+                      </div>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse " aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                        CSK PHILLIPS AUTO BLACK FINISH
+                      </div>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse " aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                        PAN PHILLIPS
+                      </div>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse " aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSeven">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+                        CSK SLOTTED
+                      </div>
+                    </h2>
+                    <div id="collapseSeven" class="accordion-collapse collapse " aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingEight">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
+                        PAN SLOTTED
+                      </div>
+                    </h2>
+                    <div id="collapseEight" class="accordion-collapse collapse " aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your pan slotted"
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingNine">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="true" aria-controls="collapseNine">
+                        CSK SLOTTED WOOD
+                      </div>
+                    </h2>
+                    <div id="collapseNine" class="accordion-collapse collapse " aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTen">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="true" aria-controls="collapseTen">
+                        CSK PHILLIPS WOOD
+                      </div>
+                    </h2>
+                    <div id="collapseTen" class="accordion-collapse collapse " aria-labelledby="headingTen" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading11">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+                        DRYWALL 410
+                      </div>
+                    </h2>
+                    <div id="collapse11" class="accordion-collapse collapse " aria-labelledby="heading11" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading12">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
+                        DRYWALL 410 ANTIQUE
+                      </div>
+                    </h2>
+                    <div id="collapse12" class="accordion-collapse collapse " aria-labelledby="heading12" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading13">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
+                        DRYWALL 410 GOLDEN
+                      </div>
+                    </h2>
+                    <div id="collapse13" class="accordion-collapse collapse " aria-labelledby="heading13" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading14">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
+                        CSK PHILLIPS SDS 410
+                      </div>
+                    </h2>
+                    <div id="collapse14" class="accordion-collapse collapse " aria-labelledby="heading14" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading15">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="true" aria-controls="collapse15">
+                        PAN PHILLIPS SDS 410
+                      </div>
+                    </h2>
+                    <div id="collapse15" class="accordion-collapse collapse " aria-labelledby="heading15" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading16">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="true" aria-controls="collapse16">
+                        HEX SDS EPDM 410
+                      </div>
+                    </h2>
+                    <div id="collapse16" class="accordion-collapse collapse " aria-labelledby="heading16" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading17">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="true" aria-controls="collapse17">
+                        HEX SDS METAL BONDED EPDM
+                      </div>
+                    </h2>
+                    <div id="collapse17" class="accordion-collapse collapse " aria-labelledby="heading17" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading18">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="true" aria-controls="collapse18">
+                        FULLCUT 410
+                      </div>
+                    </h2>
+                    <div id="collapse18" class="accordion-collapse collapse " aria-labelledby="heading18" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading19">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="true" aria-controls="collapse19">
+                        FULLCUT 410 ANTIQUE
+                      </div>
+                    </h2>
+                    <div id="collapse19" class="accordion-collapse collapse " aria-labelledby="heading19" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading20">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="true" aria-controls="collapse20">
+                        FULLCUT 410 GOLDEN
+                      </div>
+                    </h2>
+                    <div id="collapse20" class="accordion-collapse collapse " aria-labelledby="heading20" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading21">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="true" aria-controls="collapse21">
+                        COMBINATION WITH WASHER S S
+                      </div>
+                    </h2>
+                    <div id="collapse21" class="accordion-collapse collapse " aria-labelledby="heading21" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading22">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="true" aria-controls="collapse22">
+                        CSK SLOTTED BSW THREAD
+                      </div>
+                    </h2>
+                    <div id="collapse22" class="accordion-collapse collapse " aria-labelledby="heading22" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading23">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23" aria-expanded="true" aria-controls="collapse23">
+                        CSK SLOTTED MM THREAD
+                      </div>
+                    </h2>
+                    <div id="collapse23" class="accordion-collapse collapse " aria-labelledby="heading23" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading24">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24" aria-expanded="true" aria-controls="collapse24">
+                        CSK PHILLIPS MM THREAD
+                      </div>
+                    </h2>
+                    <div id="collapse24" class="accordion-collapse collapse " aria-labelledby="heading24" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading25">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25" aria-expanded="true" aria-controls="collapse25">
+                        BLACK GYPSUM
+                      </div>
+                    </h2>
+                    <div id="collapse25" class="accordion-collapse collapse " aria-labelledby="heading25" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading26">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26" aria-expanded="true" aria-controls="collapse26">
+                        WHITE CHROME FINISH
+                      </div>
+                    </h2>
+                    <div id="collapse26" class="accordion-collapse collapse " aria-labelledby="heading26" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading27">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27" aria-expanded="true" aria-controls="collapse27">
+                        ZINK CHIPBOARD
+                      </div>
+                    </h2>
+                    <div id="collapse27" class="accordion-collapse collapse " aria-labelledby="heading27" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading28">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28" aria-expanded="true" aria-controls="collapse28">
+                        COMBINATION WITH WASHER M S
+                      </div>
+                    </h2>
+                    <div id="collapse28" class="accordion-collapse collapse " aria-labelledby="heading28" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading29">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29" aria-expanded="true" aria-controls="collapse29">
+                        CARRIAGE BOLTS 12 MM
+                      </div>
+                    </h2>
+                    <div id="collapse29" class="accordion-collapse collapse " aria-labelledby="heading29" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading30">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30" aria-expanded="true" aria-controls="collapse30">
+                        CARRIAGE BOLTS 14 MM
+                      </div>
+                    </h2>
+                    <div id="collapse30" class="accordion-collapse collapse " aria-labelledby="heading30" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading31">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31" aria-expanded="true" aria-controls="collapse31">
+                        KITCHEN BASKET SCREW
+                      </div>
+                    </h2>
+                    <div id="collapse31" class="accordion-collapse collapse " aria-labelledby="heading31" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading32">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32" aria-expanded="true" aria-controls="collapse32">
+                        NAILS HEADLESS
+                      </div>
+                    </h2>
+                    <div id="collapse32" class="accordion-collapse collapse " aria-labelledby="heading32" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="accordion" id="accordionExample" style={{ marginBottom: "6px", width: "98%" }}>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading33">
+                      <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33" aria-expanded="true" aria-controls="collapse33">
+                        NAILS ROUND HEAD
+                      </div>
+                    </h2>
+                    <div id="collapse33" class="accordion-collapse collapse " aria-labelledby="heading33" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <textarea
+                          rows="5"
+                          className='w-100 p-1'
+                          style={{ border: "none" }}
+                          placeholder="Enter your order here..."
+                        // value={textareaValue}
+                        // onChange={handleTextareaChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+              </div>
+            </div>
+            <div className='d-flex justify-content-between mt-2'>
+              <button
+                // onClick={showPOPModalFunction}
+                disabled={totalCount > 0 ? false : true}
+                style={{
+                  backgroundColor: "blue", color: "white",
+                  borderRadius: "5px", border: "none", fontSize: "16px", height: "36px", width: "80px", float: "right"
+                }}
+              >Remark</button>
+              <button
+                // onClick={() => generatePDF(orderList, orderno)}
+                disabled={totalCount > 0 ? false : true}
+                style={{
+                  backgroundColor: "green", color: "white",
+                  borderRadius: "5px", border: "none", fontSize: "16px", height: "36px", width: "120px", float: "right"
+                }}
+              >Genrate Order</button>
+            </div>
+          </Modal.Body>
+        </Modal>
+      }
+      {/* WITH TYPE MODE CODE END */}
+
+
+
+      {console.log("linkDataProps.state", linkDataProps.state)}
 
       <div className="Main-Layoyt-Div py-1 pb-2 px-3">
 
         {
-          linkDataProps.state == 1 || linkDataProps.state == 7 || linkDataProps.state == 14 ? <div>
-            <video src={linkDataProps.state == 1 ? "/videodata/CskPhillips.mp4" : linkDataProps.state == 7 ? "/videodata/DrywellScrews410.mp4" : linkDataProps.state == 14 ? "/videodata/FullCut410.mp4" : ""} muted autoPlay={"autoplay"}
+          linkDataProps?.state == 1111 || linkDataProps.state == 1 || linkDataProps.state == 7 || linkDataProps.state == 14 ? <div>
+            <video src={linkDataProps.state == 1111 ? "/videodata/CskPhillips.mp4" : linkDataProps.state == 1 ? "/videodata/CskPhillips.mp4" : linkDataProps.state == 7 ? "/videodata/DrywellScrews410.mp4" : linkDataProps.state == 14 ? "/videodata/FullCut410.mp4" : ""} muted autoPlay={"autoplay"}
               poster="./Jacobandbella.jpg" preLoad="auto" loop className='w-100 video-class'>
               video tag is not supported by your browser</video>
           </div> :
             linkDataProps.state == 2 || linkDataProps.state == 3 || linkDataProps.state == 4 || linkDataProps.state == 5 || linkDataProps.state == 6 ||
-            linkDataProps.state == 10 || linkDataProps.state == 11 ?
+              linkDataProps.state == 10 || linkDataProps.state == 11 ?
 
               <div style={{ backgroundColor: "white", height: "auto" }}>
-                <img src={linkDataProps.state == 2 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/S.S.-C.S.K.-Pan-Phillips-Self-Taping-Screws.jpg" 
-                : linkDataProps.state == 3 || linkDataProps.state == 4 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/S.S.-C.S.K.-Pan-Sloted-Self-Taping-Screws-2.jpg" 
-                : linkDataProps.state == 5 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/S.S.-C.S.K.-Phillips-Self-Tapping-Wood-Screws-2.jpg" 
-                : linkDataProps.state == 6 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/Ss...jpg" 
-                : linkDataProps.state == 10 || linkDataProps.state == 11 ? "https://www.omniscrews.com/wp-content/uploads/2017/09/bannerPicOmni.jpg" : "" } className='img-fluid' />
+                <img src={linkDataProps.state == 2 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/S.S.-C.S.K.-Pan-Phillips-Self-Taping-Screws.jpg"
+                  : linkDataProps.state == 3 || linkDataProps.state == 4 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/S.S.-C.S.K.-Pan-Sloted-Self-Taping-Screws-2.jpg"
+                    : linkDataProps.state == 5 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/S.S.-C.S.K.-Phillips-Self-Tapping-Wood-Screws-2.jpg"
+                      : linkDataProps.state == 6 ? "https://www.omniscrews.com/wp-content/uploads/2016/10/Ss...jpg"
+                        : linkDataProps.state == 10 || linkDataProps.state == 11 ? "https://www.omniscrews.com/wp-content/uploads/2017/09/bannerPicOmni.jpg" : ""} className='img-fluid' />
 
               </div>
-              : 
+              :
               <div style={{ backgroundColor: "white", height: "auto" }}>
-              
+
                 <img src="/main-banner11.jpg" className='img-fluid' />
 
               </div>
@@ -649,7 +1433,6 @@ const Commoncomponent = (props) => {
           <Col xs={12} sm={12} lg={12} className="d-flex justify-content-start align-items-center m-0 p-0">
             <div className="d-flex justify-content-start align-items-center pt-2">
               <h6 className='screwName-class'>{
-                // data1[0]?.screwName
                 priceListData?.priceListData?.data?.[0]?.Schrew_Name
               }</h6>
             </div>
@@ -670,12 +1453,10 @@ const Commoncomponent = (props) => {
             </div>
           </Col>
           <Col xs={2} sm={2} lg={2} className="d-flex justify-content-center m-0 p-0">
-            {/* <div className="d-flex justify-content-center align-items-center ">
-              <img src="/pen-in-hand.png" style={{ width: "25px" }} />
-            </div> */}
+
           </Col>
           <Col xs={3} sm={3} lg={3} className="d-flex justify-content-center align-items-center m-0 p-0">
-            {/* <div> */}
+
             <ButtonGroup>
               <ToggleButton
                 id="toggle-check"
@@ -693,18 +1474,31 @@ const Commoncomponent = (props) => {
             {/* </div> */}
           </Col>
           <Col xs={1} sm={1} lg={1} className="d-flex justify-content-end">
-            <div className='d-flex justify-content-end align-items-center' style={{ width: "40px" }} >
-              {/* <button onClick={showOrderModal}>order</button> */}
-              {totalCount > 0 ? <>
-                <img src="/takeorder1.webp" style={{ width: "22px", cursor: "pointer" }} onClick={showOrderModal} /> </>
-                : ""
-              }
+            {
+              linkDataProps?.state == 1111 ? <>
+                <div className='d-flex justify-content-end align-items-center' style={{ width: "40px" }} >
 
-            </div>
+                  {totalCount > 0 ? <>
+                    <img src="/notepad1.jpg" style={{ width: "22px", cursor: "pointer" }} onClick={showOrderModalWithType} /> </>
+                    : ""
+                  }
+                </div>
+              </> :
+                <>
+                  <div className='d-flex justify-content-end align-items-center' style={{ width: "40px" }} >
+
+                    {totalCount > 0 ? <>
+                      <img src="/takeorder1.webp" style={{ width: "22px", cursor: "pointer" }} onClick={showOrderModal} /> </>
+                      : ""
+                    }
+                  </div>
+                </>
+            }
+
           </Col>
         </Row>
         <div className="m-0 p-0 table-main-div heughtset">
-          {/* {console.log("datatatat", priceListData?.priceListData?.data)} */}
+
           <Table bordered className='m-0 p-0' id="HtmlToPdf" responsive>
 
             <thead className='bg-light' style={{ position: "sticky", top: "-2px", background: "white", zIndex: "5", height: "40px", }}>

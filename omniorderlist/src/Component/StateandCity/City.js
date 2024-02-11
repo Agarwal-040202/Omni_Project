@@ -65,6 +65,7 @@ export const citiesByState = {
       "Asankhurd",
       "Babain",
       "Bahadurgarh",
+      "Ballabgarh",
       "Barara",
       "Barwala",
       "Bawal",

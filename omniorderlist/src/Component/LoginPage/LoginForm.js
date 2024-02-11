@@ -154,7 +154,8 @@ const LoginForm = () => {
     else if (loaction?.state?.UserRole == "Field Member" && loginStatus == "Success") {
       
       // handleShopToast(true, 'Sucess', 'Login is successfully.')
-      navigate("/fourbox")
+      navigate("/writemodemodal")
+      // navigate("/fourbox")
     }
     else {
       handleShopToast(true, 'Error', 'Invalid user name and password.')

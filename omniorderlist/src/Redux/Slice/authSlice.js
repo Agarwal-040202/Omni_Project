@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios"
 import OmniUrl from "../../URL/Url";
 
-const { fieldmemberloginURL,registerFieldMemberURL } = OmniUrl;
+const { fieldmemberloginURL, registerFieldMemberURL } = OmniUrl;
 //register user
 const initialState = {
     // token: JSON?.parse(localStorage.getItem("token")) || "",
@@ -44,7 +44,7 @@ export const registerUser = createAsyncThunk(
 
 //login code
 export const showUser1 = createAsyncThunk("showUser1", async (user, { rejectWithValue }) => {
-    console.log("user",user)
+    console.log("user", user)
     try {
         const response = await axios.post(fieldmemberloginURL, user, {
             headers: {
@@ -52,10 +52,10 @@ export const showUser1 = createAsyncThunk("showUser1", async (user, { rejectWith
             },
         });
 
-        const { token, User_Id, User_Name, User_Role, Email_Id,Contact } = response?.data; // Extract the desired fields from the response
+        const { token, User_Id, User_Name, User_Role, Email_Id, Contact } = response?.data; // Extract the desired fields from the response
 
-       
-        let personalInfo = { User_Id, User_Name, User_Role, Email_Id,Contact }
+
+        let personalInfo = { User_Id, User_Name, User_Role, Email_Id, Contact }
 
         sessionStorage.setItem('token', token)
         sessionStorage.setItem('loggedUserId', User_Id)
@@ -77,15 +77,15 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        logoutUser(state,action){
+        logoutUser(state, action) {
             sessionStorage.removeItem("token")
             sessionStorage.removeItem("loggedUserId");
             sessionStorage.removeItem("personalInfo");
             sessionStorage.clear();
-            
-            return{
+
+            return {
                 ...state,
-                token:"",
+                token: "",
                 registerStatus: "",
                 registerError: "",
                 loginStatus: "",
@@ -98,15 +98,15 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(registerUser.pending, (state, action) => {
-            return { ...state, registerStatus: "pending",userLoaded:true }
+            return { ...state, registerStatus: "pending", userLoaded: true }
         })
         builder.addCase(registerUser.fulfilled, (state, action) => {
             if (action.payload) {
                 return {
                     ...state,
-                    userLoaded:false,
+                    userLoaded: false,
                     token: action.payload,
-                    registerStatus:"Success",
+                    registerStatus: "Success",
 
                 }
             }
@@ -115,11 +115,11 @@ const authSlice = createSlice({
             }
         })
         builder.addCase(registerUser.rejected, (state, action) => {
-               return{
+            return {
                 ...state,
-                registerStatus:"rejected",
-                registerError:action.payload
-               }
+                registerStatus: "rejected",
+                registerError: action.payload
+            }
         })
 
         //login code
@@ -154,5 +154,5 @@ const authSlice = createSlice({
 
 
 
-export const {logoutUser} = authSlice.actions
+export const { logoutUser } = authSlice.actions
 export default authSlice.reducer;
