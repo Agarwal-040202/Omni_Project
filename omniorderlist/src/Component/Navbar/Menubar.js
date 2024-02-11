@@ -100,7 +100,7 @@ const Menubar = () => {
 
               </Link>
               {/* {console.log("hhhlhlhl", linkDataProps)} */}
-              {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/cskphillip"
+              {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/writemodemodal/pricelist" || linkDataProps?.pathname == "/cskphillip"
                 || linkDataProps?.pathname == "/panphillip" || linkDataProps?.pathname == "/cskslotted" || linkDataProps?.pathname == "/panslotted"
                 || linkDataProps?.pathname == "/cskslottedwood" || linkDataProps?.pathname == "/cskphilipwood"
                 || linkDataProps?.pathname == "/drywall410"
@@ -577,67 +577,6 @@ const Menubar = () => {
                         </ul>
                       </li>
 
-
-                      {/* <Nav.Link href="#features" className="menu-list-div mt-0 p-0 pt-1 justify-content-end m-0">
-                <Link
-                  to={{
-                    pathname: "/fullcut",
-
-                  }} state={"0"}
-                  className="menu-Link " style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }} data="LinkData">Full Cut 410</Link>
-                
-              </Nav.Link>
-              <Nav.Link href="#" className="menu-list-div mt-0 p-0 justify-content-end m-0">
-                <Link
-                  to={{
-                    pathname: "/drywall",
-
-                  }} state={"1"}
-                  className="menu-Link "
-                  style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}>Drywall</Link>
-              </Nav.Link>
-              <Nav.Link href="#features" className="menu-list-div mt-0 p-0 justify-content-end m-0" >
-                <Link to={{
-                  pathname: "/cskphillips",
-
-                }} state={"2"}
-                  className="menu-Link" style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}>CSK Phillips</Link>
-              </Nav.Link>
-              <Nav.Link href="#features" className="menu-list-div mt-0 p-0 justify-content-end m-0" >
-                <Link to={{
-                  pathname: "/cskslotted",
-
-                }} state={"3"}
-                  className="menu-Link" style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}>CSK Slotted</Link>
-              </Nav.Link>
-              <Nav.Link href="#features" className="menu-list-div mt-0 p-0 justify-content-end m-0" >
-                <Link to={{
-                  pathname: "/panphillips",
-
-                }} state={"4"}
-                  className="menu-Link" style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}>PAN Phillips</Link>
-              </Nav.Link>
-              <Nav.Link href="#features" className="menu-list-div mt-0 p-0 justify-content-end m-0" >
-                <Link to={{
-                  pathname: "/panslotted",
-
-                }} state={"5"}
-                  className="menu-Link" style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}>PAN Slotted</Link>
-              </Nav.Link>
-              <Nav.Link href="#features" className="menu-list-div mt-0 p-0 justify-content-end m-0" >
-                <Link to={{
-                  pathname: "/woodphillips",
-
-                }} state={"6"}
-                  className="menu-Link " style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}>Wood Phillips</Link>
-              </Nav.Link>
-              <Nav.Link href="#features" className="menu-list-div mt-0 p-0 justify-content-end m-0" >
-                <Link to={{
-                  pathname: "/woodslotted",
-
-                }} state={"7"}
-                  className="menu-Link" style={{ display: "block", width: "115px", color: "#6E2C00", fontFamily: "sans-serif", fontWeight: 600 }}>Wood Slotted</Link>
-              </Nav.Link> */}
                     </Nav>
                   </Navbar.Collapse>
                 </>
@@ -647,17 +586,36 @@ const Menubar = () => {
 
               <Nav className=' navbar-Div1 menu-list-div mt-0 p-0 pt-1 justify-content-end m-0'>
                 <div className="d-flex gap-2">
-                  {/* {linkDataProps?.pathname == "/fourbox/pricelist" || linkDataProps?.pathname == "/fullcut" || linkDataProps?.pathname == "/drywall" ?  
-                 <div>
-                     <img src="notepad1.jpg" style={{width:"20px"}} />
-                  </div> : ""} */}
-                  {linkDataProps?.pathname == "/fourbox" ? "" : <div style={{ width: "20px" }}>
 
-                    <Link to="/fourbox">
-                      <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
-                    </Link>
+                  {console.log("linkDataProps", linkDataProps)}
 
-                  </div>}
+                  {(linkDataProps?.pathname == "/writemodemodal" || linkDataProps?.pathname == "/fourbox")? "" :
+
+                    linkDataProps?.state == 1111 ?
+                      <div style={{ width: "20px" }}>
+                        <Link to="/writemodemodal">
+                          <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
+                        </Link>
+                      </div>
+                      :
+
+                      <div style={{ width: "20px" }}>
+                        <Link to="/fourbox">
+                          <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
+                        </Link>
+                      </div>
+                  }
+
+                  {/* {linkDataProps?.pathname == "/fourbox" ? "" :
+                    <div style={{ width: "20px" }}>
+                      <Link to="/fourbox">
+                        <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
+                      </Link>
+                    </div>
+                  } */}
+
+
+
 
                   <div className="d-flex justify-content-center align-items-center">
                     <h6 className="mt-1" style={{ cursor: "pointer" }} onClick={showFildeMemberFuction}>{UserRole.Email_Id}</h6>

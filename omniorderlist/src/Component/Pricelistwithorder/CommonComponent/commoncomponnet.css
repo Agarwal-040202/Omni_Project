@@ -108,6 +108,18 @@ vertical-scroll::-webkit-scrollbar-thumb{
     color: maroon;
 
 }
+
+/* accoridian code start */
+.accordion-button{
+    padding: .5rem .5rem !important;
+}
+
+.accordion-body{
+    padding: .1rem .1rem !important;
+}
+
+
+/* accoridian code end */
 @media(max-width:800px){
    
     .video-class{

@@ -69,7 +69,9 @@ function App() {
           <Route exact path="/addfieldmember" element={<FieldMember />} />
           <Route exact path="/addshopkeeper" element={<ShopKeeperList />} />
           
+          <Route exact path="/writemodemodal/pricelist" element={<Commoncomponent text={1111}/>} />
           <Route exact path="/fourbox/pricelist" element={<Commoncomponent text={1}/>} />
+
           <Route exact path="/:id" element={<Commoncomponent text={1}/>} />
           <Route exact path="/fourbox" element={<Fourbox />} />
           <Route exact path="/writemodemodal" element={<Writemodemodal />} />

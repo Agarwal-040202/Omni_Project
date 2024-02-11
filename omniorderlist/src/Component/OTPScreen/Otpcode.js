@@ -141,7 +141,7 @@ const Otpcode = (props) => {
                             otp.map((_, index) => {
                                 return (
                                     <div key={index}>
-                                        <input type="text" ref={activeOtpIndex == index ? inputRef : null} className='test' id="digit-1" maxLength="1"
+                                        <input type="password" ref={activeOtpIndex == index ? inputRef : null} className='test' id="digit-1" maxLength="1"
                                             onChange={(e) => handleOnChange(e, index)}
                                             onKeyDown={(e) => handleKeyDown(e, index)}
                                         />
