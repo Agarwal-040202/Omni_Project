@@ -2,6 +2,30 @@ import { db } from "../connect.js";
 
 // price list 1 csk_phillips
 
+export const getPriceList1111Detail = (req, res) => {
+    
+    
+    const checkQuery = "SELECT * FROM csk_phillips";
+    db.query(checkQuery, (err, data) => {
+
+        if (err) {
+            console.log("Error:", err);
+            return res.status(500).json({
+                status: 500,
+                message: "Error Price List 1 data.",
+            });
+        }
+       
+        console.log("Price List 1 data:", data);
+
+        return res.status(200).json({
+            status: 200,
+            data: data,
+            message: "Price List 1 data retrieved successfully.",
+        });
+    });
+};
+
 export const getPriceList1Detail = (req, res) => {
     
     
