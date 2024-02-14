@@ -19,7 +19,9 @@ const Menubar = () => {
   // console.log("linkDataProps", linkDataProps?.pathname)
   const UserID = sessionStorage.getItem("loggedUserId")
   const UserRole = JSON.parse(sessionStorage.getItem("personalInfo")) || ""
+  const OrderTypemodeVariable = sessionStorage.getItem("OrderTypemode")
 
+  // console.log("OrderTypemodeVariable", OrderTypemodeVariable)
   let { handleShopToast, setShowLoder } = useContext(MyContext)
 
   const { fileldMemberDetailStatus, filedMemberRecored } = useSelector((state) => state.getFiledMemberData)
@@ -587,17 +589,61 @@ const Menubar = () => {
               <Nav className=' navbar-Div1 menu-list-div mt-0 p-0 pt-1 justify-content-end m-0'>
                 <div className="d-flex gap-2">
 
-                  {console.log("linkDataProps", linkDataProps)}
+                  {/* {console.log("linkDataProps", linkDataProps)} */}
 
-                  {(linkDataProps?.pathname == "/writemodemodal" || linkDataProps?.pathname == "/fourbox")? "" :
+                  {(linkDataProps?.pathname == "/writemodemodal" )? "" :
 
-                    linkDataProps?.state == 1111 ?
+                    linkDataProps?.state == 1111
+                      || (linkDataProps?.state == 1 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 2 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 3 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 4 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 5 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 6 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 7 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 8 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 9 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 10 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 11 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 12 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 13 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 14 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 15 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 16 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 17 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 18 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 19 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 20 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 21 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 22 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 23 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 24 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 25 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 26 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 27 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 28 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 29 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 30 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 31 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 32 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 33 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 34 && OrderTypemodeVariable == "OrderTypemode")
+                      || (linkDataProps?.state == 35 && OrderTypemodeVariable == "OrderTypemode")
+                      ? <div style={{ width: "20px" }}>
+                        <Link to="/writemodemodal">
+                          <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
+                        </Link>
+                      </div>
+                      : 
+
+                      linkDataProps?.pathname == "/fourbox" ? <>
                       <div style={{ width: "20px" }}>
                         <Link to="/writemodemodal">
                           <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
                         </Link>
                       </div>
-                      :
+                      
+                      </> :
 
                       <div style={{ width: "20px" }}>
                         <Link to="/fourbox">
