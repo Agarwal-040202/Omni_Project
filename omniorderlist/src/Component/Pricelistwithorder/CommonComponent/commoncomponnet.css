@@ -111,15 +111,38 @@ vertical-scroll::-webkit-scrollbar-thumb{
 
 /* accoridian code start */
 .accordion-button{
-    padding: .5rem .5rem !important;
+    padding: .4rem .4rem !important;  
 }
 
 .accordion-body{
     padding: .1rem .1rem !important;
 }
 
+.accordion-button:not(.collapsed) {
+color: black !important;
+background-color: white !important;
+border: 2px solid gray;
+box-shadow: none !important;
+/* border-radius: 50%; */
+}
+
+.accordion-button.collapsed {
+    color: maroon !important;
+    background-color: white !important;
+    border: 2px solid maroon !important;
+    box-shadow: none !important;
+}
+
 
 /* accoridian code end */
+
+
+
+  
+  
+
+
+
 @media(max-width:800px){
    
     .video-class{

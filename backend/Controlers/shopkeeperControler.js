@@ -93,58 +93,182 @@ export const getShopkeeperDetail = (req, res) => {
     });
 };
 
-// update shopkeeper detail api
+
+export const updateShopkeeperDetail = (req, res) => {
+  // Destructure request body
+  const {
+      Logged_User_ID,
+      Logged_Email_ID,
+      Logged_User_Role,
+      Created_By,
+      Updated_By,
+      Is_Active,
+      Created_At,
+      Shopkeeper_ID,
+      Firm_Name,
+      Shopkeeper_First_Name,
+      Shopkeeper_Last_Name,
+      Contact,
+      Whatsup_Contact,
+      Address1,
+      Country,
+      State,
+      City,
+      Pincode,
+      Village_Street,
+  } = req.body;
+
+  // Define the SQL update query
+  const updateQuery = `
+      UPDATE shopkeeperdetails
+      SET
+          Logged_User_ID = ?,
+          Logged_Email_ID = ?,
+          Logged_User_Role = ?,
+          Created_By = ?,
+          Updated_By = ?,
+          Is_Active = ?,
+          Created_At = ?,
+          Firm_Name = ?,
+          Shopkeeper_First_Name = ?,
+          Shopkeeper_Last_Name = ?,
+          Contact = ?,
+          Whatsup_Contact = ?,
+          Address1 = ?,
+          Country = ?,
+          State = ?,
+          City = ?,
+          Pincode = ?,
+          Village_Street = ?
+      WHERE Shopkeeper_ID = ?
+  `;
+
+  const values = [
+      Logged_User_ID,
+      Logged_Email_ID,
+      Logged_User_Role,
+      Created_By,
+      Updated_By,
+      Is_Active,
+      Created_At,
+      Firm_Name,
+      Shopkeeper_First_Name,
+      Shopkeeper_Last_Name,
+      Contact,
+      Whatsup_Contact,
+      Address1,
+      Country,
+      State,
+      City,
+      Pincode,
+      Village_Street,
+      Shopkeeper_ID,
+  ];
+
+  // Execute the update query
+  db.query(updateQuery, values, (err, result) => {
+      if (err) {
+          console.error("Error updating shopkeeper details:", err);
+          return res.status(500).json({ error: "Internal Server Error" });
+      }
+
+      // Fetch and return the updated user details
+      const updatedDataQuery = "SELECT * FROM shopkeeperdetails WHERE Shopkeeper_ID = ?";
+      db.query(updatedDataQuery, [Shopkeeper_ID], (err, updatedData) => {
+          if (err) {
+              console.error("Error fetching updated data:", err);
+              return res.status(500).json({ error: "Internal Server Error" });
+          }
+
+          console.log("Shopkeeper details updated successfully!");
+          return res.status(200).json({
+              status: 200,
+              data: updatedData[0],
+              message: "Shopkeeper details have been updated successfully.",
+          });
+      });
+  });
+};
+
+
+
+
+
+
+
+
+
+  
 // export const updateShopkeeperDetail = (req, res) => {
-//     let {
-//       Logged_User_ID,
-//       Logged_Email_ID,
-//       Logged_User_Role,
-//       Created_By,
-//       Updated_By,
-//       Is_Active,
-//       Created_At,
-//       Shopkeeper_ID,
-//       Firm_Name,
-//       Shopkeeper_First_Name,
-//       Shopkeeper_Last_Name,
-//       Contact,
-//       Whatsup_Contact,
-//       GST_Number,
-//       Shopkeeper_Email,
-//       Address1,
-//       Country,
-//       State,
-//       City,
-//       Pincode,
-//       Village_Street,
-//     } = req.body;
-  
-//     // UPDATE SHOPKEEPER DETAILS
-  
-//     const updateQuery =
-//       "UPDATE shopkeeperdetails SET " +
-//       "`Logged_User_ID` = ?, " +
-//       "`Logged_Email_ID` = ?, " +
-//       "`Logged_User_Role` = ?, " +
-//       "`Created_By` = ?, " +
-//       "`Updated_By` = ?, " +
-//       "`Is_Active` = ?, " +
-//       "`Created_At` = ?, " +
-//       "`Firm_Name` = ?, " +
-//       "`Shopkeeper_First_Name` = ?, " +
-//       "`Shopkeeper_Last_Name` = ?, " +
-//       "`Contact` = ?, " +
-//       "`Whatsup_Contact` = ?, " +
-//       "`GST_Number` = ?, " +
-//       "`Shopkeeper_Email` = ?, " +
-//       "`Address1` = ?, " +
-//       "`Country` = ?, " +
-//       "`State` = ?, " +
-//       "`City` = ?, " +
-//       "`Pincode` = ?, " +
-//       "`Village_Street` = ? " +
-//       "WHERE `Shopkeeper_ID` = ?";
-  
+//   // Destructure request body using const
+//   const {
+//     Logged_User_ID,
+//     Logged_Email_ID,
+//     Logged_User_Role,
+//     Created_By,
+//     Updated_By,
+//     Is_Active,
+//     Created_At,
+//     Shopkeeper_ID,
+//     Firm_Name,
+//     Shopkeeper_First_Name,
+//     Shopkeeper_Last_Name,
+//     Contact,
+//     Whatsup_Contact,
+//     Address1,
+//     Country,
+//     State,
+//     City,
+//     Pincode,
+//     Village_Street,
+//   } = req.body;
+
+//   // Check for duplicate Whatsup_Contact: before performing the update
+//   const checkDuplicateQuery = `
+//     SELECT Shopkeeper_ID
+//     FROM shopkeeperdetails
+//     WHERE Whatsup_Contact = ?
+//   `;
+
+//   db.query(checkDuplicateQuery, [Whatsup_Contact], (err, duplicateResult) => {
+//     if (err) {
+//       console.error("Error checking for duplicate Whatsup_Contact:", err);
+//       return res.status(500).json(err);
+//     }
+
+//     // If duplicate Whatsup_Contact: exists, return an error response
+//     if (duplicateResult.length > 0 && duplicateResult[0].Shopkeeper_ID !== Shopkeeper_ID) {
+//       return res.status(400).json({
+//         status: 400,
+//         message: err,
+//       });
+//     }
+
+//     // Define the SQL update query using template literals
+//     const updateQuery = `
+//       UPDATE shopkeeperdetails
+//       SET
+//         Logged_User_ID = ?,
+//         Logged_Email_ID = ?,
+//         Logged_User_Role = ?,
+//         Created_By = ?,
+//         Updated_By = ?,
+//         Is_Active = ?,
+//         Created_At = ?,
+//         Firm_Name = ?,
+//         Shopkeeper_First_Name = ?,
+//         Shopkeeper_Last_Name = ?,
+//         Contact = ?,
+//         Whatsup_Contact = ?,
+//         Address1 = ?,
+//         Country = ?,
+//         State = ?,
+//         City = ?,
+//         Pincode = ?,
+//         Village_Street = ?
+//       WHERE Shopkeeper_ID = ?
+//     `;
+
 //     const values = [
 //       Logged_User_ID,
 //       Logged_Email_ID,
@@ -158,8 +282,6 @@ export const getShopkeeperDetail = (req, res) => {
 //       Shopkeeper_Last_Name,
 //       Contact,
 //       Whatsup_Contact,
-//       GST_Number,
-//       Shopkeeper_Email,
 //       Address1,
 //       Country,
 //       State,
@@ -168,24 +290,23 @@ export const getShopkeeperDetail = (req, res) => {
 //       Village_Street,
 //       Shopkeeper_ID,
 //     ];
-//     console.log(updateQuery, values);
+
+//     // Execute the update query
 //     db.query(updateQuery, values, (err, result) => {
 //       if (err) {
-//         console.log(err, values);
+//         console.error("Error updating shopkeeper details:", err);
 //         return res.status(500).json(err);
 //       }
-//       console.log("User details updated successfully!");
-//       //    Fetch and return the updated user details
-//       const updatedDataQuery =
-//         "SELECT * FROM shopkeeperdetails WHERE Shopkeeper_ID = ?";
+
+//       // Fetch and return the updated user details
+//       const updatedDataQuery = "SELECT * FROM shopkeeperdetails WHERE Shopkeeper_ID = ?";
 //       db.query(updatedDataQuery, [Shopkeeper_ID], (err, updatedData) => {
 //         if (err) {
-//           console.log(err);
+//           console.error("Error fetching updated data:", err);
 //           return res.status(500).json(err);
 //         }
-  
-//         console.log("Updated data:", updatedData[0]);
-  
+
+//         console.log("Shopkeeper details updated successfully!");
 //         return res.status(200).json({
 //           status: 200,
 //           data: updatedData[0],
@@ -193,128 +314,7 @@ export const getShopkeeperDetail = (req, res) => {
 //         });
 //       });
 //     });
-//   };
-  
-export const updateShopkeeperDetail = (req, res) => {
-  // Destructure request body using const
-  const {
-    Logged_User_ID,
-    Logged_Email_ID,
-    Logged_User_Role,
-    Created_By,
-    Updated_By,
-    Is_Active,
-    Created_At,
-    Shopkeeper_ID,
-    Firm_Name,
-    Shopkeeper_First_Name,
-    Shopkeeper_Last_Name,
-    Contact,
-    Whatsup_Contact,
-    // GST_Number,
-    // Shopkeeper_Email,
-    Address1,
-    Country,
-    State,
-    City,
-    Pincode,
-    Village_Street,
-  } = req.body;
-
-  // Check for duplicate GST_Number before performing the update
-  const checkDuplicateQuery = `
-    SELECT Shopkeeper_ID
-    FROM shopkeeperdetails
-    WHERE Whatsup_Contact = ?
-  `;
-
-  db.query(checkDuplicateQuery, [Whatsup_Contact], (err, duplicateResult) => {
-    if (err) {
-      console.error("Error checking for duplicate Whatsup_Contact:", err);
-      return res.status(500).json(err);
-    }
-
-    // If duplicate GST_Number exists, return an error response
-    if (duplicateResult.length > 0 && duplicateResult[0].Shopkeeper_ID !== Shopkeeper_ID) {
-      return res.status(400).json({
-        status: 400,
-        message: "GST_Number is already in use by another shopkeeper.",
-      });
-    }
-
-    // Define the SQL update query using template literals
-    const updateQuery = `
-      UPDATE shopkeeperdetails
-      SET
-        Logged_User_ID = ?,
-        Logged_Email_ID = ?,
-        Logged_User_Role = ?,
-        Created_By = ?,
-        Updated_By = ?,
-        Is_Active = ?,
-        Created_At = ?,
-        Firm_Name = ?,
-        Shopkeeper_First_Name = ?,
-        Shopkeeper_Last_Name = ?,
-        Contact = ?,
-        Whatsup_Contact = ?,
-        Address1 = ?,
-        Country = ?,
-        State = ?,
-        City = ?,
-        Pincode = ?,
-        Village_Street = ?
-      WHERE Shopkeeper_ID = ?
-    `;
-
-    const values = [
-      Logged_User_ID,
-      Logged_Email_ID,
-      Logged_User_Role,
-      Created_By,
-      Updated_By,
-      Is_Active,
-      Created_At,
-      Firm_Name,
-      Shopkeeper_First_Name,
-      Shopkeeper_Last_Name,
-      Contact,
-      Whatsup_Contact,
-      // GST_Number,
-      // Shopkeeper_Email,
-      Address1,
-      Country,
-      State,
-      City,
-      Pincode,
-      Village_Street,
-      Shopkeeper_ID,
-    ];
-
-    // Execute the update query
-    db.query(updateQuery, values, (err, result) => {
-      if (err) {
-        console.error("Error updating shopkeeper details:", err);
-        return res.status(500).json(err);
-      }
-
-      // Fetch and return the updated user details
-      const updatedDataQuery = "SELECT * FROM shopkeeperdetails WHERE Shopkeeper_ID = ?";
-      db.query(updatedDataQuery, [Shopkeeper_ID], (err, updatedData) => {
-        if (err) {
-          console.error("Error fetching updated data:", err);
-          return res.status(500).json(err);
-        }
-
-        console.log("Shopkeeper details updated successfully!");
-        return res.status(200).json({
-          status: 200,
-          data: updatedData[0],
-          message: "Shopkeeper details have been updated successfully.",
-        });
-      });
-    });
-  });
-};
+//   });
+// };
 
 

@@ -17,11 +17,8 @@ import { citiesByState } from "../StateandCity/City";
 const PreOderDetailModal = (props) => {
   const dispatch = useDispatch();
   const allStateNames = Object.values(indianStates);
-
   const { shopKeeperData } = useSelector((State) => State.getShopKeeperData);
-
   const [showModal, setShowModal] = useState(false);
-
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [address, setAddress] = useState("");
@@ -32,10 +29,6 @@ const PreOderDetailModal = (props) => {
   const [filteredShopkeepers, setFilteredShopkeepers] = useState([]);
   const [showButton, setShowButton] = useState(true);
   const [showCommonComponent, setShowCommonComponent] = useState(false)
-
-  // console.log("koikoioioi", latitude, longitude)
-
-
 
   useEffect(() => {
     functionS();
@@ -49,7 +42,6 @@ const PreOderDetailModal = (props) => {
     }
   };
 
-  // console.log("shopKeeperData", selectedShopkeeper);
   const serializedData = JSON.stringify(selectedShopkeeper);
   sessionStorage.setItem('shopKeeperData', serializedData);
 
@@ -57,25 +49,7 @@ const PreOderDetailModal = (props) => {
 
   const [name, setName] = useState("");
   // search shopkeeper code start
-
-  // useEffect(() => {
-  //   // Filter shopkeepers based on selected state
-  //   if (address?.state) {
-  //     const filteredData = shopKeeperData?.data?.filter(
-  //       (item) => (item.State === address?.state && item.City === address?.city)
-  //     );
-  //     console.log("filteredData", filteredData);
-  //     setFilteredShopkeepers(filteredData);
-  //   } else {
-  //     // If no state is selected, show all shopkeepers
-  //     setFilteredShopkeepers(shopKeeperData?.data);
-  //   }
-  // }, [address?.state, shopKeeperData]);
-
-  // console.log("jlkjkjl", filteredShopkeepers);
-
-  // Function to handle change in the Select component
-  const onChange = (value) => {
+  const onChangeFirmFunction = (value) => {
     setSelectedValue(value);
 
     const result = filteredShopkeepers?.find((item) => {
@@ -83,10 +57,6 @@ const PreOderDetailModal = (props) => {
         item.Firm_Name === value &&
         item.State === indiaState &&
         item.City === selectedCity
-        // item.State === address?.state &&
-        // item.City === address?.city
-        // item.State === "Haryana" &&
-        // item.City === "Panipat1"
       );
     });
 
@@ -99,32 +69,28 @@ const PreOderDetailModal = (props) => {
     }
   }, [selectedShopkeeper]);
 
-  // console.log("selectedValue", selectedShopkeeper);
-
   // search shopekeeper code end
 
-  
-
-  useEffect(() => {
-    // Check if geolocation is supported by the browser
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setLatitude(latitude);
-          setLongitude(longitude);
-          fetchAddress(latitude, longitude);
-        },
-        (error) => {
-          // console.error("Error getting location:", error);
-          setLoading(false);
-        }
-      );
-    } else {
-      // console.error("Geolocation is not supported by this browser.");
-      setLoading(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Check if geolocation is supported by the browser
+  //   if ("geolocation" in navigator) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         const { latitude, longitude } = position.coords;
+  //         setLatitude(latitude);
+  //         setLongitude(longitude);
+  //         fetchAddress(latitude, longitude);
+  //       },
+  //       (error) => {
+  //         // console.error("Error getting location:", error);
+  //         setLoading(false);
+  //       }
+  //     );
+  //   } else {
+  //     // console.error("Geolocation is not supported by this browser.");
+  //     setLoading(false);
+  //   }
+  // }, []);
 
   // find the state name code
 
@@ -139,7 +105,7 @@ const PreOderDetailModal = (props) => {
 
   const handleCityChange = (event) => {
     setSelectedCity(event);
-    if (address?.state) {
+    if (event) {
       const filteredData = shopKeeperData?.data?.filter(
         (item) => (item.State === indiaState && item.City === event)
       );
@@ -151,58 +117,51 @@ const PreOderDetailModal = (props) => {
     }
   };
 
-
-  const apiKey = "AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI"; // Replace with your API key
+  // const apiKey = "AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI"; // Replace with your API key
  
-
   // end the state name code
 
-  const fetchAddress = (latitude, longitude) => {
-    // Replace 'YOUR_API_KEY' with your Google Maps Geocoding API key
-    const apiKey = "YOUR_API_KEY";
-    const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${"AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI"}`;
+  // const fetchAddress = (latitude, longitude) => {
+  //   // Replace 'YOUR_API_KEY' with your Google Maps Geocoding API key
+  //   const apiKey = "YOUR_API_KEY";
+  //   const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${"AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI"}`;
 
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        if (response.data.results.length > 0) {
-          const addressData = response.data.results[0];
+  //   axios
+  //     .get(apiUrl)
+  //     .then((response) => {
+  //       if (response.data.results.length > 0) {
+  //         const addressData = response.data.results[0];
 
-          // Extract meaningful address components
-          const jsonAddress = {
-            formattedAddress: addressData.formatted_address,
-            city: extractComponent(addressData, "locality"),
-            state: extractComponent(addressData, "administrative_area_level_1"),
-            zipCode: extractComponent(addressData, "postal_code"),
-            country: extractComponent(addressData, "country"),
-          };
+  //         // Extract meaningful address components
+  //         const jsonAddress = {
+  //           formattedAddress: addressData.formatted_address,
+  //           city: extractComponent(addressData, "locality"),
+  //           state: extractComponent(addressData, "administrative_area_level_1"),
+  //           zipCode: extractComponent(addressData, "postal_code"),
+  //           country: extractComponent(addressData, "country"),
+  //         };
 
-          // Log the JSON address data
-          // console.log("Address Data (JSON):", jsonAddress);
-
-          // Set the address in state or do further processing as needed
-          setAddress(jsonAddress);
-        } else {
-          setAddress("Address not found");
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        // console.error("Error fetching address:", error);
-        setAddress("Error fetching address");
-        setLoading(false);
-      });
-  };
+  //         setAddress(jsonAddress);
+  //       } else {
+  //         setAddress("Address not found");
+  //       }
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       // console.error("Error fetching address:", error);
+  //       setAddress("Error fetching address");
+  //       setLoading(false);
+  //     });
+  // };
 
   // Helper function to extract specific component from addressData
-  const extractComponent = (addressData, componentType) => {
-    const component = addressData.address_components.find((component) =>
-      component.types.includes(componentType)
-    );
-    return component ? component.long_name : "";
-  };
+  // const extractComponent = (addressData, componentType) => {
+  //   const component = addressData.address_components.find((component) =>
+  //     component.types.includes(componentType)
+  //   );
+  //   return component ? component.long_name : "";
+  // };
 
-  // console.log("lkkhkjhkwwwjiit", address?.state);
 
   const handleChange = () => { };
   const handleSubmit = (e) => {
@@ -216,7 +175,6 @@ const PreOderDetailModal = (props) => {
     setShowModal(true);
   };
 
-  // console.log("jkjkdfdfdkkj", props.showPreOrderDetailModal);
 
   const callCommonComponentFunction = () => {
     setShowCommonComponent(true)
@@ -226,7 +184,6 @@ const PreOderDetailModal = (props) => {
     setIndiaState(address?.state)
   }, [address?.state])
 
-  // console.log("Current India State:", indiaState, selectedCity);
 
   return (
     <div>
@@ -268,24 +225,9 @@ const PreOderDetailModal = (props) => {
                             </h6>
                           </div>
 
-                          {/* <Row>
-                            <Col span={24} className="w-100">
-                              <Input
-                                type="text"
-                                placeholder="Enter Pramry Address"
-                                name="address"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                className="address-info-textbox"
-                                value={address?.formattedAddress}
-                                disabled={true}
-                                style={{ color: "black" }}
-                              />
-                            </Col>
-                          </Row> */}
-
+                         
                           <Row span={24} className="">
-                            <Col span={12} xs={24} sm={24} md={12} lg={12}>
+                            {/* <Col span={12} xs={24} sm={24} md={12} lg={12}>
                               <Input
                                 type="text"
                                 placeholder="Country"
@@ -297,7 +239,7 @@ const PreOderDetailModal = (props) => {
                                 value={address?.country}
                                 style={{ color: "black" }}
                               />
-                            </Col>
+                            </Col> */}
                             <Col
                               span={12}
                               xs={24}
@@ -306,8 +248,6 @@ const PreOderDetailModal = (props) => {
                               lg={12}
                               className="d-flex justify-content-end"
                             >
-
-
                               <Select
                                 placeholder="Select a State"
                                 onChange={(e) => handleStateChange(e)}
@@ -321,36 +261,44 @@ const PreOderDetailModal = (props) => {
                                 }}
                               >
                                 {allStateNames?.map((state, index) => (
-                                  <Select.Option key={index} value={state}
-                                
-                                  >
+                                  <Select.Option key={index} value={state}>
                                     {state}
                                   </Select.Option>
                                 ))}
                               </Select>
+                            </Col>
 
+                            <Col span={12} xs={24} sm={24} md={12} lg={12}>
+                            {/* {indiaState && ( */}
+                                <div>
+                                  <Select onChange={handleCityChange}
+                                    placeholder="Select a City"
+                                    defaultValue={selectedCity || null}
+                                    showSearch
+                                    style={{
+                                      width: "100%",
+                                      marginBottom: "10px",
+                                      height: "36px",
+                                      borderRadius: "5px",
+                                      // marginLeft:"5px"
+                                    }}
+                                    className="mx-lg-1 mx-md-1"
+                                    >
+                                    {citiesByState[indiaState]?.map((city, index) => (
+                                      <Select.Option key={index} value={city}>
+                                        {city}
+                                      </Select.Option>
+                                    ))}
+                                  </Select>
+                                </div>
+                              {/* )} */}
                               
-
-                              {/* {selectedState && selectedCity && <p>Selected City: {selectedCity}</p>} */}
-
-                              {/* <Input
-                                type="text"
-                                placeholder="State"
-                                name="company_n"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                className="address-info-texbox2"
-                                disabled={true}
-                                value={address?.state}
-                                style={{ color: "black" }}
-                              /> */}
                             </Col>
                           </Row>
                           <Row span={24} className="">
                             <Col span={12} xs={24} sm={24} md={12} lg={12}>
-                            {indiaState && (
-                                <div>
-                                  {/* <label>Select a City:</label> */}
+                            {/* {indiaState && ( */}
+                                {/* <div>
                                   <Select onChange={handleCityChange}
                                     placeholder="Select a City"
                                     defaultValue={selectedCity || null}
@@ -362,60 +310,19 @@ const PreOderDetailModal = (props) => {
                                       borderRadius: "5px",
                                     }}
                                     >
-                                    {/* <option value={null}>Select City</option> */}
                                     {citiesByState[indiaState]?.map((city, index) => (
                                       <Select.Option key={index} value={city}>
                                         {city}
                                       </Select.Option>
                                     ))}
                                   </Select>
-                                </div>
-                              )}
-                              {/* <Input
-                                type="text"
-                                placeholder="City"
-                                name="company_n"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                className="address-info-texbox3"
-                                disabled={true}
-                                value={address?.city}
-                                style={{ color: "black" }}
-                              /> */}
+                                </div> */}
+                              {/* )} */}
+                              
                             </Col>
-                            {/* <Col
-                              span={12}
-                              xs={24}
-                              sm={24}
-                              md={12}
-                              lg={12}
-                              className="d-flex justify-content-end"
-                            >
-                              <Input
-                                type="text"
-                                placeholder="Pincode"
-                                name="company_n"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                className="address-info-texbox5"
-                                disabled={true}
-                                value={address?.zipCode}
-                                style={{ color: "black" }}
-                              />
-                            </Col> */}
+                            
                           </Row>
-                          {/* <Row>
-                            <Col span={24} className="w-100">
-                              <Input
-                                type="text"
-                                placeholder="Enter the Village or Street Adress"
-                                name="company_n"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                className="address-info-textbox6"
-                              />
-                            </Col>
-                          </Row> */}
+                          
                         </Col>
                       </Row>
                       <Row>
@@ -428,7 +335,7 @@ const PreOderDetailModal = (props) => {
                             <Col span={24} xs={24} sm={24} md={24} lg={24}>
                               <Select
                                 placeholder="Search a Firm Name"
-                                onChange={onChange}
+                                onChange={onChangeFirmFunction}
                                 value={selectedValue || null}
                                 showSearch
                                 listHeight={90}
@@ -454,38 +361,9 @@ const PreOderDetailModal = (props) => {
                                 ))}
                               </Select>
 
-                              {/* <Input
-                                type="text"
-                                placeholder="Enter Firm Name"
-                                name="company_n"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                // className='personal-ingo-textbox'
-                                
-                                style={{
-                                  marginBottom: "10px",
-                                  height: "36px",
-                                  borderRadius: "5px",
-                                }}
-                              /> */}
+                              
                             </Col>
-                            {/* <Col
-                              xs={24}
-                              sm={6}
-                              md={6}
-                              lg={6}
-                              className=" w-100"
-                            >
-                              <div className="w-100 add-shopkeeper-button-col">
-                                <button
-                                  type="submit"
-                                  className="addshopkeeperbutton"
-                                  onClick={showShopkeeperModal}
-                                >
-                                  Add Shopkeeper
-                                </button>
-                              </div>
-                            </Col> */}
+                           
                           </Row>
                           <Row span={24} className="">
                             <Col span={12} xs={24} sm={24} md={12} lg={12}>
@@ -526,19 +404,7 @@ const PreOderDetailModal = (props) => {
                           </Row>
 
                           <Row span={24} className="">
-                            {/* <Col span={12} xs={24} sm={24} md={12} lg={12}>
-                              <Input
-                                type="text"
-                                placeholder="GST Number"
-                                name="company_n"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                value={selectedShopkeeper?.GST_Number}
-                                className="personal-ingo-textbox7"
-                                disabled={true}
-                                style={{ color: "black" }}
-                              />
-                            </Col> */}
+                           
                             <Col
                               span={12}
                               xs={24}

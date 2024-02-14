@@ -118,14 +118,7 @@ const Otpcode = (props) => {
 
     return (
         <div className='d-flex justify-content-center' style={{ height: "87.6vh" }} >
-            {/* <Modal show={props.otpCodeState} onHide={handleClose}
-                centered
-                backdrop={false}
-            >
-                <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
-                    <Modal.Title style={{ color: "white" }}>Entrance Code</Modal.Title>
-                </Modal.Header>
-                <Modal.Body> */}
+           
             {showOtpPage == true ? "" : <>
                 <div className='main-otp-div'>
 
@@ -153,32 +146,24 @@ const Otpcode = (props) => {
                     </div>
                     <div className='d-flex justify-content-end'>
 
-                        <div  onClick={handleSubmit}
-                        style={{backgroundColor:"maroon",
-                      color:"white",
-                      padding:"6px",
-                      cursor:"pointer",
-                      borderRadius:"5px",
-                    fontWeight:"normal"
-                    }}
+                        <div onClick={handleSubmit}
+                            style={{
+                                backgroundColor: "maroon",
+                                color: "white",
+                                padding: "6px",
+                                cursor: "pointer",
+                                borderRadius: "5px",
+                                fontWeight: "normal"
+                            }}
                         >
-                          Submit
+                            Submit
                         </div>
 
-                        {/* <Button className='btn-submit' style={{
-                            
-                        }} onClick={handleSubmit}>
-                            Submit
-                        </Button> */}
                     </div>
                 </div>
             </>}
 
-            {/* </Modal.Body>
-                <Modal.Footer>
-                   
-                </Modal.Footer>
-            </Modal> */}
+           
 
 
         </div>
