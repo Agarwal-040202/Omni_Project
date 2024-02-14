@@ -326,22 +326,23 @@ const Commoncomponent = (props) => {
     }
   };
 
+  console.log("accordionInputs", accordionInputs)
 
   const handleGeneratePDF = () => {
     const doc = new jsPDF();
-  
+
     let yPosition = 10;
     const pageWidth = doc.internal.pageSize.getWidth();
-  
+
     // Function to add a new page
     const addNewPage = () => {
       doc.addPage(); // Add a new page
       yPosition = 10; // Reset yPosition for the new page
     };
-  
+
     // Filter out the indices of screws with defined textarea values
     const definedIndices = Object.keys(accordionInputs).filter(index => accordionInputs[index] !== undefined);
-  
+
     // Title
     doc.setFontSize(14);
     doc.setTextColor(128, 0, 0);
@@ -349,7 +350,7 @@ const Commoncomponent = (props) => {
     doc.text('Omni Screw Orderlist', pageWidth / 2, yPosition, { align: 'center' });
     doc.setTextColor(0);
     yPosition += 10;
-  
+
     // Shopkeeper Details
     doc.setFontSize(12);
     doc.setFont('helvetica', 'normal');
@@ -359,55 +360,55 @@ const Commoncomponent = (props) => {
     const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}, City: ${city.toUpperCase()}, `;
     doc.text(shopKeeperData, 15, yPosition);
     yPosition += 10;
-  
+
     // Iterate over the definedIndices array to generate PDF for defined textarea values
     definedIndices.forEach((index, i) => {
       const screw = screws.screwName[index];
       const textareaValue = accordionInputs[index];
-  
+
       // Split textarea content into lines
       const lines = doc.splitTextToSize(textareaValue.toUpperCase(), pageWidth - 40);
       let remainingLines = lines;
-  
+
       // If there are remaining lines to render
       while (remainingLines.length > 0) {
         // If space is not enough for the current content, add a new page
         if (yPosition + 30 > doc.internal.pageSize.getHeight()) {
           addNewPage();
         }
-  
+
         // Screw Name
         doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');
         doc.text(`${screw}`, 15, yPosition);
         yPosition += 6;
-  
+
         // Calculate how many lines can fit on the current page
         const availableLines = Math.floor((doc.internal.pageSize.getHeight() - yPosition) / 5);
         const linesToRender = remainingLines.slice(0, availableLines);
-  
+
         // Render lines on the current page
         doc.setFontSize(12);
         doc.setFont('helvetica', 'normal');
         doc.text(linesToRender, 20, yPosition);
         yPosition += linesToRender.length * 5; // Adjust yPosition based on the height of the rendered lines
-  
+
         remainingLines = remainingLines.slice(availableLines); // Update remaining lines to render
-  
+
         // If there are remaining lines, add a new page
         if (remainingLines.length > 0) {
           addNewPage();
         }
       }
-  
+
       yPosition += 3; // Adjust the space between screw sections
-  
+
       // If it's not the last item and the space is not enough for the next content, add a new page
       if (i < definedIndices.length - 1 && yPosition + 30 > doc.internal.pageSize.getHeight()) {
         addNewPage();
       }
     });
-  
+
     // Remarks section
     if (formattedText) {
       // Add spacing before remarks section
@@ -422,18 +423,18 @@ const Commoncomponent = (props) => {
       doc.setFont('helvetica', 'bold');
       doc.text(formattedText, 15, yPosition);
     }
-  
+
     // Check if there is remaining data to be rendered
     if (yPosition + 30 > doc.internal.pageSize.getHeight()) {
       addNewPage(); // Add a new page if there is remaining data
     }
-  
+
     // Save the PDF
     doc.save(`${shopkeeperName} (${city}).pdf`);
     // handelcloseModalWithType();
     window.location.reload()
   };
-  
+
 
 
   const [pdfData, setPdfData] = useState(null); // State to store PDF data URI
@@ -451,8 +452,7 @@ const Commoncomponent = (props) => {
 
   const showPdfModalFunction = () => {
     setShowPdfModalState(true)
-    const generatedPdfData = handleGeneratePDF();
-    setPdfData(generatedPdfData); // Set PDF data URI to state
+
   }
 
   const handlePdfClose = () => {
@@ -762,22 +762,9 @@ const Commoncomponent = (props) => {
           onHide={handlePdfClose}
           centered
           backdrop={false}
+          style={{ zIndex: 9 }}
           size="lg"
-          style={{
-            zIndex: 9,
-            content: {
-              top: '50%',
-              left: '50%',
-              right: 'auto',
-              bottom: 'auto',
-              marginRight: '-50%',
-              transform: 'translate(-50%, -50%)',
-              width: '90%',
-              maxWidth: '800px', // Limit maximum width for larger screens
-              maxHeight: '90%',
-              overflow: 'hidden' // Prevent iframe overflow
-            }
-          }}
+        
         >
           <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
             <Modal.Title style={{ color: "white" }}>View Omni Order List</Modal.Title>
@@ -786,31 +773,24 @@ const Commoncomponent = (props) => {
             <div>
               <h4 className='firmname-tag-h6'>View Order</h4>
             </div>
-            <div className='d-flex justify-content-end'>
-
-              {pdfData && (
-                <iframe
-                  title="PDF Viewer"
-                  src={pdfData}
-                  allowFullScreen
-                  allow='fullscreen'
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    // border: 'none',
-                    
-                  }}
-                  // sandbox="allow-same-origin"
-                ></iframe>
-              )}
-
-              {/* <button
-          style={{
-            backgroundColor: "green", color: "white",
-            borderRadius: "5px", border: "none", fontSize: "16px", height: "36px", width: "60px", float: "right",
-            fontWeight: "500"
-          }}
-        >Add</button> */}
+            <div className="position-relative" style={{ height: "200px", "overflow-y": "scroll"}}>
+            <div>
+              {Object.keys(accordionInputs).map((index) => (
+                <div key={index}>
+                 
+                  <div style={{fontWeight:"bold"}}>{screws.screwName[index]}</div>
+                 
+                  {accordionInputs[index].split('\n').map((data, i, arr) => (
+                    <React.Fragment key={i}>
+                      <div style={{color:"maroon",fontWeight:"500"}}>{data.toUpperCase()}
+                      {i !== arr.length - 1 && <br />}
+                      </div> 
+                    </React.Fragment>
+                  ))}
+                  <br />
+                </div>
+              ))}
+            </div>
             </div>
           </Modal.Body>
         </Modal>
@@ -885,27 +865,27 @@ const Commoncomponent = (props) => {
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <h4 className='firmname-tag-h6'>Order Details</h4>
                 </div>
-                {/* <div style={{ width: "36px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <div style={{ width: "36px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <img src="/pdfview.png" className='img-fluid' onClick={showPdfModalFunction} />
-                </div> */}
+                </div>
               </div>
 
               <div className="position-relative mt-1" style={{ height: "200px", "overflow-y": "scroll" }}>
 
-                <div class="accordion" id="accordionExample" style={{ width: "98%" }}>
+                <div className="accordion" id="accordionExample" style={{ width: "98%" }}>
                   {screws.screwName.map((screw, index) => (
-                    <div class="accordion-item my-2" key={index}>
-                      <h2 class="accordion-header" id={`heading${index}`}>
-                        <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
+                    <div className="accordion-item my-2" key={index}>
+                      <h2 className="accordion-header" id={`heading${index}`}>
+                        <div className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
                           {screw}
                         </div>
                       </h2>
-                      <div id={`collapse${index}`} class="accordion-collapse collapse" aria-labelledby={`heading${index}`} data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
+                      <div id={`collapse${index}`} className="accordion-collapse collapse" aria-labelledby={`heading${index}`} data-bs-parent="#accordionExample">
+                        <div className="accordion-body">
                           <textarea
                             rows="5"
                             className='w-100 p-1'
-                            style={{  fontWeight: 'bold', border: "none" }}
+                            style={{ fontWeight: 'bold', border: "none" }}
                             placeholder="Enter your order here..."
                             value={accordionInputs[index]}
                             onChange={(e) => handleAccordionTextareaChange(index, e.target.value)}
@@ -1013,7 +993,7 @@ const Commoncomponent = (props) => {
                 value="1"
                 onChange={(e) => setChecked(e.currentTarget.checked)}
                 className="toggle-switch d-flex justify-content-center align-items-center"
-                style={{paddingBottom:"7px"}}
+                style={{ paddingBottom: "7px" }}
               >
                 Phone
               </ToggleButton>
@@ -1024,12 +1004,12 @@ const Commoncomponent = (props) => {
 
             {
               OrderTypemodeVariable == "OrderTypemode" ? <>
-                
-                  <div className='d-flex justify-content-end align-items-center' style={{ width: "40px" }} >
-                    <img src="/notepad1.jpg" style={{ width: "22px", cursor: "pointer" }} onClick={showOrderModalWithType} />
 
-                  </div>
-              
+                <div className='d-flex justify-content-end align-items-center' style={{ width: "40px" }} >
+                  <img src="/notepad1.jpg" style={{ width: "22px", cursor: "pointer" }} onClick={showOrderModalWithType} />
+
+                </div>
+
 
               </> : ""
             }
