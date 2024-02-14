@@ -34,6 +34,9 @@ const Fourbox = () => {
 
     }
 
+    sessionStorage.removeItem('OrderTypemode');
+
+
   }, [])
 
   const[showPreOrderDetailModal,setShowPreDetailModal] = useState(false)

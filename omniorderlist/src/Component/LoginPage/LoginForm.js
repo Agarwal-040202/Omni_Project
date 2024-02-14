@@ -70,7 +70,7 @@ const LoginForm = () => {
   }
 
 
-  // console.log("hhjhjhjh", loaction?.state)
+  console.log("loaction?.state", loaction?.state?.userCode)
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
@@ -273,8 +273,17 @@ const LoginForm = () => {
                     {/* <div className="text">
                       <a href="#">Forgot password?</a>
                     </div> */}
-                    <div className="Login-Submit-div">
-                      <button>Sign In</button>
+                    <div className="Login-Submit-div" >
+                      <button 
+                      style={{
+                        backgroundColor: "maroon",
+                        color: "white",
+                        padding: "6px",
+                        cursor: "pointer",
+                        borderRadius: "5px",
+                        fontWeight: "normal"
+                    }}
+                      >Sign In</button>
                     </div>
 
                     {loaction.state?.UserRole == "Admin" ? <> <div className="text sign-up-text">

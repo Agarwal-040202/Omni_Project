@@ -37,5 +37,5 @@ export const indianStates = {
     
   };
   
-  console.log(indianStates);
+  // console.log(indianStates);
   

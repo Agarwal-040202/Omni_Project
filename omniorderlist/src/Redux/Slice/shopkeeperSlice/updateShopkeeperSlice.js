@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import OmniUrl from "../../../URL/Url";
 
-const {updateShopkeeperDetailURL} = OmniUrl
+const { updateShopkeeperDetailURL } = OmniUrl;
 
 const initialState = {
     updateShopKeeperDetailStatus: "",
@@ -15,9 +15,7 @@ export const updateShopkeeperData = createAsyncThunk(
     "updateShopkeeperData",
     async (updateShopkeeperData1, { rejectWithValue }) => {
         try {
-            // let josnObj = {
-            //       updateFiledMemberData1
-            // }
+            // console.log("updateShopkeeperData1", updateShopkeeperData1);
             const response = await axios.put(
                 updateShopkeeperDetailURL,
                 updateShopkeeperData1,
@@ -48,35 +46,33 @@ const updateShopkeeperDataSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(updateShopkeeperData.pending, (state, action) => {
-            return {
-                ...state,
-                updateShopKeeperDetailStatus: "pending",
-                updateShopKeeperDetailLoaded: true
-            };
-        });
-        builder.addCase(updateShopkeeperData.fulfilled, (state, action) => {
-            if (action.payload) {
+        builder
+            .addCase(updateShopkeeperData.pending, (state, action) => {
                 return {
                     ...state,
-                    updateShopKeeperDetailLoaded: false,
-                    updateShopKeeperRecored: action.payload,
-                    updateShopKeeperDetailStatus: "Success"
+                    updateShopKeeperDetailStatus: "pending",
+                    updateShopKeeperDetailLoaded: true
                 };
-            } else {
+            })
+            .addCase(updateShopkeeperData.fulfilled, (state, action) => {
+                if (action.payload) {
+                    return {
+                        ...state,
+                        updateShopKeeperDetailLoaded: false,
+                        updateShopKeeperRecored: action.payload,
+                        updateShopKeeperDetailStatus: "Success"
+                    };
+                }
                 return state;
-            }
-        });
-        builder.addCase(updateShopkeeperData.rejected, (state, action) => {
-            return {
-                ...state,
-                updateShopKeeperDetailStatus: "rejected",
-                updateShopKeeperDetailError: action.payload
-            };
-        });
+            })
+            .addCase(updateShopkeeperData.rejected, (state, action) => {
+                return {
+                    ...state,
+                    updateShopKeeperDetailStatus: "rejected",
+                    updateShopKeeperDetailError: action.payload
+                };
+            });
     }
 });
 
-// Export the reducer and actions if needed
 export default updateShopkeeperDataSlice.reducer;
-

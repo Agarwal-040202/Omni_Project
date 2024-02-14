@@ -162,17 +162,14 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
 
     // console.log("formattedDate", formattedDate); // Output: "2023-09-19"
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
         if (!validate()) return;
-        if (addressInfoComRef.current.checkvalidation()) {
-            return;
-        }
-        // console.log('personalInfojobj', personalInfo)
+        if (addressInfoComRef.current.checkvalidation()) return;
+    
         const { Address1, City, Country, Village_Street, State, Pincode } = newContactInfo;
-
-
+    
         const obj1 = {
             Logged_User_ID: userID,
             Logged_Email_ID: UserRole.Email_Id,
@@ -180,66 +177,55 @@ const ShopKeeperAddEdit = ({ actionType, setShowAddEditModal, showAddEditModal, 
             Created_By: userID,
             Updated_By: "",
             Is_Active: "true",
-            Created_At: actionType == 'EDIT' ? formattedDate : getFormattedDate(),
+            Created_At: actionType === 'EDIT' ? formattedDate : getFormattedDate(),
             Shopkeeper_ID: userIDState,
             ...personalInfo,
-
             Address1: Address1,
             City: City,
             Country: Country,
             Village_Street: Village_Street,
             State: State,
             Pincode: Pincode,
-
-        }
-
-
+        };
+    
         try {
-            if (actionType == 'EDIT') {
-                // console.log('objodadadbjobj', personalInfo, actionType, obj1)
-
-                setStatusState(true)
-                dispatch(updateShopkeeperData(obj1));
-                callFunction()
-
+            setStatusState(false); // Reset the status state
+            if (actionType === 'EDIT') {
+                console.log('objodadadbjobj', JSON.stringify(obj1, null, 2));
+                await dispatch(updateShopkeeperData(obj1));
             } else {
-                setStatusState(true)
-                dispatch(shopkeeperDetails(obj1));
-                callFunction()
+                await dispatch(shopkeeperDetails(obj1));
             }
-
+            setStatusState(true); // Set status state to trigger callFunction
         } catch (err) {
-            // console.log('err', err)
             handleShopToast(true, 'Error', 'Something went wrong.');
         }
-
-    }
-
-
+    };
+    
+    useEffect(() => {
+        if (getStatusState) {
+            callFunction();
+        }
+    }, [getStatusState]);
+    
     const callFunction = () => {
-        // console.log("shopkeeperDetailStatus", updateShopKeeperDetailStatus)
-
-        if (shopkeeperDetailStatus == "pending" || updateShopKeeperDetailStatus == "pending") {
-            setShowLoder(true)
+        if (shopkeeperDetailStatus === "pending" || updateShopKeeperDetailStatus === "pending") {
+            setShowLoder(true);
+        } else if (shopkeeperDetailStatus === "Success" || updateShopKeeperDetailStatus === "Success") {
+            setShowLoder(false);
+            if (actionType === 'EDIT') {
+                handleShopToast(true, 'Success', 'Shopkeeper updated successfully.');
+            } else {
+                handleShopToast(true, 'Success', 'Shopkeeper added successfully.');
+            }
+            funForListCall();
+            handleClose();
+        } else if (shopkeeperDetailStatus === "rejected" || updateShopKeeperDetailStatus === "rejected") {
+            setShowLoder(false);
+            handleShopToast(true, 'Error', 'Something went wrong.');
         }
-        else if (updateShopKeeperDetailStatus == "Success" && actionType == 'EDIT') {
-            setShowLoder(true)
-            handleShopToast(true, 'Success', 'Shopkeeper update sucessfully.')
-            funForListCall()
-            handleClose()
-        }
-        else if (actionType == 'ADD' && shopkeeperDetailStatus == "Success") {
-            handleShopToast(true, 'Success', 'Shopkeeper add sucessfully.')
-            funForListCall()
-            handleClose()
-        }
-        else if (shopkeeperDetailStatus == "rejected" || updateShopKeeperDetailStatus == "rejected") {
-            handleShopToast(true, 'Error', 'Something wronge');
-            setShowLoder(true)
-
-        }
-    }
-
+    };
+    
 
     return (
         <>
