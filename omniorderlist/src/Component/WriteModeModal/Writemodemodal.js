@@ -42,7 +42,7 @@ const Writemodemodal = () => {
 
     return (
         <>
-            <div style={{ height: "550px" }}>
+            <div style={{ height: "750px" }}>
                 <Modal
                     show={showWriteModeModalState}
                     onHide={handleWriteModeClose}
@@ -85,7 +85,7 @@ const Writemodemodal = () => {
                                         to="/fourbox"
                                         className="custom-btn secondary-btn"
                                         style={{
-                                            backgroundColor: "#515A5A", // Change background color
+                                            backgroundColor: "black", // Change background color
                                             color: "white",
                                             border: "none",
                                             borderRadius: "50px",

@@ -328,6 +328,12 @@ const Commoncomponent = (props) => {
 
   console.log("accordionInputs", accordionInputs)
 
+  if (Object.keys(accordionInputs).length !== 0) {
+    console.log("inside if", accordionInputs);
+  }
+
+
+
   const handleGeneratePDF = () => {
     const doc = new jsPDF();
 
@@ -619,6 +625,9 @@ const Commoncomponent = (props) => {
 
   }
 
+
+  const hasNonEmptyValue = Object.values(accordionInputs).some(value => value.trim() !== '');
+
   return (
     <div>
 
@@ -764,34 +773,36 @@ const Commoncomponent = (props) => {
           backdrop={false}
           style={{ zIndex: 9 }}
           size="lg"
-        
+
         >
           <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
             <Modal.Title style={{ color: "white" }}>View Omni Order List</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div>
-              <h4 className='firmname-tag-h6'>View Order</h4>
+              {/* <h4 className='firmname-tag-h6'>View Order</h4> */}
             </div>
-            <div className="position-relative" style={{ height: "200px", "overflow-y": "scroll"}}>
-            <div>
-              {Object.keys(accordionInputs).map((index) => (
-                <div key={index}>
-                 
-                  <div style={{fontWeight:"bold"}}>{screws.screwName[index]}</div>
-                 
-                  {accordionInputs[index].split('\n').map((data, i, arr) => (
-                    <React.Fragment key={i}>
-                      <div style={{color:"maroon",fontWeight:"500"}}>{data.toUpperCase()}
-                      {i !== arr.length - 1 && <br />}
-                      </div> 
-                    </React.Fragment>
-                  ))}
-                  <br />
-                </div>
-              ))}
+
+            <div className="position-relative" style={{ height: "200px", overflowY: "scroll" }}>
+              <div>
+                {Object.keys(accordionInputs).map((index) => (
+                  accordionInputs[index].trim() !== '' && (
+                    <div key={index}>
+                      <div style={{ fontWeight: "bold" }}>{screws.screwName[index]}</div>
+                      {accordionInputs[index].split('\n').map((data, i, arr) => (
+                        <React.Fragment key={i}>
+                          <div style={{ color: "maroon", fontWeight: "500" }}>{data.toUpperCase()}
+                            {i !== arr.length - 1 && <br />}
+                          </div>
+                        </React.Fragment>
+                      ))}
+                      <br />
+                    </div>
+                  )
+                ))}
+              </div>
             </div>
-            </div>
+
           </Modal.Body>
         </Modal>
 
@@ -833,12 +844,18 @@ const Commoncomponent = (props) => {
                     paddingLeft: "10px",
                     fontSize: "16px",
                     fontWeight: "500",
-                    marginBottom: "10px",
+                    marginBottom: shopkeeperName !== "" ? "10px" : "0px",
                     outline: "none",
                     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
                     textTransform: 'uppercase'
                   }}
                 />
+                {(shopkeeperName === "") && (
+                  <div >
+                    <h6 style={{ marginLeft: "3px", color: "red" }}>Firm name is required.</h6>
+                  </div>
+                )}
+
                 <input
                   type='text'
                   placeholder='Enter city name'
@@ -852,22 +869,33 @@ const Commoncomponent = (props) => {
                     paddingLeft: "10px",
                     fontSize: "16px",
                     fontWeight: "500",
-                    marginBottom: "10px",
+                    marginBottom: city !== "" ? "10px" : "0px",
                     outline: "none",
                     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
                     textTransform: 'uppercase'
 
                   }}
                 />
+
+                {(city === "") && (
+                  <div >
+                    <h6 style={{ marginLeft: "3px", color: "red", }}>City name is required.</h6>
+                  </div>
+                )}
               </div>
 
-              <div className='d-flex justify-content-between '>
+              {console.log("hkjhkjlolohkhk", shopkeeperName, city)}
+
+              <div className='d-flex justify-content-between mt-2'>
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <h4 className='firmname-tag-h6'>Order Details</h4>
                 </div>
-                <div style={{ width: "36px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <img src="/pdfview.png" className='img-fluid' onClick={showPdfModalFunction} />
-                </div>
+
+                {(hasNonEmptyValue && shopkeeperName !== "" && city !== "") && (
+                  <div style={{ width: "36px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <img src="/pdfview.png" className='img-fluid' style={{ cursor: "pointer" }} onClick={showPdfModalFunction} />
+                  </div>
+                )}
               </div>
 
               <div className="position-relative mt-1" style={{ height: "200px", "overflow-y": "scroll" }}>
@@ -901,7 +929,7 @@ const Commoncomponent = (props) => {
             <div className='d-flex justify-content-between mt-3'>
               <button
                 onClick={showPOPModalFunction}
-                // disabled={totalCount > 0 ? false : true}
+                disabled={(hasNonEmptyValue && shopkeeperName !== "" && city !== "") ? false : true}
                 style={{
                   backgroundColor: "blue", color: "white",
                   borderRadius: "5px", border: "none", fontSize: "14px", height: "34px", width: "64px", float: "right"
@@ -910,7 +938,7 @@ const Commoncomponent = (props) => {
               </button>
               <button
                 onClick={handleGeneratePDF}
-                // disabled={totalCount > 0 ? false : true}
+                disabled={(hasNonEmptyValue && shopkeeperName !== "" && city !== "") ? false : true}
                 style={{
                   backgroundColor: "green", color: "white",
                   borderRadius: "5px", border: "none", fontSize: "14px", height: "34px", width: "106px", float: "right"
