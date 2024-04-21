@@ -64,7 +64,7 @@ export const getUserDetails = (req, res) => {
 };
 
 
-// update api
+// update api code
 
 export const updateUserDetail = (req, res) => {
     let { FieldMemberID, FieldMember_Firstname, FieldMember_LastName, FieldMember_EmailID, FieldMember_Role, FieldMember_Contact, FieldMember_CreatedAt, Gender, Nationality, MaritalStatus, Qualification, Date_Of_Joining,Address, Country, State, City, Pincode } = req.body;

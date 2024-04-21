@@ -15,13 +15,8 @@ const LoginForm = () => {
 
   const loaction = useLocation()
   const dispatch = useDispatch()
-  // const { users, loading, error } = useSelector((state) => state.app)
   const { auth, userLoaded, registerStatus, token, loginStatus } = useSelector((state) => state.auth)
-  // console.log("authkkk", loginStatus)
-
-  // console.log("location", loaction.state, users.length, loading, error)
-
-
+  
   const inputReffPassword = useRef(null)
   const inputReffComparePassword = useRef(null)
   const Form = useRef(null)

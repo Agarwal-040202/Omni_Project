@@ -463,7 +463,7 @@ const Menubar = () => {
 
                               }} state={"19"}
                               className="menu-Link " style={{ display: "block", color: "black", fontFamily: "sans-serif", fontWeight: 500, paddingLeft: "5px" }} data="LinkData">
-                              ZINK CHIPBOARD
+                              ZINC CHIPBOARD
                             </Link></li>
                           <li><Link
                             to={{
@@ -591,10 +591,11 @@ const Menubar = () => {
 
                   {/* {console.log("linkDataProps", linkDataProps)} */}
 
-                  {(linkDataProps?.pathname == "/writemodemodal" )? "" :
+                  {(linkDataProps?.pathname == "/writemodemodal") ? "" :
 
-                    linkDataProps?.state == 1111
-                      || (linkDataProps?.state == 1 && OrderTypemodeVariable == "OrderTypemode")
+                    // linkDataProps?.state == 1111
+                    //   || 
+                      (linkDataProps?.state == 1 && OrderTypemodeVariable == "OrderTypemode")
                       || (linkDataProps?.state == 2 && OrderTypemodeVariable == "OrderTypemode")
                       || (linkDataProps?.state == 3 && OrderTypemodeVariable == "OrderTypemode")
                       || (linkDataProps?.state == 4 && OrderTypemodeVariable == "OrderTypemode")
@@ -629,39 +630,37 @@ const Menubar = () => {
                       || (linkDataProps?.state == 33 && OrderTypemodeVariable == "OrderTypemode")
                       || (linkDataProps?.state == 34 && OrderTypemodeVariable == "OrderTypemode")
                       || (linkDataProps?.state == 35 && OrderTypemodeVariable == "OrderTypemode")
+
                       ? <div style={{ width: "20px" }}>
-                        <Link to="/writemodemodal">
+                        <Link 
+                        to="/fourbox"
+                        state={"1111"}
+                        >
                           <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
                         </Link>
-                      </div>
-                      : 
-
-                      linkDataProps?.pathname == "/fourbox" ? <>
-                      <div style={{ width: "20px" }}>
-                        <Link to="/writemodemodal">
-                          <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
-                        </Link>
-                      </div>
                       
-                      </> :
-
-                      <div style={{ width: "20px" }}>
-                        <Link to="/fourbox">
-                          <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
-                        </Link>
                       </div>
+                      :
+                      
+                      linkDataProps?.pathname == "/fourbox" ? <>
+                        <div style={{ width: "20px" }}>
+                          <Link to="/writemodemodal">
+                            <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
+                          </Link>
+                          
+                        </div>
+
+                      </> :
+                        <div style={{ width: "20px" }}>
+                          <Link to="/fourbox"
+                          state={"1111"}
+                          >
+                            <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
+                          </Link>
+                        
+                        </div>
                   }
-
-                  {/* {linkDataProps?.pathname == "/fourbox" ? "" :
-                    <div style={{ width: "20px" }}>
-                      <Link to="/fourbox">
-                        <img src="/backicon.png" className="img-fluid mt-1" style={{ cursor: "pointer" }} />
-                      </Link>
-                    </div>
-                  } */}
-
-
-
+                  {console.log("linkDataProps?.pathname", linkDataProps)}
 
                   <div className="d-flex justify-content-center align-items-center">
                     <h6 className="mt-1" style={{ cursor: "pointer" }} onClick={showFildeMemberFuction}>{UserRole.Email_Id}</h6>
