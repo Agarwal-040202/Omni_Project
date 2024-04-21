@@ -33,7 +33,7 @@ const Loaderpage = ({ open, type }) => {
                 width: "100%", position: "fixed", zIndex: 99999, background: "rgba(0, 0, 0, 0.6)",
             }}>
 
-                <div class="custom-loader"></div>
+                <div className="custom-loader"></div>
                 {/* <HashLoader color="white" /> */}
 
             </div>

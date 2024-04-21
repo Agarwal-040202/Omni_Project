@@ -24,6 +24,8 @@ import OrderByShopkeeper from './Component/ShopkeeperOrder/OrderByShopkeeper';
 import Dashboard from './Component/AdminDashboard/Dashboard/Dashboard';
 import Corporatevideo from './Component/CorporateVideo/Corporatevideo';
 import Writemodemodal from './Component/WriteModeModal/Writemodemodal';
+// import EditOrderModal from './Component/UpdateOrder/EditOrderModal';
+import EditOrderTable from './Component/UpdateOrder/EditorderTable';
 
 // Import other components here
 
@@ -73,11 +75,13 @@ function App() {
             <>
               <Route exact path="/addfieldmember" element={<FieldMember />} />
               <Route exact path="/addshopkeeper" element={<ShopKeeperList />} />
-              <Route exact path="/writemodemodal/pricelist" element={<Commoncomponent text={1111} />} />
+              <Route exact path="/fourbox/pricelist" element={<Commoncomponent text={1111} />} />
               <Route exact path="/fourbox/pricelist" element={<Commoncomponent text={1} />} />
               <Route exact path="/:id" element={<Commoncomponent text={1} />} />
               <Route exact path="/fourbox" element={<Fourbox />} />
               <Route exact path="/writemodemodal" element={<Writemodemodal />} />
+              <Route exact path='/editordertable' element={<EditOrderTable/>}/>
+
             </>
           )}
 

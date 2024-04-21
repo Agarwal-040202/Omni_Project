@@ -9,16 +9,16 @@ import { Col, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal';
 import html2canvas from 'html2canvas';
-
 import { Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
-
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { v4 as uuidv4 } from "uuid"
 import autoTableStyles from 'jspdf-autotable'
 import { useDispatch, useSelector } from "react-redux"
 import { getPriceListData } from "../../../Redux/Slice/priceLisleSlice/priceListSlice"
+import { orderListDetails } from "../../../Redux/Slice/orderListSlice/orderListSaveSlice"
+
 // import omnipdf from "../../../public/images/OmniBroucher2022.pdf"
 import { useNavigate } from 'react-router-dom';
 
@@ -26,12 +26,11 @@ import { Select } from "antd"
 const { Option } = Select;
 
 
-
-
 const Commoncomponent = (props) => {
 
   const navigate = useNavigate();
 
+  const { orderListDetailStatus, orderListDetailError } = useSelector((State) => State.addNewOrderData)
 
   const UserRole = JSON.parse(sessionStorage?.getItem("personalInfo")) || ""
   const shopKeepeerData = JSON.parse(sessionStorage?.getItem("shopKeeperData")) || ""
@@ -39,6 +38,7 @@ const Commoncomponent = (props) => {
   // console.log("dsffsf", shopKeepeerData?.Firm_Name, shopKeepeerData?.City, UserRole?.User_Name)
 
   // console.log("OrderTypemodeVariable", OrderTypemodeVariable)
+  console.log("orderListDetailStatus", orderListDetailStatus)
 
   const linkDataProps = useLocation();
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const Commoncomponent = (props) => {
   const [quantity, setQuantity] = useState(""); // Step 2: Initialize quantity state
   const [scheme, setScheme] = useState(''); // Step 3: Initialize scheme state
   const [orderList, setOrderList] = useState([]);
-  const [getInput1, setInput1] = useState("");
+  // const [getInput1, setInput1] = useState("");
   const [userIDState, setUserIDState] = useState("")
   const [userCodeState, setUserCodeState] = useState("")
   const [checked, setChecked] = useState(false);
@@ -62,15 +62,44 @@ const Commoncomponent = (props) => {
   const [showPdfModalState, setShowPdfModalState] = useState(false);
 
   const [showModal, setShowModal] = useState(false)
+  const [shopkeeperName, setShopkeeperName] = useState('');
+  const [city, setCity] = useState('');
+  const [orderDetails, setOrderDetails] = useState({});
+  const [showOrderModalWithTypeState, setShowOrderModalWithTypeState] = useState(false)
+  const [accordionInputs, setAccordionInputs] = useState({});
+  // const [pdfData, setPdfData] = useState(null); // State to store PDF data URI
+  // const [loader, setLoader] = useState(false)
+  const [selectedRadio, setSelectedRadio] = useState(""); // State to store the selected radio value
+  const [searchInput, setSearchInput] = useState('');
+  const [currentScrewName, setCurrentScrewName] = useState('');
+  const [textareaValue, setTextareaValue] = useState('');
+  const [formattedText, setFormattedText] = useState('');
+  const [orderListID, setOrderListID] = useState("")
 
-  // console.log("priceListDatafff", checked, priceListData?.priceListData?.data)
 
   useEffect(() => {
+
+    const orderListObject = {
+      orderListID: '',
+      orderNo: '',
+      fieldMemberName: '',
+      orderMode: '',
+      firmName: '',
+      City: '',
+      Date_OrderList: '',
+      orderObject: '',
+      remark: '',
+      fieldMemberID:''
+    }
+
     functionS()
+
   }, [linkDataProps?.state])
 
   useEffect(() => {
+
     setUserIDState(uuidv4())
+    setOrderListID(uuidv4())
     // randemID.slice(0, 6)
   }, [])
 
@@ -78,10 +107,7 @@ const Commoncomponent = (props) => {
     setUserCodeState(userIDState.slice(0, 3))
   }, [userIDState])
 
-  // const outputString = userCodeState.replace(/[a-zA-Z]/g, '');
-
-  // console.log("userIDState", userCodeState)
-
+  console.log("orderListID", orderListID, UserRole?.User_Name)
   // Create a new Date object to represent the current date
   const currentDate = new Date();
 
@@ -146,11 +172,6 @@ const Commoncomponent = (props) => {
   }, [screwName]);
 
 
-  // console.log("linkDataPropsllll", linkDataProps.state)
-
-
-  // console.log("linksdfdsf", menuState)
-
   const searchData = (e) => {
     setInput(e.target.value)
 
@@ -209,7 +230,6 @@ const Commoncomponent = (props) => {
 
 
   // console.log("ppuretyuiouy", JSON.stringify(orderList, null, 2));
-  // console.log("sdfsdfs", orderList)
 
   const removeFromOrderListFunction = (screwName, index) => {
     setOrderList((prevOrderList) => {
@@ -228,12 +248,6 @@ const Commoncomponent = (props) => {
   };
 
 
-  // console.log("orderList", orderList)
-
-  // new modal code start
-
-
-  // 
 
   const showOrderModal = () => {
     setShowModal(true)
@@ -276,8 +290,8 @@ const Commoncomponent = (props) => {
         "CSK PHILLIPS MM THREAD",
         "BLACK GYPSUM",
         "WHITE CHROME FINISH",
-        "ZINK CHIPBOARD",
-        "COMBINATION WITH WASHER MS",
+        "ZINC CHIPBOARD",
+        "ZINC COMBINATION WITH WASHER",
         "CARRIAGE BOLTS 12 MM",
         "CARRIAGE BOLTS 14 MM",
         "KITCHEN BASKET SCREW",
@@ -286,7 +300,6 @@ const Commoncomponent = (props) => {
       ]
   }
 
-  const [showOrderModalWithTypeState, setShowOrderModalWithTypeState] = useState(false)
 
 
   const showOrderModalWithType = () => {
@@ -297,11 +310,6 @@ const Commoncomponent = (props) => {
     setShowOrderModalWithTypeState(false)
   }
 
-
-  const [shopkeeperName, setShopkeeperName] = useState('');
-  const [city, setCity] = useState('');
-  const [orderDetails, setOrderDetails] = useState({});
-
   const handleShopkeeperNameChange = (e) => {
     setShopkeeperName(e.target.value);
   };
@@ -310,29 +318,40 @@ const Commoncomponent = (props) => {
     setCity(e.target.value);
   };
 
-  const [accordionInputs, setAccordionInputs] = useState({});
+  // const [accordionInputs, setAccordionInputs] = useState({});
+
+  // const handleAccordionTextareaChange = (index, value) => {
+  //   if (value !== undefined) {
+  //     setAccordionInputs(prevState => ({
+  //       ...prevState,
+  //       [index]: value
+  //     }));
+  //   } else {
+  //     setAccordionInputs(prevState => {
+  //       const { [index]: omit, ...updatedState } = prevState;
+  //       return updatedState;
+  //     });
+  //   }
+  // };
 
   const handleAccordionTextareaChange = (index, value) => {
-    if (value !== undefined) {
-      setAccordionInputs(prevState => ({
+    const trimmedValue = value.trim();
+    if (trimmedValue !== '') {
+      setAccordionInputs((prevState) => ({
         ...prevState,
-        [index]: value
+        [index]: trimmedValue,
       }));
     } else {
-      setAccordionInputs(prevState => {
+      setAccordionInputs((prevState) => {
         const { [index]: omit, ...updatedState } = prevState;
         return updatedState;
       });
     }
   };
 
+  
+
   console.log("accordionInputs", accordionInputs)
-
-  if (Object.keys(accordionInputs).length !== 0) {
-    console.log("inside if", accordionInputs);
-  }
-
-
 
   const handleGeneratePDF = () => {
     const doc = new jsPDF();
@@ -373,7 +392,7 @@ const Commoncomponent = (props) => {
       const textareaValue = accordionInputs[index];
 
       // Split textarea content into lines
-      const lines = doc.splitTextToSize(textareaValue.toUpperCase(), pageWidth - 40);
+      const lines = doc.splitTextToSize(textareaValue, pageWidth - 40);
       let remainingLines = lines;
 
       // If there are remaining lines to render
@@ -435,17 +454,48 @@ const Commoncomponent = (props) => {
       addNewPage(); // Add a new page if there is remaining data
     }
 
+
+
+    const orderListObject = {
+      orderListID: orderListID,
+      orderNo: orderno,
+      fieldMemberName: UserRole?.User_Name,
+      orderMode: checked ? 'Phone' : 'Visit',
+      firmName: shopkeeperName,
+      City: city,
+      Date_OrderList: formattedDate,
+      orderObject: accordionInputs,
+      remark: formattedText,
+      fieldMemberID:UserRole?.User_Id
+    }
+
+    dispatch(orderListDetails(orderListObject))
+
+    // sessionStorage.setItem('accordionInputs', JSON.stringify(orderListObject));
+
+    console.log("orderListObject", orderListObject)
+
     // Save the PDF
     doc.save(`${shopkeeperName} (${city}).pdf`);
     // handelcloseModalWithType();
-    window.location.reload()
+
+
+    // window.location.reload()
   };
 
 
-
-  const [pdfData, setPdfData] = useState(null); // State to store PDF data URI
-
   // new modelwithtype code end
+
+  // useEffect(() => {
+  //   const savedAccordionInputs = sessionStorage.getItem('accordionInputs');
+
+  //   if (savedAccordionInputs) {
+  //     setAccordionInputs(JSON.parse(savedAccordionInputs));
+  //   }
+  //   console.log("asdasdadad", savedAccordionInputs)
+
+  // }, []);
+
 
   const showPOPModalFunction = () => {
     setShowPopModalState(true)
@@ -465,12 +515,6 @@ const Commoncomponent = (props) => {
     setShowPdfModalState(false)
 
   }
-
-
-
-
-
-  const [loader, setLoader] = useState(false)
 
   // new code pdf start
 
@@ -578,18 +622,12 @@ const Commoncomponent = (props) => {
 
   });
 
-  const [selectedRadio, setSelectedRadio] = useState(""); // State to store the selected radio value
 
   // Function to handle radio button change
   const handleRadioChange = (e) => {
     const value = e.target.value;
     setSelectedRadio(value === selectedRadio ? null : value); // Toggle the selected radio value
   };
-
-
-  const [searchInput, setSearchInput] = useState('');
-  const [currentScrewName, setCurrentScrewName] = useState('');
-
 
   useEffect(() => {
     if (currentScrewName !== '') {
@@ -611,8 +649,6 @@ const Commoncomponent = (props) => {
     }
   }, [currentScrewName]);
 
-  const [textareaValue, setTextareaValue] = useState('');
-  const [formattedText, setFormattedText] = useState('');
 
   const handleTextareaChange = (event) => {
     setTextareaValue(event.target.value);
@@ -628,9 +664,10 @@ const Commoncomponent = (props) => {
 
   const hasNonEmptyValue = Object.values(accordionInputs).some(value => value.trim() !== '');
 
+  console.log("accordionInputs", accordionInputs)
+
   return (
     <div>
-
 
       {
         showModal == true &&
@@ -705,6 +742,7 @@ const Commoncomponent = (props) => {
                     borderRadius: "5px", border: "none", fontSize: "16px", height: "36px", width: "80px", float: "right"
                   }}
                 >Remark</button>
+
                 <button onClick={() => generatePDF(orderList, orderno)}
                   disabled={totalCount > 0 ? false : true}
                   style={{
@@ -718,8 +756,6 @@ const Commoncomponent = (props) => {
         </Modal>
 
       }
-
-
 
       {/* POP MODAL CODE START */}
       {
@@ -806,12 +842,11 @@ const Commoncomponent = (props) => {
           </Modal.Body>
         </Modal>
 
-
       }
 
       {/* VIEW THE PDF MODAL CODE END */}
 
-      {/* WITH TYPE MODE CODE START */}
+      {/* MANUAL MODE MODAL CODE START */}
 
       {
         showOrderModalWithTypeState == true &&
@@ -948,12 +983,8 @@ const Commoncomponent = (props) => {
           </Modal.Body>
         </Modal>
       }
-      {/* WITH TYPE MODE CODE END */}
-
-
-
-      {/* {console.log("linkDataProps.state", linkDataProps)} */}
-
+      {/* MANUAL MODE MODAL CODE END */}
+      {console.log("linklkkjkj", linkDataProps?.state)}
       <div className="Main-Layoyt-Div py-1 pb-2 px-3">
 
         {
@@ -980,9 +1011,6 @@ const Commoncomponent = (props) => {
 
               </div>
         }
-
-
-
 
         <Row>
           <Col xs={12} sm={12} lg={12} className="d-flex justify-content-start align-items-center">

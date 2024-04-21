@@ -7,7 +7,12 @@ let OmniUrl ={
     addShopkeeperDetailURL:'http://localhost:8000/api/shopkeeper/addshopkeeperdetail',
     updateShopkeeperDetailURL:'http://localhost:8000/api/shopkeeper/update/shopkeeperId',
     getAllShopkeeperDataURL:'http://localhost:8000/api/shopkeeper/getallshopkeeper',
-    insertCatalogueDataURL:'http://localhost:8000/api/catalogue/insertcatalogue'
+    insertCatalogueDataURL:'http://localhost:8000/api/catalogue/insertcatalogue',
+    orderListDetailURL:'http://localhost:8000/api/orderlist/addorderlistdetail',
+    getOrderListDetailURL:'http://localhost:8000/api/orderlist/getallorderlist/userId',
+    updateOrderDetailURL:'http://localhost:8000/api/orderlist/update/orderId',
+
+
 
 // url with https
     // fieldmemberloginURL:'https://localhost:8000/api/auth/fieldmemberlogin',
