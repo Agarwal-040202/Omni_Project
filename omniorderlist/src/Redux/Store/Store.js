@@ -9,6 +9,9 @@ import updatefieldMemberReducer from "../Slice/updateFieldMemberSlice"
 import updateshopkeeperReducer from "../Slice/shopkeeperSlice/updateShopkeeperSlice"
 import insertCatelogueData from "../Slice/catelogueSlice/catelogueSlice"
 import priceListDataSlice  from "../Slice/priceLisleSlice/priceListSlice"
+import orderListDetailsSlice from "../Slice/orderListSlice/orderListSaveSlice"
+import orderlistDataSlice from "../Slice/orderListSlice/getOderlistDataSlice"
+import updateOrderListDataSlice from "../Slice/orderListSlice/orderListEditSlice"
 
 
 export const store = configureStore({
@@ -23,6 +26,9 @@ export const store = configureStore({
         updateshopkeeperData:updateshopkeeperReducer,
         catelougeData:insertCatelogueData,
         priceListData: priceListDataSlice,
+        addNewOrderData:orderListDetailsSlice,
+        getALLOrderListData:orderlistDataSlice,
+        updateOrderList:updateOrderListDataSlice
 
     }
 })

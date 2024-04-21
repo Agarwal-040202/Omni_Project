@@ -72,7 +72,8 @@ const Writemodemodal = () => {
                                         }}
                                     >
                                         <Link
-                                            to={{ pathname: "pricelist" }}
+                                            // to={{ pathname: "pricelist" }}
+                                            to={{pathname:"/fourbox"}}
                                             state={"1111"}
                                             style={{ color: "white", textDecoration: "none" }}
                                         >
@@ -80,7 +81,7 @@ const Writemodemodal = () => {
                                         </Link>
                                     </Button>
                                 </Col>
-                                <Col xs={24} sm={24} md={12} lg={12} className="d-flex justify-content-center mb-3">
+                                {/* <Col xs={24} sm={24} md={12} lg={12} className="d-flex justify-content-center mb-3">
                                     <Link
                                         to="/fourbox"
                                         className="custom-btn secondary-btn"
@@ -99,7 +100,7 @@ const Writemodemodal = () => {
                                     >
                                         Auto Mode
                                     </Link>
-                                </Col>
+                                </Col> */}
                             </Row>
 
 
