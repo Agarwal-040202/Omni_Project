@@ -19,46 +19,32 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
 
   // const { priceListData } = useSelector((state) => state);
-  const [sorceVideo, setSourceVideo1] = useState('');
-  const [getInput, setInput] = useState('');
-  const [tableData, setTableData1] = useState([]);
-  const [menuState, setMenuState] = useState('');
-  const [screwName, setScrewName] = useState('');
-  const [quantity, setQuantity] = useState(""); // Step 2: Initialize quantity state
-  const [scheme, setScheme] = useState(''); // Step 3: Initialize scheme state
-  const [orderList, setOrderList] = useState([]);
-  const [getInput1, setInput1] = useState("");
-  const [userIDState, setUserIDState] = useState("")
-  const [userCodeState, setUserCodeState] = useState("")
+ 
   const [checked, setChecked] = useState(false);
   const [showPopModalState, setShowPopModalState] = useState(false);
   const [showPdfModalState, setShowPdfModalState] = useState(false);
-
-  const [showModal, setShowModal] = useState(false)
   const [shopkeeperName, setShopkeeperName] = useState('');
   const [city, setCity] = useState('');
-  const [orderDetails, setOrderDetails] = useState({});
   const [showOrderModalWithTypeState, setShowOrderModalWithTypeState] = useState(false)
   const [accordionInputs, setAccordionInputs] = useState({});
-  const [pdfData, setPdfData] = useState(null); // State to store PDF data URI
-  const [loader, setLoader] = useState(false)
-  const [selectedRadio, setSelectedRadio] = useState(""); // State to store the selected radio value
-  const [searchInput, setSearchInput] = useState('');
-  const [currentScrewName, setCurrentScrewName] = useState('');
   const [textareaValue, setTextareaValue] = useState('');
   const [formattedText, setFormattedText] = useState('');
-  const [orderListID, setOrderListID] = useState("")
   const [getStatusState, setStatusState] = useState(false)
 
 
   console.log("hhlhlhlhlh", editOrderDetail?.orderNo)
 
-  // useEffect(() => {
-  //   const savedAccordionInputs = sessionStorage.getItem('accordionInputs');
-  //   if (savedAccordionInputs) {
-  //     setAccordionInputs(JSON.parse(savedAccordionInputs));
-  //   }
-  // }, []);
+
+  const [activeAccordionIndex, setActiveAccordionIndex] = useState(null);
+
+  // Add this useEffect to set the active accordion index when data is shown
+  useEffect(() => {
+    const activeIndex = Object.keys(accordionInputs).findIndex((key) => accordionInputs[key].trim() !== '');
+    setActiveAccordionIndex(activeIndex !== -1 ? activeIndex : null);
+  }, [accordionInputs]);
+
+
+
 
 
   // const handleAccordionTextareaChange = (index, value) => {
@@ -81,7 +67,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
   // };
 
   const handleAccordionTextareaChange = (index, value) => {
-    const trimmedValue = value.trim();
+    const trimmedValue = value;
     if (trimmedValue !== '') {
       setAccordionInputs((prevState) => ({
         ...prevState,
@@ -94,8 +80,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
       });
     }
   };
-  
-  
+
 
   useEffect(() => {
     if (editOrderDetail?.orderObject) {
@@ -114,14 +99,6 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
   console.log("setAccordionInputs", accordionInputs)
 
-
-  // useEffect(() => {
-  //   sessionStorage.setItem('accordionInputs', JSON.stringify(accordionInputs));
-  // }, [accordionInputs]);
-
-  const handleCloseModal = () => {
-    setShowModalEdit(false)
-  }
 
 
   const screws = {
@@ -143,7 +120,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
         "DRYWALL 410 GOLDEN",
         "CSK PHILLIPS SDS 410",
         "PAN PHILLIPS SDS 410",
-        "HEX SDS EPDM 410",
+        "HEX SDS 410",
         "HEX SDS METAL BONDED EPDM",
         "FULLCUT 410",
         "FULLCUT 410 ANTIQUE",
@@ -155,22 +132,19 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
         "BLACK GYPSUM",
         "WHITE CHROME FINISH",
         "ZINC CHIPBOARD",
-        "ZINC COMBINATION WITH WASHER",
+        "ZINC COMBI WITH WASHER MS",
         "CARRIAGE BOLTS 12 MM",
         "CARRIAGE BOLTS 12 MM ANTIQUE",
         "CARRIAGE BOLTS 12 MM GOLDEN",
         "CARRIAGE BOLTS 14 MM",
         "KITCHEN BASKET SCREW",
         "NAILS HEADLESS",
-        "NAILS ROUND HEAD"
+        "NAILS ROUND HEAD",
+        "Washer"
       ]
   }
 
 
-
-  const showOrderModalWithType = () => {
-    setShowOrderModalWithTypeState(true)
-  }
 
   const handelcloseModalWithType = () => {
     // setShowOrderModalWithTypeState(false)
@@ -251,13 +225,15 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
     // Shopkeeper Details
     doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('helvetica', 'bold');
     const orderByText = `Order No: ${editOrderDetail?.orderNo}, Order By: ${editOrderDetail?.fieldMemberName}, Order Mode: ${checked ? 'Phone' : 'Visit'}, Date: ${editOrderDetail?.Date_OrderList}`;
     doc.text(orderByText, 15, yPosition);
     yPosition += 7;
     const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}, City: ${city.toUpperCase()}, `;
     doc.text(shopKeeperData, 15, yPosition);
     yPosition += 10;
+
+    
 
     // Iterate over the definedIndices array to generate PDF for defined textarea values
     definedIndices.forEach((index, i) => {
@@ -350,7 +326,6 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
       handleShopToast(true, 'Error', 'Something went wrong.');
     }
 
-    // sessionStorage.setItem('accordionInputs', JSON.stringify(orderListObject));
 
     console.log("orderLikjhlhlhstObject", orderListObject)
 
@@ -558,7 +533,6 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
               </div>
 
               <div className="position-relative mt-1" style={{ height: "200px", "overflow-y": "scroll" }}>
-
                 <div className="accordion" id="accordionExample" style={{ width: "98%" }}>
                   {screws.screwName.map((screw, index) => (
                     <div className="accordion-item my-2" key={index}>
@@ -582,9 +556,9 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
                     </div>
                   ))}
                 </div>
-
               </div>
             </div>
+
             <div className='d-flex justify-content-between mt-3'>
               <button
                 onClick={showPOPModalFunction}
@@ -602,7 +576,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
                   backgroundColor: "green", color: "white",
                   borderRadius: "5px", border: "none", fontSize: "14px", height: "34px", width: "106px", float: "right"
                 }}
-              >Genrate Order</button>
+              >Update Order</button>
             </div>
           </Modal.Body>
         </Modal>

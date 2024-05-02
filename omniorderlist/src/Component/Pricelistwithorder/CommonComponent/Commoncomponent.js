@@ -261,7 +261,6 @@ const Commoncomponent = (props) => {
   // new modelwithtype code start
 
   const screws = {
-
     "screwName":
       [
         "CSK PHILLIPS",
@@ -289,14 +288,17 @@ const Commoncomponent = (props) => {
         "CSK SLOTTED MM THREAD",
         "CSK PHILLIPS MM THREAD",
         "BLACK GYPSUM",
-        "WHITE CHROME FINISH",
+        "CHROME FINISH",
         "ZINC CHIPBOARD",
-        "ZINC COMBINATION WITH WASHER",
+        "ZINC COMBI WITH WASHER MS",
         "CARRIAGE BOLTS 12 MM",
+        "CARRIAGE BOLTS 12 MM ANTIQUE",
+        "CARRIAGE BOLTS 12 MM GOLDEN",
         "CARRIAGE BOLTS 14 MM",
         "KITCHEN BASKET SCREW",
         "NAILS HEADLESS",
-        "NAILS ROUND HEAD"
+        "NAILS ROUND HEAD",
+        "Washer"
       ]
   }
 
@@ -335,7 +337,7 @@ const Commoncomponent = (props) => {
   // };
 
   const handleAccordionTextareaChange = (index, value) => {
-    const trimmedValue = value.trim();
+    const trimmedValue = value;
     if (trimmedValue !== '') {
       setAccordionInputs((prevState) => ({
         ...prevState,
@@ -477,7 +479,7 @@ const Commoncomponent = (props) => {
 
     // Save the PDF
     doc.save(`${shopkeeperName} (${city}).pdf`);
-    // handelcloseModalWithType();
+    handelcloseModalWithType();
 
 
     // window.location.reload()
