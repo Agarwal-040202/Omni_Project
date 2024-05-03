@@ -89,7 +89,7 @@ const Commoncomponent = (props) => {
       Date_OrderList: '',
       orderObject: '',
       remark: '',
-      fieldMemberID:''
+      fieldMemberID: ''
     }
 
     functionS()
@@ -351,7 +351,7 @@ const Commoncomponent = (props) => {
     }
   };
 
-  
+
 
   console.log("accordionInputs", accordionInputs)
 
@@ -457,19 +457,45 @@ const Commoncomponent = (props) => {
     }
 
 
+    const trimmedFirmName = shopkeeperName.trim(); // Trim extra spaces
+    const firmName = trimmedFirmName
+      .split(/\s+/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+
+      const trimmedCity = city.trim(); // Trim extra spaces
+      const formattedCity = trimmedCity
+          .split(/\s+/)
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+          .join(' ');
 
     const orderListObject = {
       orderListID: orderListID,
       orderNo: orderno,
       fieldMemberName: UserRole?.User_Name,
       orderMode: checked ? 'Phone' : 'Visit',
-      firmName: shopkeeperName,
-      City: city,
+      firmName: firmName,
+      City: formattedCity,
       Date_OrderList: formattedDate,
       orderObject: accordionInputs,
       remark: formattedText,
-      fieldMemberID:UserRole?.User_Id
-    }
+      fieldMemberID: UserRole?.User_Id
+    };
+
+
+
+    //   const orderListObject = {
+    //     orderListID: orderListID,
+    //     orderNo: orderno,
+    //     fieldMemberName: UserRole?.User_Name,
+    //     orderMode: checked ? 'Phone' : 'Visit',
+    //     firmName: shopkeeperName.charAt(0).toUpperCase() + shopkeeperName.slice(1).toLowerCase(),
+    //     City: city.charAt(0).toUpperCase() + city.slice(1).toLowerCase(),
+    //     Date_OrderList: formattedDate,
+    //     orderObject: accordionInputs,
+    //     remark: formattedText,
+    //     fieldMemberID: UserRole?.User_Id
+    // };
 
     dispatch(orderListDetails(orderListObject))
 
