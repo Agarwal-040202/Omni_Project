@@ -305,18 +305,35 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
 
 
-    const orderListObject = {
-      orderListID: editOrderDetail?.orderListID,
-      orderNo: editOrderDetail?.orderNo,
-      fieldMemberName: editOrderDetail?.fieldMemberName,
-      orderMode: checked ? 'Phone' : 'Visit',
-      firmName: shopkeeperName,
-      City: city,
-      Date_OrderList: editOrderDetail?.Date_OrderList,
-      orderObject: accordionInputs,
-      remark: formattedText ? formattedText : textareaValue,
-      fieldMemberID: editOrderDetail?.fieldMemberID
-    }
+  
+
+
+    const trimmedFirmName = shopkeeperName.trim(); // Trim extra spaces
+    const firmName = trimmedFirmName
+      .split(/\s+/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+
+      const trimmedCity = city.trim(); // Trim extra spaces
+      const formattedCity = trimmedCity
+          .split(/\s+/)
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+          .join(' ');
+
+
+          const orderListObject = {
+            orderListID: editOrderDetail?.orderListID,
+            orderNo: editOrderDetail?.orderNo,
+            fieldMemberName: editOrderDetail?.fieldMemberName,
+            orderMode: checked ? 'Phone' : 'Visit',
+            firmName: firmName,
+            City: formattedCity,
+            Date_OrderList: editOrderDetail?.Date_OrderList,
+            orderObject: accordionInputs,
+            remark: formattedText ? formattedText : textareaValue,
+            fieldMemberID: editOrderDetail?.fieldMemberID
+          }
+
 
     try {
 

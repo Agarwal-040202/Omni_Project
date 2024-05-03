@@ -50,7 +50,14 @@ const EditOrderTable = () => {
                 .filter((item) => item.City === city)
                 .map((item) => item.firmName);
             console.log("Filtered firm names:", filteredFirmNames);
-            setFirmNames(filteredFirmNames);
+            // setFirmNames(filteredFirmNames);
+
+            setFirmNames([...new Set(filteredFirmNames.map(name => name.trim()))]);
+
+            console.log("filteredFirmNames:", filteredFirmNames);
+            console.log("Set(filteredFirmNames):", new Set(filteredFirmNames));
+
+
             // } else if (state) {
             //     const filteredFirmNames = orderlistData?.data
             //         .filter((item) => item.State === state)
@@ -177,7 +184,7 @@ const EditOrderTable = () => {
                                                             <td>{firmName}</td>
                                                             <td>{City}</td>
                                                             <td>{Date_OrderList}</td>
-                                                            <td>{orderMode}</td> {/* Display User_Id here */}
+                                                            <td>{orderMode}</td> 
                                                             <td
                                                                 style={{ cursor: 'pointer', color: 'blue', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                                                                 onClick={() => handleActions(item)}
