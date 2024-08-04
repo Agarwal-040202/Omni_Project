@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { updateOrderListData } from "../../Redux/Slice/orderListSlice/orderListEditSlice"
 import MyContext from "../../MyContext";
 import { compose } from '@reduxjs/toolkit';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { Col, Row } from 'react-bootstrap';
 
 const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) => {
 
@@ -17,10 +20,10 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
   console.log("ouoooiyoiyosa", updateOrderDetailStatus, updateOrderDetailError)
 
 
-
+  console.log("kljkjhhghghghg", showModalEdit, setShowModalEdit, editOrderDetail)
   // const { priceListData } = useSelector((state) => state);
- 
-  const [checked, setChecked] = useState(false);
+
+  const [checked, setChecked] = useState(editOrderDetail?.orderMode == "Phone"? true : false);
   const [showPopModalState, setShowPopModalState] = useState(false);
   const [showPdfModalState, setShowPdfModalState] = useState(false);
   const [shopkeeperName, setShopkeeperName] = useState('');
@@ -32,7 +35,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
   const [getStatusState, setStatusState] = useState(false)
 
 
-  console.log("hhlhlhlhlh", editOrderDetail?.orderNo)
+  console.log("hhlhlhlhlh", editOrderDetail?.orderNo, editOrderDetail?.orderMode)
 
 
   const [activeAccordionIndex, setActiveAccordionIndex] = useState(null);
@@ -205,35 +208,80 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
     let yPosition = 10;
     const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
 
-    // Function to add a new page
     const addNewPage = () => {
-      doc.addPage(); // Add a new page
-      yPosition = 10; // Reset yPosition for the new page
+      doc.addPage();
+      drawBorder();
+      yPosition = 10;
     };
+
+    const drawBorder = () => {
+      const margin = 2; // Define the margin for the border
+      doc.setLineWidth(1);
+      doc.setDrawColor(0, 0, 0); // Black color for the border
+      doc.rect(margin, margin, pageWidth - 2 * margin, pageHeight - 2 * margin); // Draw the border
+    };
+
+    // Draw the border on the first page
+    drawBorder();
 
     // Filter out the indices of screws with defined textarea values
     const definedIndices = Object.keys(accordionInputs).filter(index => accordionInputs[index] !== undefined);
 
     // Title
-    doc.setFontSize(14);
     doc.setTextColor(128, 0, 0);
     doc.setFont('helvetica', 'bold');
+    // doc.setFont("times", "bolditalic");
+    doc.setFontSize(16);
+    // doc.setTextColor(0, 102, 204);
     doc.text('Omni Screw Orderlist', pageWidth / 2, yPosition, { align: 'center' });
-    doc.setTextColor(0);
-    yPosition += 10;
+    yPosition += 14;
+
+    
 
     // Shopkeeper Details
     doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    // Order No and Date on the same line (left and right)
+
+    const orderNoText = `Order No: ${editOrderDetail?.orderNo}`;
+    doc.text(orderNoText, 15, yPosition);
     doc.setFont('helvetica', 'bold');
-    const orderByText = `Order No: ${editOrderDetail?.orderNo}, Order By: ${editOrderDetail?.fieldMemberName}, Order Mode: ${checked ? 'Phone' : 'Visit'}, Date: ${editOrderDetail?.Date_OrderList}`;
-    doc.text(orderByText, 15, yPosition);
+    const dateText = `Date: ${editOrderDetail?.Date_OrderList}`
+    const dateTextWidth = doc.getTextWidth(dateText);
+    doc.text(dateText, pageWidth - dateTextWidth - 15, yPosition);
     yPosition += 7;
-    const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}, City: ${city.toUpperCase()}, `;
+
+    // Order By and Order Mode on the same line (left and right)
+    doc.setFont("helvetica", "bold");
+    const orderByText = `Order By: ${editOrderDetail?.fieldMemberName}`;
+    doc.text(orderByText, 15, yPosition);
+    doc.setFont("helvetica", "bold");
+    const orderModeText = `Order Mode: ${checked ? 'Phone' : 'Visit'}`;
+    const orderModeTextWidth = doc.getTextWidth(orderModeText);
+    doc.text(orderModeText, pageWidth - orderModeTextWidth - 15, yPosition);
+    yPosition += 7;
+
+    // Shopkeeper Details
+    doc.setFont("helvetica", "bold");
+    const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}`;
     doc.text(shopKeeperData, 15, yPosition);
+    yPosition += 7;
+
+    doc.setFont("helvetica", "bold");
+    const cityData = `City: ${city.toUpperCase()}`;
+    doc.text(cityData, 15, yPosition);
     yPosition += 10;
 
-    
+    // const orderByText = `Order No: ${editOrderDetail?.orderNo}, Order By: ${editOrderDetail?.fieldMemberName}, Order Mode: ${checked ? 'Phone' : 'Visit'}, Date: ${editOrderDetail?.Date_OrderList}`;
+    // doc.text(orderByText, 15, yPosition);
+    // yPosition += 7;
+    // const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}, City: ${city.toUpperCase()}, `;
+    // doc.text(shopKeeperData, 15, yPosition);
+    // yPosition += 10;
+
+
 
     // Iterate over the definedIndices array to generate PDF for defined textarea values
     definedIndices.forEach((index, i) => {
@@ -252,8 +300,9 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
         }
 
         // Screw Name
+        doc.setFont("helvetica", "bold");
         doc.setFontSize(12);
-        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(204, 0, 0);
         doc.text(`${screw}`, 15, yPosition);
         yPosition += 6;
 
@@ -264,6 +313,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
         // Render lines on the current page
         doc.setFontSize(12);
         doc.setFont('helvetica', 'normal');
+        doc.setTextColor(0, 0, 0);
         doc.text(linesToRender, 20, yPosition);
         yPosition += linesToRender.length * 5; // Adjust yPosition based on the height of the rendered lines
 
@@ -305,7 +355,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
 
 
-  
+
 
 
     const trimmedFirmName = shopkeeperName.trim(); // Trim extra spaces
@@ -314,25 +364,25 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(' ');
 
-      const trimmedCity = city.trim(); // Trim extra spaces
-      const formattedCity = trimmedCity
-          .split(/\s+/)
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-          .join(' ');
+    const trimmedCity = city.trim(); // Trim extra spaces
+    const formattedCity = trimmedCity
+      .split(/\s+/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
 
 
-          const orderListObject = {
-            orderListID: editOrderDetail?.orderListID,
-            orderNo: editOrderDetail?.orderNo,
-            fieldMemberName: editOrderDetail?.fieldMemberName,
-            orderMode: checked ? 'Phone' : 'Visit',
-            firmName: firmName,
-            City: formattedCity,
-            Date_OrderList: editOrderDetail?.Date_OrderList,
-            orderObject: accordionInputs,
-            remark: formattedText ? formattedText : textareaValue,
-            fieldMemberID: editOrderDetail?.fieldMemberID
-          }
+    const orderListObject = {
+      orderListID: editOrderDetail?.orderListID,
+      orderNo: editOrderDetail?.orderNo,
+      fieldMemberName: editOrderDetail?.fieldMemberName,
+      orderMode: checked ? 'Phone' : 'Visit',
+      firmName: firmName,
+      City: formattedCity,
+      Date_OrderList: editOrderDetail?.Date_OrderList,
+      orderObject: accordionInputs,
+      remark: formattedText ? formattedText : textareaValue,
+      fieldMemberID: editOrderDetail?.fieldMemberID
+    }
 
 
     try {
@@ -351,6 +401,8 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
     // handelcloseModalWithType();
     window.location.reload()
   };
+
+  console.log("checkedchecked", checked)
 
   // updateOrderDetailStatus, updateOrderDetailError
   const callFunction = () => {
@@ -542,6 +594,27 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
                   <h4 className='firmname-tag-h6'>Order Details</h4>
                 </div>
 
+                <Col xs={3} sm={3} lg={3} className="d-flex justify-content-center align-items-center m-0 p-0">
+
+                  <ButtonGroup >
+                    <ToggleButton
+                      id="toggle-check"
+                      type="checkbox"
+                      variant={checked ? 'success' : 'secondary'}
+                      checked={checked}
+                      value="1"
+                      onChange={(e) => setChecked(e.currentTarget.checked)}
+                      className="toggle-switch d-flex justify-content-center align-items-center"
+                      style={{ paddingBottom: "7px" }}
+                    >
+                      Phone
+                    </ToggleButton>
+                  </ButtonGroup>
+                  {/* </div> */}
+                </Col>
+                {/* editOrderDetail?.orderMode */}
+                {console.log("toggle", checked)}
+                
                 {(hasNonEmptyValue && shopkeeperName !== "" && city !== "") && (
                   <div style={{ width: "36px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img src="/pdfview.png" className='img-fluid' style={{ cursor: "pointer" }} onClick={showPdfModalFunction} />
