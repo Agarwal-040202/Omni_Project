@@ -52,7 +52,7 @@ const Fourbox = () => {
       <Row >
         <Col span={24}>
           <Row className="Main-Card-Layout-Div">
-            {linkDataProps?.state !== "1111" &&
+            {/* {linkDataProps?.state !== "1111" &&
               <Col span={6} xs={24} sm={12} md={12} lg={6} xl={6} className="d-flex justify-content-center align-items-center">
                 <div>
                   <Link className="linkstyles" to={fileldMemberDetailStatus == "Success" ? "/addshopkeeper" : "/addfieldmember"} >
@@ -61,18 +61,16 @@ const Fourbox = () => {
                         <Card.Img src={fileldMemberDetailStatus == "Success" ? "shopkeepr1.png" : "fieldmember2.png"} style={{ zIndex: "1" }} className='w-50' />
                       </Card.Body>
 
-                      {/* style={{backgroundColor:"white",borderBottomLeftRadius:"50px",borderBottomRightRadius:"50px"}} */}
+                      {/* style={{backgroundColor:"white",borderBottomLeftRadius:"50px",borderBottomRightRadius:"50px"}} 
                       <Card.Header className="text-center" style={{ backgroundColor: "maroon", borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px" }}>
                         {fileldMemberDetailStatus == "Success" ? "Add Shopkeeper" : "Add Field Member"}
                       </Card.Header>
-
-
                     </Card>
                   </Link>
                 </div>
               </Col>
-            }
-            {linkDataProps?.state !== "1111" &&
+            } */}
+            {/* {linkDataProps?.state !== "1111" &&
               <Col span={6} xs={24} sm={12} md={12} lg={6} xl={6} className="d-flex justify-content-center align-items-center">
                 <div>
                   <Link className="linkstyles" to="#" >
@@ -81,7 +79,7 @@ const Fourbox = () => {
                         <Card.Img src="takeorder1.webp" style={{ zIndex: "1", width: "75px" }} className='' />
                       </Card.Body>
 
-                      {/* style={{backgroundColor:"white",borderBottomLeftRadius:"50px",borderBottomRightRadius:"50px"}} */}
+                      {/* style={{backgroundColor:"white",borderBottomLeftRadius:"50px",borderBottomRightRadius:"50px"}} 
                       <Card.Header
                         className="text-center"
                         style={{ backgroundColor: "maroon", borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px" }}
@@ -92,7 +90,7 @@ const Fourbox = () => {
                   </Link>
                 </div>
               </Col>
-            }
+            } */}
             {/* manual mode code  */}
             {linkDataProps?.state === "1111" &&
               <Col span={6} xs={24} sm={12} md={12} lg={6} xl={6} className="d-flex justify-content-center align-items-center">

@@ -55,7 +55,7 @@ const Writemodemodal = () => {
                         <div>
                             <h4 className='firmname-tag-h6 mb-4'>Choose a mode</h4>
                             <Row>
-                                <Col xs={24} sm={24} md={12} lg={12} className="d-flex justify-content-center mb-3">
+                                <Col xs={24} sm={24} md={24} lg={24} className="d-flex justify-content-center mb-3">
                                     <Button
                                         type="submit"
                                         onClick={(e) => saveKeyFunction("OrderTypemode")}
