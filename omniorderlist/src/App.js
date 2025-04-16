@@ -26,6 +26,7 @@ import Corporatevideo from './Component/CorporateVideo/Corporatevideo';
 import Writemodemodal from './Component/WriteModeModal/Writemodemodal';
 // import EditOrderModal from './Component/UpdateOrder/EditOrderModal';
 import EditOrderTable from './Component/UpdateOrder/EditorderTable';
+import ScrewReportPage from './Component/Screw Report/ScrewReportPage';
 
 // Import other components here
 
@@ -81,6 +82,8 @@ function App() {
               <Route exact path="/fourbox" element={<Fourbox />} />
               <Route exact path="/writemodemodal" element={<Writemodemodal />} />
               <Route exact path='/editordertable' element={<EditOrderTable/>}/>
+              <Route exact path='/screwreportpage' element={<ScrewReportPage/>}/>
+
 
             </>
           )}

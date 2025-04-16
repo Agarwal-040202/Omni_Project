@@ -32,7 +32,7 @@ export const registerUser = createAsyncThunk(
             );
 
             const token = response.data;
-            // localStorage.setItem("token", JSON.stringify(token));
+            localStorage.setItem("token", JSON.stringify(token));
 
             return token;
         } catch (error) {

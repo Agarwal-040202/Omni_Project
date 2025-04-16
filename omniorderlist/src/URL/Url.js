@@ -11,7 +11,9 @@ let OmniUrl ={
     orderListDetailURL:'http://localhost:8000/api/orderlist/addorderlistdetail',
     getOrderListDetailURL:'http://localhost:8000/api/orderlist/getallorderlist/userId',
     updateOrderDetailURL:'http://localhost:8000/api/orderlist/update/orderId',
-
+    reportListDetailURL:'http://localhost:8000/api/reportlist/addreportlistdetail',
+    getReportListDetailURL:'http://localhost:8000/api/reportlist/getallreportlist/userId',
+    updateReportDetailURL:'http://localhost:8000/api/reportlist/update/reportId',
 
 
 // url with https
