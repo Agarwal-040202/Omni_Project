@@ -133,7 +133,7 @@ const Fourbox = () => {
               </Col>
             }
 
-            {linkDataProps?.state === "11111" &&
+            {linkDataProps?.state === "1111" &&
               <Col span={6} xs={24} sm={12} md={12} lg={6} xl={6} className="d-flex justify-content-center align-items-center">
                 <div>
                   <Link className="linkstyles" to="/screwreportpage" >
@@ -143,7 +143,7 @@ const Fourbox = () => {
                       </Card.Body>
 
                       <Card.Header className="text-center" style={{ backgroundColor: "maroon", borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px" }}>
-                        Screw Report  mmmmn
+                        Screw Report
                       </Card.Header>
 
 

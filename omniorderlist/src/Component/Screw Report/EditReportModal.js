@@ -98,6 +98,7 @@ const EditReportModal = ({ showModalEdit, setShowModalEdit, editReportDetail }) 
         "ZINC COMBI WITH WASHER MS",
         "ZINC SDS",
         "ZINC TRUSS SDS",
+        "ZINC HEX HEAD"
       ]
   }
 
@@ -566,7 +567,7 @@ const EditReportModal = ({ showModalEdit, setShowModalEdit, editReportDetail }) 
 
               <div className='d-flex justify-content-between mt-2'>
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <h4 className='firmname-tag-h6'>Order Details</h4>
+                  <h4 className='firmname-tag-h6'>Report Details</h4>
                 </div>
 
                 <Col xs={3} sm={3} lg={3} className="d-flex justify-content-center align-items-center m-0 p-0">

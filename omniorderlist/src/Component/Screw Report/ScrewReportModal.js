@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from "uuid"
 
 import {reportListDetails} from "../../Redux/Slice/reportListSlice/reportListSaveSlice"
 
-const ScrewReportModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) => {
+const ScrewReportModal = ({ showModalReport, setShowModalReport }) => {
 
 
     const { reportListDetailStatus, reportListDetailError } = useSelector((State) => State.addNewReportData)
@@ -32,7 +32,8 @@ const ScrewReportModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) 
   let { handleShopToast, setShowLoder } = useContext(MyContext)
   const dispatch = useDispatch()
 
-  console.log("kljkjhhghghghg", showModalEdit, setShowModalEdit, editOrderDetail)
+  // console.log("kljkjhhghghghg", setShowModalReport)
+
   const [reportMode, setReportMode] = useState("Visit");
   const [showPopModalState, setShowPopModalState] = useState(false);
   const [showPdfModalState, setShowPdfModalState] = useState(false);
@@ -416,7 +417,7 @@ const handleGeneratePDF = () => {
 
   const handelcloseModalWithType = () => {
     // setShowOrderModalWithTypeState(false)
-    setShowModalEdit(false)
+    setShowModalReport(false)
   }
 
   const handleShopkeeperNameChange = (e) => {
@@ -579,8 +580,8 @@ const handleGeneratePDF = () => {
       {/* MANUAL MODE MODAL CODE START */}
 
       {
-        showModalEdit == true &&
-        <Modal show={showModalEdit}
+        showModalReport == true &&
+        <Modal show={showModalReport}
           onHide={handelcloseModalWithType}
           centered
           backdrop={false}
