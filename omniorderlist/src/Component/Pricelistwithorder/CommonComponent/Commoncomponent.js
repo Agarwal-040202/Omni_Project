@@ -60,15 +60,13 @@ const Commoncomponent = (props) => {
   const [checked, setChecked] = useState(false);
   const [showPopModalState, setShowPopModalState] = useState(false);
   const [showPdfModalState, setShowPdfModalState] = useState(false);
-
   const [showModal, setShowModal] = useState(false)
   const [shopkeeperName, setShopkeeperName] = useState('');
+  const [stateName, setStateName] = useState('');
   const [city, setCity] = useState('');
   const [orderDetails, setOrderDetails] = useState({});
   const [showOrderModalWithTypeState, setShowOrderModalWithTypeState] = useState(false)
   const [accordionInputs, setAccordionInputs] = useState({});
-  // const [pdfData, setPdfData] = useState(null); // State to store PDF data URI
-  // const [loader, setLoader] = useState(false)
   const [selectedRadio, setSelectedRadio] = useState(""); // State to store the selected radio value
   const [searchInput, setSearchInput] = useState('');
   const [currentScrewName, setCurrentScrewName] = useState('');
@@ -84,6 +82,7 @@ const Commoncomponent = (props) => {
       orderNo: '',
       fieldMemberName: '',
       orderMode: '',
+      stateName: '',
       firmName: '',
       City: '',
       Date_OrderList: '',
@@ -267,7 +266,7 @@ const Commoncomponent = (props) => {
         "CSK PHILLIPS ANTIQUE",
         "CSK PHILLIPS ROSEGOLD",
         "CSK PHILLIPS GOLDEN",
-        "CSK PHILLIPS AUTO BLACK FINISH",
+        "CSK PHILLIPS AUTO BLACK",
         "PAN PHILLIPS",
         "CSK SLOTTED",
         "PAN SLOTTED",
@@ -276,6 +275,8 @@ const Commoncomponent = (props) => {
         "DRYWALL 410",
         "DRYWALL 410 ANTIQUE",
         "DRYWALL 410 GOLDEN",
+        "DRYWALL 410 ROSEGOLD",
+        "DRYWALL 410 AUTO BLACK",
         "CSK PHILLIPS SDS 410",
         "PAN PHILLIPS SDS 410",
         "HEX SDS EPDM 410",
@@ -283,6 +284,8 @@ const Commoncomponent = (props) => {
         "FULLCUT 410",
         "FULLCUT 410 ANTIQUE",
         "FULLCUT 410 GOLDEN",
+        "FULLCUT 410 ROSEGOLD",
+        "FULLCUT 410 AUTO BLACK",
         "COMBINATION WITH WASHER SS",
         "CSK SLOTTED BSW THREAD",
         "CSK SLOTTED MM THREAD",
@@ -294,11 +297,19 @@ const Commoncomponent = (props) => {
         "CARRIAGE BOLTS 12 MM",
         "CARRIAGE BOLTS 12 MM ANTIQUE",
         "CARRIAGE BOLTS 12 MM GOLDEN",
+        "CARRIAGE BOLTS 12 MM BLACK",
         "CARRIAGE BOLTS 14 MM",
         "KITCHEN BASKET SCREW",
         "NAILS HEADLESS",
         "NAILS ROUND HEAD",
-        "Washer"
+        "MACHINE SCREW (+)",
+        "MACHINE SCREW ANTIQUE (+)",
+        "Washer",
+        "NUT",
+        "ZINC SDS",
+        "ZINC TRUSS SDS",
+        "ZINC HEX HEAD"
+
       ]
   }
 
@@ -314,6 +325,10 @@ const Commoncomponent = (props) => {
 
   const handleShopkeeperNameChange = (e) => {
     setShopkeeperName(e.target.value);
+  };
+
+  const handleStateNameChange = (e) => {
+    setStateName(e.target.value);
   };
 
   const handleCityChange = (e) => {
@@ -483,26 +498,33 @@ const Commoncomponent = (props) => {
 
   // new code 4/8/24
 
+  
+  
+  // new code end 4/8/24
+
+
+
+  //new code 15/4125
+
   const handleGeneratePDF = () => {
     const doc = new jsPDF();
-    let yPosition = 10;
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
+    let yPosition = 10;
+  
+    const drawBorder = () => {
+      const margin = 2;
+      doc.setLineWidth(1);
+      doc.setDrawColor(0, 0, 0);
+      doc.rect(margin, margin, pageWidth - 2 * margin, pageHeight - 2 * margin);
+    };
   
     const addNewPage = () => {
       doc.addPage();
       drawBorder();
       yPosition = 10;
     };
-
-    const drawBorder = () => {
-      const margin = 2; // Define the margin for the border
-      doc.setLineWidth(1);
-      doc.setDrawColor(0, 0, 0); // Black color for the border
-      doc.rect(margin, margin, pageWidth - 2 * margin, pageHeight - 2 * margin); // Draw the border
-    };
   
-    // Draw the border on the first page
     drawBorder();
   
     const definedIndices = Object.keys(accordionInputs).filter(index => accordionInputs[index] !== undefined);
@@ -510,66 +532,58 @@ const Commoncomponent = (props) => {
     // Title
     doc.setTextColor(128, 0, 0);
     doc.setFont('helvetica', 'bold');
-    // doc.setFont("times", "bolditalic");
     doc.setFontSize(16);
-    // doc.setTextColor(0, 102, 204);
     doc.text('Omni Screw Orderlist', pageWidth / 2, yPosition, { align: 'center' });
     yPosition += 14;
   
-    // Shopkeeper Details
+    // Order Details
     doc.setFontSize(12);
     doc.setTextColor(0, 0, 0);
+    doc.setFont("helvetica", "bold");
   
-    // Order No and Date on the same line (left and right)
-    doc.setFont("helvetica", "bold");
-    const orderNoText = `Order No: ${orderno}`;
-    doc.text(orderNoText, 15, yPosition);
-    doc.setFont("helvetica", "bold");
+    doc.text(`Order No: ${orderno}`, 15, yPosition);
     const dateText = `Date: ${formattedDate}`;
     const dateTextWidth = doc.getTextWidth(dateText);
     doc.text(dateText, pageWidth - dateTextWidth - 15, yPosition);
     yPosition += 7;
   
-    // Order By and Order Mode on the same line (left and right)
-    doc.setFont("helvetica", "bold");
-    const orderByText = `Order By: ${UserRole?.User_Name}`;
-    doc.text(orderByText, 15, yPosition);
-    doc.setFont("helvetica", "bold");
+    doc.text(`Order By: ${UserRole?.User_Name}`, 15, yPosition);
     const orderModeText = `Order Mode: ${checked ? 'Phone' : 'Visit'}`;
     const orderModeTextWidth = doc.getTextWidth(orderModeText);
     doc.text(orderModeText, pageWidth - orderModeTextWidth - 15, yPosition);
     yPosition += 7;
   
-    // Shopkeeper Details
-    doc.setFont("helvetica", "bold");
-    const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}`;
-    doc.text(shopKeeperData, 15, yPosition);
+    doc.text(`State Name: ${stateName.toUpperCase()}`, 15, yPosition);
     yPosition += 7;
-
-    doc.setFont("helvetica", "bold");
-    const cityData = `City: ${city.toUpperCase()}`;
-    doc.text(cityData, 15, yPosition);
+  
+    doc.text(`Firm Name: ${shopkeeperName.toUpperCase()}`, 15, yPosition);
+    yPosition += 7;
+  
+    doc.text(`City: ${city.toUpperCase()}`, 15, yPosition);
     yPosition += 10;
   
-    // Iterate over definedIndices to add screw data
+    // Loop through screws
     definedIndices.forEach((index, i) => {
       const screw = screws.screwName[index];
       const textareaValue = accordionInputs[index];
       const lines = doc.splitTextToSize(textareaValue, pageWidth - 40);
-      let remainingLines = lines;
+      let remainingLines = [...lines];
   
       while (remainingLines.length > 0) {
-        if (yPosition + 30 > pageHeight) {
+        const minRequiredSpace = 7 + (remainingLines.length * 5);
+        if (yPosition + minRequiredSpace > pageHeight - 10) {
           addNewPage();
         }
   
+        // Screw name
         doc.setFont("helvetica", "bold");
         doc.setFontSize(12);
         doc.setTextColor(204, 0, 0);
         doc.text(`${screw}`, 15, yPosition);
-        yPosition += 6;
+        yPosition += 7;
   
-        const availableLines = Math.floor((pageHeight - yPosition) / 5);
+        // Screw details
+        const availableLines = Math.floor((pageHeight - yPosition - 10) / 5);
         const linesToRender = remainingLines.slice(0, availableLines);
   
         doc.setFont("helvetica", "normal");
@@ -587,46 +601,42 @@ const Commoncomponent = (props) => {
   
       yPosition += 3;
   
-      if (i < definedIndices.length - 1 && yPosition + 30 > pageHeight) {
+      if (i < definedIndices.length - 1 && yPosition + 30 > pageHeight - 10) {
         addNewPage();
       }
     });
   
     // Remarks section
     if (formattedText) {
+      if (yPosition + 30 > pageHeight - 10) {
+        addNewPage();
+      }
+  
       yPosition += 5;
       doc.setFont("helvetica", "bold");
       doc.setFontSize(13);
       doc.setTextColor(128, 0, 0);
       doc.text(`REMARKS:`, 15, yPosition);
       yPosition += 5;
+  
       doc.setFontSize(11);
       doc.setTextColor(0, 0, 0);
       doc.setFont("helvetica", "normal");
-      doc.text(formattedText, 15, yPosition);
+      const remarksLines = doc.splitTextToSize(formattedText, pageWidth - 30);
+      doc.text(remarksLines, 15, yPosition);
+      yPosition += remarksLines.length * 5;
     }
   
-    if (yPosition + 30 > pageHeight) {
-      addNewPage();
-    }
-  
-    const trimmedFirmName = shopkeeperName.trim();
-    const firmName = trimmedFirmName
-      .split(/\s+/)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-  
-    const trimmedCity = city.trim();
-    const formattedCity = trimmedCity
-      .split(/\s+/)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
+    // Save order object
+    const firmName = shopkeeperName.trim().split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+    const formattedCity = city.trim().split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
   
     const orderListObject = {
       orderListID: orderListID,
       orderNo: orderno,
       fieldMemberName: UserRole?.User_Name,
       orderMode: checked ? 'Phone' : 'Visit',
+      stateName: stateName,
       firmName: firmName,
       City: formattedCity,
       Date_OrderList: formattedDate,
@@ -636,33 +646,18 @@ const Commoncomponent = (props) => {
     };
   
     dispatch(orderListDetails(orderListObject));
-  
-    console.log("orderListObject", orderListObject);
+    console.log("orderListObject111", orderListObject);
   
     const baseFileName = `${shopkeeperName} (${city})`;
-    let fileName = `${baseFileName}.pdf`;
-    // let counter = 1;
-  
-    // const fileExists = (name) => {
-    //   try {
-    //     new jsPDF().save(name, { returnPromise: false });
-    //     return false;
-    //   } catch (e) {
-    //     return true;
-    //   }
-    // };
-  
-    // while (fileExists(fileName)) {
-    //   fileName = `${baseFileName} (${counter}).pdf`;
-    //   counter += 1;
-    // }
+    const fileName = `${baseFileName}.pdf`;
   
     doc.save(fileName);
     handelcloseModalWithType();
     window.location.reload();
   };
   
-  // cew code end 4/8/24
+
+  //new code end 15/4/25
   
   
 
@@ -1049,6 +1044,33 @@ const Commoncomponent = (props) => {
               <h4 className='firmname-tag-h6'>Shopkeeper Details</h4>
 
               <div>
+              <input
+                  type='text'
+                  placeholder='Enter State Name'
+                  className='w-100'
+                  value={stateName}
+                  onChange={handleStateNameChange}
+                  style={{
+                    height: "40px",
+                    borderRadius: "8px",
+                    border: "2px solid #ccc",
+                    paddingLeft: "10px",
+                    fontSize: "16px",
+                    fontWeight: "500",
+                    marginBottom: stateName !== "" ? "10px" : "0px",
+                    outline: "none",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                    textTransform: 'uppercase'
+                  }}
+                />
+                {(stateName === "") && (
+                  <div >
+                    <h6 style={{ marginLeft: "3px", color: "red" }}>State name is required.</h6>
+                  </div>
+                )}
+
+
+
                 <input
                   type='text'
                   placeholder='Enter Firm Name'
@@ -1109,7 +1131,7 @@ const Commoncomponent = (props) => {
                   <h4 className='firmname-tag-h6'>Order Details</h4>
                 </div>
 
-                {(hasNonEmptyValue && shopkeeperName !== "" && city !== "") && (
+                {(hasNonEmptyValue && stateName !== "" && shopkeeperName !== "" && city !== "") && (
                   <div style={{ width: "36px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img src="/pdfview.png" className='img-fluid' style={{ cursor: "pointer" }} onClick={showPdfModalFunction} />
                   </div>
@@ -1147,7 +1169,7 @@ const Commoncomponent = (props) => {
             <div className='d-flex justify-content-between mt-3'>
               <button
                 onClick={showPOPModalFunction}
-                disabled={(hasNonEmptyValue && shopkeeperName !== "" && city !== "") ? false : true}
+                disabled={(hasNonEmptyValue && stateName !== "" && shopkeeperName !== "" && city !== "") ? false : true}
                 style={{
                   backgroundColor: "blue", color: "white",
                   borderRadius: "5px", border: "none", fontSize: "14px", height: "34px", width: "64px", float: "right"
@@ -1156,7 +1178,7 @@ const Commoncomponent = (props) => {
               </button>
               <button
                 onClick={handleGeneratePDF}
-                disabled={(hasNonEmptyValue && shopkeeperName !== "" && city !== "") ? false : true}
+                disabled={(hasNonEmptyValue && stateName !== "" && shopkeeperName !== "" && city !== "") ? false : true}
                 style={{
                   backgroundColor: "green", color: "white",
                   borderRadius: "5px", border: "none", fontSize: "14px", height: "34px", width: "106px", float: "right"

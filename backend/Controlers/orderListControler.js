@@ -7,6 +7,7 @@ export const addOrderListDetail = (req, res) => {
         orderNo,
         fieldMemberName,
         orderMode,
+        stateName,
         firmName,
         City,
         Date_OrderList,
@@ -25,9 +26,9 @@ export const addOrderListDetail = (req, res) => {
         return res.status(400).json({ error: "Invalid orderListID." });
     }
 
-    const insertQuery = "INSERT INTO manualorderdetail (`orderListID`, `orderNo`, `fieldMemberName`, `orderMode`, `firmName`, `City`, `Date_OrderList`, `orderObject`, `remark`,`fieldMemberID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    const insertQuery = "INSERT INTO manualorderdetail (`orderListID`, `orderNo`, `fieldMemberName`, `orderMode`, `stateName`, `firmName`, `City`, `Date_OrderList`, `orderObject`, `remark`,`fieldMemberID`) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?,?)";
 
-    const values = [orderListID, orderNo, fieldMemberName, orderMode, firmName, City, Date_OrderList, orderObjectString, remark, fieldMemberID];
+    const values = [orderListID, orderNo, fieldMemberName, orderMode, stateName, firmName, City, Date_OrderList, orderObjectString, remark, fieldMemberID];
 
     try {
         db.query(insertQuery, values, (err, result) => {
@@ -154,7 +155,7 @@ export const getOrderListDetail = (req, res) => {
 export const updateOrderDetail = (req, res) => {
     console.log("Request Body:", req.body);
 
-    let { orderListID, orderNo, fieldMemberName, orderMode, firmName, City, Date_OrderList, orderObject, remark, fieldMemberID } = req.body;
+    let { orderListID, orderNo, fieldMemberName, orderMode,stateName, firmName, City, Date_OrderList, orderObject, remark, fieldMemberID } = req.body;
 
     // Convert orderObject to JSON string
     const orderObjectString = JSON.stringify(orderObject);
@@ -164,6 +165,7 @@ export const updateOrderDetail = (req, res) => {
         "orderNo = ?, " +
         "fieldMemberName = ?, " +
         "orderMode = ?, " +
+        "stateName = ?, " +
         "firmName = ?, " +
         "City = ?, " +
         "Date_OrderList = ?, " +
@@ -176,6 +178,7 @@ export const updateOrderDetail = (req, res) => {
         orderNo,
         fieldMemberName,
         orderMode,
+        stateName,
         firmName,
         City,
         Date_OrderList,

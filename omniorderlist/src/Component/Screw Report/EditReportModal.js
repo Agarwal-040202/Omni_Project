@@ -4,26 +4,26 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { useDispatch, useSelector } from "react-redux"
-import { updateOrderListData } from "../../Redux/Slice/orderListSlice/orderListEditSlice"
+import { updateReportListData } from "../../Redux/Slice/reportListSlice/reportListEditSlice"
 import MyContext from "../../MyContext";
 import { compose } from '@reduxjs/toolkit';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Col, Row } from 'react-bootstrap';
 
-const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) => {
+const EditReportModal = ({ showModalEdit, setShowModalEdit, editReportDetail }) => {
 
-  const { updateOrderDetailStatus, updateOrderDetailError } = useSelector((State) => State.updateOrderList)
+  const { updateReportDetailStatus, updateReportDetailError } = useSelector((State) => State.updateReportList)
   let { handleShopToast, setShowLoder } = useContext(MyContext)
   const dispatch = useDispatch()
 
-  console.log("ouoooiyoiyosa", updateOrderDetailStatus, updateOrderDetailError)
+  console.log("ouoooiyoiyosa", updateReportDetailStatus, updateReportDetailError)
 
 
-  console.log("kljkjhhghghghg", showModalEdit, setShowModalEdit, editOrderDetail)
+  console.log("kljkjhhghghghg", showModalEdit, setShowModalEdit, editReportDetail)
   // const { priceListData } = useSelector((state) => state);
 
-  const [checked, setChecked] = useState(editOrderDetail?.orderMode == "Phone"? true : false);
+  const [checked, setChecked] = useState(editReportDetail?.reportMode == "Phone"? true : false);
   const [showPopModalState, setShowPopModalState] = useState(false);
   const [showPdfModalState, setShowPdfModalState] = useState(false);
   const [stateName, setStateName] = useState('');
@@ -36,7 +36,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
   const [getStatusState, setStatusState] = useState(false)
 
 
-  console.log("hhlhlhlhlh", editOrderDetail?.orderNo, editOrderDetail?.orderMode)
+//   console.log("hhlhlhlhlh", editReportDetail?.orderNo, editReportDetail?.orderMode)
 
 
   const [activeAccordionIndex, setActiveAccordionIndex] = useState(null);
@@ -48,27 +48,6 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
   }, [accordionInputs]);
 
 
-
-
-
-  // const handleAccordionTextareaChange = (index, value) => {
-
-  //   if (value !== undefined) {
-  //     console.log("rfdsfsxvxvcxvdfas", value)
-
-  //     setAccordionInputs((prevState) => ({
-  //       ...prevState,
-  //       [index]: value,
-  //     }));
-  //   } else {
-  //     setAccordionInputs((prevState) => {
-  //       console.log("ooooooooo", value)
-
-  //       const { [index]: omit, ...updatedState } = prevState;
-  //       return updatedState;
-  //     });
-  //   }
-  // };
 
   const handleAccordionTextareaChange = (index, value) => {
     const trimmedValue = value;
@@ -87,19 +66,19 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
 
   useEffect(() => {
-    if (editOrderDetail?.orderObject) {
+    if (editReportDetail?.reportObject) {
       try {
-        const parsedObject = JSON.parse(editOrderDetail.orderObject);
+        const parsedObject = JSON.parse(editReportDetail.reportObject);
         setAccordionInputs(parsedObject);
-        setStateName(editOrderDetail?.stateName)
-        setShopkeeperName(editOrderDetail?.firmName)
-        setCity(editOrderDetail?.City)
-        setTextareaValue(editOrderDetail?.remark)
+        setStateName(editReportDetail?.stateName)
+        setShopkeeperName(editReportDetail?.firmName)
+        setCity(editReportDetail?.City)
+        setTextareaValue(editReportDetail?.remark)
       } catch (error) {
         console.error("Error parsing JSON object:", error);
       }
     }
-  }, [editOrderDetail]);
+  }, [editReportDetail]);
 
 
   console.log("setAccordionInputs", accordionInputs)
@@ -111,49 +90,12 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
     "screwName":
       [
         "CSK PHILLIPS",
-        "CSK PHILLIPS ANTIQUE",
-        "CSK PHILLIPS ROSEGOLD",
-        "CSK PHILLIPS GOLDEN",
-        "CSK PHILLIPS AUTO BLACK",
-        "PAN PHILLIPS",
-        "CSK SLOTTED",
-        "PAN SLOTTED",
-        "CSK SLOTTED WOOD",
-        "CSK PHILLIPS WOOD",
         "DRYWALL 410",
-        "DRYWALL 410 ANTIQUE",
-        "DRYWALL 410 GOLDEN",
-        "DRYWALL 410 ROSEGOLD",
-        "DRYWALL 410 AUTO BLACK",
-        "CSK PHILLIPS SDS 410",
-        "PAN PHILLIPS SDS 410",
-        "HEX SDS EPDM 410",
-        "HEX SDS METAL BONDED EPDM",
         "FULLCUT 410",
-        "FULLCUT 410 ANTIQUE",
-        "FULLCUT 410 GOLDEN",
-        "FULLCUT 410 ROSEGOLD",
-        "FULLCUT 410 AUTO BLACK",
-        "COMBINATION WITH WASHER SS",
-        "CSK SLOTTED BSW THREAD",
-        "CSK SLOTTED MM THREAD",
-        "CSK PHILLIPS MM THREAD",
         "BLACK GYPSUM",
         "CHROME FINISH",
         "ZINC CHIPBOARD",
         "ZINC COMBI WITH WASHER MS",
-        "CARRIAGE BOLTS 12 MM",
-        "CARRIAGE BOLTS 12 MM ANTIQUE",
-        "CARRIAGE BOLTS 12 MM GOLDEN",
-        "CARRIAGE BOLTS 12 MM BLACK",
-        "CARRIAGE BOLTS 14 MM",
-        "KITCHEN BASKET SCREW",
-        "NAILS HEADLESS",
-        "NAILS ROUND HEAD",
-        "MACHINE SCREW (+)",
-        "MACHINE SCREW ANTIQUE (+)",
-        "Washer",
-        "NUT",
         "ZINC SDS",
         "ZINC TRUSS SDS",
         "ZINC HEX HEAD"
@@ -217,28 +159,27 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
     if (getStatusState == true) {
       callFunction()
     }
-  }, [updateOrderDetailStatus, updateOrderDetailError])
+  }, [updateReportDetailStatus, updateReportDetailError])
 
 
   const handleGeneratePDF = () => {
     const doc = new jsPDF();
+
+    let yPosition = 10;
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
-    let yPosition = 10;
 
-    
+    const addNewPage = () => {
+      doc.addPage();
+      drawBorder();
+      yPosition = 10;
+    };
 
     const drawBorder = () => {
       const margin = 2; // Define the margin for the border
       doc.setLineWidth(1);
       doc.setDrawColor(0, 0, 0); // Black color for the border
       doc.rect(margin, margin, pageWidth - 2 * margin, pageHeight - 2 * margin); // Draw the border
-    };
-
-    const addNewPage = () => {
-      doc.addPage();
-      drawBorder();
-      yPosition = 10;
     };
 
     // Draw the border on the first page
@@ -250,30 +191,31 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
     // Title
     doc.setTextColor(128, 0, 0);
     doc.setFont('helvetica', 'bold');
+    // doc.setFont("times", "bolditalic");
     doc.setFontSize(16);
+    // doc.setTextColor(0, 102, 204);
     doc.text('Omni Screw Orderlist', pageWidth / 2, yPosition, { align: 'center' });
     yPosition += 14;
 
     
+
     // Shopkeeper Details
     doc.setFontSize(12);
     doc.setTextColor(0, 0, 0);
     // Order No and Date on the same line (left and right)
 
-    const orderNoText = `Order No: ${editOrderDetail?.orderNo}`;
-    doc.text(orderNoText, 15, yPosition);
     doc.setFont('helvetica', 'bold');
-    const dateText = `Date: ${editOrderDetail?.Date_OrderList}`
+    const dateText = `Date: ${editReportDetail?.Date_ReportList}`
     const dateTextWidth = doc.getTextWidth(dateText);
     doc.text(dateText, pageWidth - dateTextWidth - 15, yPosition);
     yPosition += 7;
 
     // Order By and Order Mode on the same line (left and right)
     doc.setFont("helvetica", "bold");
-    const orderByText = `Order By: ${editOrderDetail?.fieldMemberName}`;
+    const orderByText = `Report By: ${editReportDetail?.fieldMemberName}`;
     doc.text(orderByText, 15, yPosition);
     doc.setFont("helvetica", "bold");
-    const orderModeText = `Order Mode: ${checked ? 'Phone' : 'Visit'}`;
+    const orderModeText = `Report Mode: ${checked ? 'Phone' : 'Visit'}`;
     const orderModeTextWidth = doc.getTextWidth(orderModeText);
     doc.text(orderModeText, pageWidth - orderModeTextWidth - 15, yPosition);
     yPosition += 7;
@@ -296,15 +238,6 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
     doc.text(cityData, 15, yPosition);
     yPosition += 10;
 
-    // const orderByText = `Order No: ${editOrderDetail?.orderNo}, Order By: ${editOrderDetail?.fieldMemberName}, Order Mode: ${checked ? 'Phone' : 'Visit'}, Date: ${editOrderDetail?.Date_OrderList}`;
-    // doc.text(orderByText, 15, yPosition);
-    // yPosition += 7;
-    // const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}, City: ${city.toUpperCase()}, `;
-    // doc.text(shopKeeperData, 15, yPosition);
-    // yPosition += 10;
-
-
-
     // Iterate over the definedIndices array to generate PDF for defined textarea values
     definedIndices.forEach((index, i) => {
       const screw = screws.screwName[index];
@@ -312,13 +245,12 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
       // Split textarea content into lines
       const lines = doc.splitTextToSize(textareaValue, pageWidth - 40);
-      let remainingLines = [...lines];
+      let remainingLines = lines;
 
       // If there are remaining lines to render
       while (remainingLines.length > 0) {
-        const minRequiredSpace = 7 + (remainingLines.length * 5);
         // If space is not enough for the current content, add a new page
-        if (yPosition + minRequiredSpace > pageHeight - 10) {
+        if (yPosition + 30 > doc.internal.pageSize.getHeight()) {
           addNewPage();
         }
 
@@ -351,17 +283,13 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
       yPosition += 3; // Adjust the space between screw sections
 
       // If it's not the last item and the space is not enough for the next content, add a new page
-      if (i < definedIndices.length - 1 && yPosition + 30 > pageHeight - 10) {
+      if (i < definedIndices.length - 1 && yPosition + 30 > doc.internal.pageSize.getHeight()) {
         addNewPage();
       }
     });
 
     // Remarks section
     if (formattedText) {
-
-      if (yPosition + 30 > pageHeight - 10) {
-        addNewPage();
-      }
       // Add spacing before remarks section
       yPosition += 5;
       doc.setFontSize(13);
@@ -372,9 +300,12 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
       doc.setFontSize(11);
       doc.setTextColor(128, 0, 0);
       doc.setFont('helvetica', 'bold');
-      const remarksLines = doc.splitTextToSize(formattedText, pageWidth - 30);
       doc.text(formattedText, 15, yPosition);
-      yPosition += remarksLines.length * 5;
+    }
+
+    // Check if there is remaining data to be rendered
+    if (yPosition + 30 > doc.internal.pageSize.getHeight()) {
+      addNewPage(); // Add a new page if there is remaining data
     }
 
 
@@ -391,46 +322,45 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
       .join(' ');
 
 
-    const orderListObject = {
-      orderListID: editOrderDetail?.orderListID,
-      orderNo: editOrderDetail?.orderNo,
-      fieldMemberName: editOrderDetail?.fieldMemberName,
-      orderMode: checked ? 'Phone' : 'Visit',
+    const reportListObject = {
+      reportID: editReportDetail?.reportID,
+      fieldMemberName: editReportDetail?.fieldMemberName,
+      reportMode: checked ? 'Phone' : 'Visit',
       stateName : stateName,
       firmName: firmName,
       City: formattedCity,
-      Date_OrderList: editOrderDetail?.Date_OrderList,
-      orderObject: accordionInputs,
+      Date_ReportList: editReportDetail?.Date_ReportList,
+      reportObject: accordionInputs,
       remark: formattedText ? formattedText : textareaValue,
-      fieldMemberID: editOrderDetail?.fieldMemberID
+      fieldMemberID: editReportDetail?.fieldMemberID
     }
 
 
     try {
 
-      dispatch(updateOrderListData(orderListObject));
+      dispatch(updateReportListData(reportListObject));
       setStatusState(true);
     } catch (err) {
       handleShopToast(true, 'Error', 'Something went wrong.');
     }
 
 
-    console.log("orderLikjhlhlhstObject", orderListObject)
+    console.log("orderLikjhlhlhstObject", reportListObject)
 
     // Save the PDF
     doc.save(`${shopkeeperName} (${city}).pdf`);
-    handelcloseModalWithType();
-    window.location.reload()
+    // handelcloseModalWithType();
+    // window.location.reload()
   };
 
   console.log("checkedchecked", checked)
 
   // updateOrderDetailStatus, updateOrderDetailError
   const callFunction = () => {
-    if (updateOrderDetailStatus == "pending") {
+    if (updateReportDetailStatus == "pending") {
       setShowLoder(true)
     }
-    else if (updateOrderDetailStatus == "Success") {
+    else if (updateReportDetailStatus == "Success") {
 
       handleShopToast(true, 'Success', 'Order update sucessfully.')
       // navigate("/fourbox")
@@ -457,7 +387,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
           style={{ zIndex: 9 }}
         >
           <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
-            <Modal.Title style={{ color: "white" }}>Omni Remark List</Modal.Title>
+            <Modal.Title style={{ color: "white" }}>Remark List</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div>
@@ -501,7 +431,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
         >
           <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
-            <Modal.Title style={{ color: "white" }}>View Omni Order List</Modal.Title>
+            <Modal.Title style={{ color: "white" }}>View Report List</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div>
@@ -547,7 +477,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
           style={{ zIndex: 9 }}
         >
           <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
-            <Modal.Title style={{ color: "white" }}>Update Omni Order List</Modal.Title>
+            <Modal.Title style={{ color: "white" }}>Update Report List</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div>
@@ -637,7 +567,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
               <div className='d-flex justify-content-between mt-2'>
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <h4 className='firmname-tag-h6'>Order Details</h4>
+                  <h4 className='firmname-tag-h6'>Report Details</h4>
                 </div>
 
                 <Col xs={3} sm={3} lg={3} className="d-flex justify-content-center align-items-center m-0 p-0">
@@ -712,7 +642,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
                   backgroundColor: "green", color: "white",
                   borderRadius: "5px", border: "none", fontSize: "14px", height: "34px", width: "106px", float: "right"
                 }}
-              >Update Order</button>
+              >Update Report</button>
             </div>
           </Modal.Body>
         </Modal>
@@ -724,4 +654,4 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
   );
 };
 
-export default EditOrderModal;
+export default EditReportModal;

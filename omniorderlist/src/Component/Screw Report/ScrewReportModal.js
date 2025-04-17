@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext,useRef } from 'react';
+import { useLocation } from "react-router-dom"
 import { Modal } from "react-bootstrap"
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import jsPDF from 'jspdf';
@@ -10,20 +11,30 @@ import { compose } from '@reduxjs/toolkit';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Col, Row } from 'react-bootstrap';
+import { v4 as uuidv4 } from "uuid"
 
-const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) => {
+import {reportListDetails} from "../../Redux/Slice/reportListSlice/reportListSaveSlice"
 
-  const { updateOrderDetailStatus, updateOrderDetailError } = useSelector((State) => State.updateOrderList)
+const ScrewReportModal = ({ showModalReport, setShowModalReport }) => {
+
+
+    const { reportListDetailStatus, reportListDetailError } = useSelector((State) => State.addNewReportData)
+    // const navigate = useNavigate();
+
+
+  const UserRole = JSON.parse(sessionStorage?.getItem("personalInfo")) || ""
+  const shopKeepeerData = JSON.parse(sessionStorage?.getItem("shopKeeperData")) || ""
+  const OrderTypemodeVariable = sessionStorage.getItem('OrderTypemode') || "";
+  
+  console.log("reportListDetailStatus", reportListDetailStatus)
+
+  
   let { handleShopToast, setShowLoder } = useContext(MyContext)
   const dispatch = useDispatch()
 
-  console.log("ouoooiyoiyosa", updateOrderDetailStatus, updateOrderDetailError)
+  // console.log("kljkjhhghghghg", setShowModalReport)
 
-
-  console.log("kljkjhhghghghg", showModalEdit, setShowModalEdit, editOrderDetail)
-  // const { priceListData } = useSelector((state) => state);
-
-  const [checked, setChecked] = useState(editOrderDetail?.orderMode == "Phone"? true : false);
+  const [reportMode, setReportMode] = useState("Visit");
   const [showPopModalState, setShowPopModalState] = useState(false);
   const [showPdfModalState, setShowPdfModalState] = useState(false);
   const [stateName, setStateName] = useState('');
@@ -35,11 +46,28 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
   const [formattedText, setFormattedText] = useState('');
   const [getStatusState, setStatusState] = useState(false)
 
-
-  console.log("hhlhlhlhlh", editOrderDetail?.orderNo, editOrderDetail?.orderMode)
+  const linkDataProps = useLocation();
+  const inputRef = useRef([])
+  const inputSchemeRef = useRef([]);
+  const searchInputRef = useRef(null)
+  const { priceListData } = useSelector((state) => state);
+  const [sorceVideo, setSourceVideo1] = useState('');
+  const [getInput, setInput] = useState('');
+  const [tableData, setTableData1] = useState([]);
+  const [menuState, setMenuState] = useState('');
+  const [screwName, setScrewName] = useState('');
+  const [userIDState, setUserIDState] = useState("")
+  const [userCodeState, setUserCodeState] = useState("")
+  const [showModal, setShowModal] = useState(false)
+  const [orderDetails, setOrderDetails] = useState({});
+  const [selectedRadio, setSelectedRadio] = useState(""); // State to store the selected radio value
+  const [searchInput, setSearchInput] = useState('');
+  const [currentScrewName, setCurrentScrewName] = useState('');
+  const [orderListID, setOrderListID] = useState("")
 
 
   const [activeAccordionIndex, setActiveAccordionIndex] = useState(null);
+
 
   // Add this useEffect to set the active accordion index when data is shown
   useEffect(() => {
@@ -48,27 +76,6 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
   }, [accordionInputs]);
 
 
-
-
-
-  // const handleAccordionTextareaChange = (index, value) => {
-
-  //   if (value !== undefined) {
-  //     console.log("rfdsfsxvxvcxvdfas", value)
-
-  //     setAccordionInputs((prevState) => ({
-  //       ...prevState,
-  //       [index]: value,
-  //     }));
-  //   } else {
-  //     setAccordionInputs((prevState) => {
-  //       console.log("ooooooooo", value)
-
-  //       const { [index]: omit, ...updatedState } = prevState;
-  //       return updatedState;
-  //     });
-  //   }
-  // };
 
   const handleAccordionTextareaChange = (index, value) => {
     const trimmedValue = value;
@@ -87,19 +94,302 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
 
   useEffect(() => {
-    if (editOrderDetail?.orderObject) {
-      try {
-        const parsedObject = JSON.parse(editOrderDetail.orderObject);
-        setAccordionInputs(parsedObject);
-        setStateName(editOrderDetail?.stateName)
-        setShopkeeperName(editOrderDetail?.firmName)
-        setCity(editOrderDetail?.City)
-        setTextareaValue(editOrderDetail?.remark)
-      } catch (error) {
-        console.error("Error parsing JSON object:", error);
-      }
+
+    const reportListObject = {
+      reportID: '',
+      fieldMemberName: '',
+      reportMode: '',
+      stateName: '',
+      firmName: '',
+      City: '',
+      Date_ReportList: '',
+      reportObject: '',
+      remark: '',
+      fieldMemberID: ''
     }
-  }, [editOrderDetail]);
+
+    // functionS()
+
+  }, [linkDataProps?.state])
+
+  useEffect(() => {
+
+    setUserIDState(uuidv4())
+    setOrderListID(uuidv4())
+    // randemID.slice(0, 6)
+  }, [])
+
+  useEffect(() => {
+    setUserCodeState(userIDState.slice(0, 3))
+  }, [userIDState])
+
+  console.log("orderListID", orderListID, UserRole?.User_Name)
+  // Create a new Date object to represent the current date
+  const currentDate = new Date();
+
+  // Get the day, month, and year components
+  const day = currentDate.getDate();
+  const month = currentDate.getMonth() + 1; // Months are zero-based, so add 1
+  const year = currentDate.getFullYear();
+
+  // Create a formatted date string
+  const formattedDate = `${day}/${month}/${year}`;
+
+  const seconds = currentDate.getSeconds(); // Get the seconds component
+  const orderno = seconds + userCodeState
+
+  // console.log("seconds", currentDate); // Output: The current seconds value (e.g., 0, 1, 2, ... 59)
+
+
+  // const functionS = () => {
+  //   try {
+  //     dispatch(getPriceListData(linkDataProps?.state));
+
+  //   }
+  //   catch (err) {
+  //     // console.log(err)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   setSourceVideo1(data1[0]?.src)
+  //   setSourceVideo1(data1[linkDataProps.state]?.src)
+  //   setTableData1(data1[linkDataProps.state]?.dataMain)
+  //   setTableData1(data1[0]?.dataMain)
+
+  //   setMenuState(linkDataProps.state)
+  //   setScrewName(priceListData?.priceListData?.data?.[0]?.Schrew_Name); // Set screwName
+
+  // }, [data1[linkDataProps.state]?.src])
+
+  // Update inputRefs array when the number of input fields changes
+  useEffect(() => {
+    inputRef.current = Array(tableData.length).fill().map((_, i) => inputRef.current[i] || React.createRef());
+    inputSchemeRef.current = Array(tableData.length).fill().map((_, i) => inputSchemeRef.current[i] || React.createRef());
+
+  }, [tableData]);
+
+  // Clear input fields when screwName changes
+  useEffect(() => {
+    inputSchemeRef.current.forEach((ref) => {
+      if (ref.current) {
+        ref.current.value = '';
+
+      }
+    });
+    inputRef.current.forEach((ref) => {
+      if (ref.current) {
+        ref.current.value = '0';
+
+      }
+    });
+    // searchInputRef.current.value=''
+    setInput("")
+  }, [screwName]);
+
+
+  const searchData = (e) => {
+    setInput(e.target.value)
+
+  }
+  // console.log("lkjljkljl", getInput)
+
+  useEffect(() => {
+    if (priceListData && priceListData.priceListData && priceListData.priceListData.data) {
+      const screwName = priceListData.priceListData.data[0].Schrew_Name;
+      // Now you can use screwName
+    }
+  }, [priceListData]);
+
+//Genrate pdf Code Start
+
+const handleGeneratePDF = () => {
+    const doc = new jsPDF();
+    let yPosition = 10;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+  
+    const addNewPage = () => {
+      doc.addPage();
+      drawBorder();
+      yPosition = 10;
+    };
+
+    const drawBorder = () => {
+      const margin = 2; // Define the margin for the border
+      doc.setLineWidth(1);
+      doc.setDrawColor(0, 0, 0); // Black color for the border
+      doc.rect(margin, margin, pageWidth - 2 * margin, pageHeight - 2 * margin); // Draw the border
+    };
+  
+    // Draw the border on the first page
+    drawBorder();
+  
+    const definedIndices = Object.keys(accordionInputs).filter(index => accordionInputs[index] !== undefined);
+  
+    // Title
+    doc.setTextColor(128, 0, 0);
+    doc.setFont('helvetica', 'bold');
+    // doc.setFont("times", "bolditalic");
+    doc.setFontSize(16);
+    // doc.setTextColor(0, 102, 204);
+    doc.text('Shop Report', pageWidth / 2, yPosition, { align: 'center' });
+    yPosition += 14;
+  
+    // Shopkeeper Details
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+  
+    // Order No and Date on the same line (left and right)
+    doc.setFont("helvetica", "bold");
+    const dateText = `Date: ${formattedDate}`;
+    const dateTextWidth = doc.getTextWidth(dateText);
+    doc.text(dateText, pageWidth - dateTextWidth - 15, yPosition);
+    yPosition += 7;
+  
+    // Order By and Order Mode on the same line (left and right)
+    doc.setFont("helvetica", "bold");
+    const orderByText = `Report By: ${UserRole?.User_Name}`;
+    doc.text(orderByText, 15, yPosition);
+    doc.setFont("helvetica", "bold");
+    const orderModeText = `Report Mode: ${reportMode}`;
+    const orderModeTextWidth = doc.getTextWidth(orderModeText);
+    doc.text(orderModeText, pageWidth - orderModeTextWidth - 15, yPosition);
+    yPosition += 7;
+  
+    
+    // Shopkeeper Details
+    doc.setFont("helvetica", "bold");
+    const stateName2 = `State Name: ${stateName.toUpperCase()}`;
+    doc.text(stateName2, 15, yPosition);
+    yPosition += 7;
+
+    doc.setFont("helvetica", "bold");
+    const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}`;
+    doc.text(shopKeeperData, 15, yPosition);
+    yPosition += 7;
+
+    doc.setFont("helvetica", "bold");
+    const cityData = `City: ${city.toUpperCase()}`;
+    doc.text(cityData, 15, yPosition);
+    yPosition += 10;
+  
+    // Iterate over definedIndices to add screw data
+    definedIndices.forEach((index, i) => {
+      const screw = screws.screwName[index];
+      const textareaValue = accordionInputs[index];
+      const lines = doc.splitTextToSize(textareaValue, pageWidth - 40);
+      let remainingLines = lines;
+  
+      while (remainingLines.length > 0) {
+        if (yPosition + 30 > pageHeight) {
+          addNewPage();
+        }
+  
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.setTextColor(204, 0, 0);
+        doc.text(`${screw}`, 15, yPosition);
+        yPosition += 7;
+  
+        const availableLines = Math.floor((pageHeight - yPosition) / 5);
+        const linesToRender = remainingLines.slice(0, availableLines);
+  
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);
+        doc.text(linesToRender, 20, yPosition);
+        yPosition += linesToRender.length * 5;
+  
+        remainingLines = remainingLines.slice(availableLines);
+  
+        if (remainingLines.length > 0) {
+          addNewPage();
+        }
+      }
+  
+      yPosition += 3;
+  
+      if (i < definedIndices.length - 1 && yPosition + 30 > pageHeight) {
+        addNewPage();
+      }
+    });
+  
+    // Remarks section
+    if (formattedText) {
+      yPosition += 5;
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(13);
+      doc.setTextColor(128, 0, 0);
+      doc.text(`REMARKS:`, 15, yPosition);
+      yPosition += 5;
+      doc.setFontSize(11);
+      doc.setTextColor(0, 0, 0);
+      doc.setFont("helvetica", "normal");
+      doc.text(formattedText, 15, yPosition);
+    }
+  
+    if (yPosition + 30 > pageHeight) {
+      addNewPage();
+    }
+  
+    const trimmedFirmName = shopkeeperName.trim();
+    const firmName = trimmedFirmName
+      .split(/\s+/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  
+    const trimmedCity = city.trim();
+    const formattedCity = trimmedCity
+      .split(/\s+/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  
+
+    const reportListObject = {
+      reportID: orderListID,
+      fieldMemberName: UserRole?.User_Name,
+      reportMode: reportMode,
+      stateName: stateName,
+      firmName: firmName,
+      City: formattedCity,
+      Date_ReportList: formattedDate,
+      reportObject: accordionInputs,
+      remark: formattedText,
+      fieldMemberID: UserRole?.User_Id
+    };
+  
+    dispatch(reportListDetails(reportListObject));
+  
+    console.log("orderListObject111", reportListObject);
+  
+    const baseFileName = `${shopkeeperName} (${city})`;
+    let fileName = `${baseFileName}.pdf`;
+  
+  
+    doc.save(fileName);
+    handelcloseModalWithType();
+    // window.location.reload();
+  };
+
+
+
+
+
+  // useEffect(() => {
+  //   if (editOrderDetail?.orderObject) {
+  //     try {
+  //       const parsedObject = JSON.parse(editOrderDetail.orderObject);
+  //       setAccordionInputs(parsedObject);
+  //       setStateName(editOrderDetail?.stateName)
+  //       setShopkeeperName(editOrderDetail?.firmName)
+  //       setCity(editOrderDetail?.City)
+  //       setTextareaValue(editOrderDetail?.remark)
+  //     } catch (error) {
+  //       console.error("Error parsing JSON object:", error);
+  //     }
+  //   }
+  // }, [editOrderDetail]);
 
 
   console.log("setAccordionInputs", accordionInputs)
@@ -111,52 +401,15 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
     "screwName":
       [
         "CSK PHILLIPS",
-        "CSK PHILLIPS ANTIQUE",
-        "CSK PHILLIPS ROSEGOLD",
-        "CSK PHILLIPS GOLDEN",
-        "CSK PHILLIPS AUTO BLACK",
-        "PAN PHILLIPS",
-        "CSK SLOTTED",
-        "PAN SLOTTED",
-        "CSK SLOTTED WOOD",
-        "CSK PHILLIPS WOOD",
         "DRYWALL 410",
-        "DRYWALL 410 ANTIQUE",
-        "DRYWALL 410 GOLDEN",
-        "DRYWALL 410 ROSEGOLD",
-        "DRYWALL 410 AUTO BLACK",
-        "CSK PHILLIPS SDS 410",
-        "PAN PHILLIPS SDS 410",
-        "HEX SDS EPDM 410",
-        "HEX SDS METAL BONDED EPDM",
         "FULLCUT 410",
-        "FULLCUT 410 ANTIQUE",
-        "FULLCUT 410 GOLDEN",
-        "FULLCUT 410 ROSEGOLD",
-        "FULLCUT 410 AUTO BLACK",
-        "COMBINATION WITH WASHER SS",
-        "CSK SLOTTED BSW THREAD",
-        "CSK SLOTTED MM THREAD",
-        "CSK PHILLIPS MM THREAD",
         "BLACK GYPSUM",
         "CHROME FINISH",
         "ZINC CHIPBOARD",
         "ZINC COMBI WITH WASHER MS",
         "CARRIAGE BOLTS 12 MM",
-        "CARRIAGE BOLTS 12 MM ANTIQUE",
-        "CARRIAGE BOLTS 12 MM GOLDEN",
-        "CARRIAGE BOLTS 12 MM BLACK",
-        "CARRIAGE BOLTS 14 MM",
-        "KITCHEN BASKET SCREW",
-        "NAILS HEADLESS",
-        "NAILS ROUND HEAD",
-        "MACHINE SCREW (+)",
-        "MACHINE SCREW ANTIQUE (+)",
-        "Washer",
-        "NUT",
         "ZINC SDS",
         "ZINC TRUSS SDS",
-        "ZINC HEX HEAD"
       ]
   }
 
@@ -164,7 +417,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
   const handelcloseModalWithType = () => {
     // setShowOrderModalWithTypeState(false)
-    setShowModalEdit(false)
+    setShowModalReport(false)
   }
 
   const handleShopkeeperNameChange = (e) => {
@@ -213,234 +466,23 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
   console.log("accordionInputs", accordionInputs)
 
-  useEffect(() => {
-    if (getStatusState == true) {
-      callFunction()
-    }
-  }, [updateOrderDetailStatus, updateOrderDetailError])
-
-
-  const handleGeneratePDF = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-    let yPosition = 10;
-
-    
-
-    const drawBorder = () => {
-      const margin = 2; // Define the margin for the border
-      doc.setLineWidth(1);
-      doc.setDrawColor(0, 0, 0); // Black color for the border
-      doc.rect(margin, margin, pageWidth - 2 * margin, pageHeight - 2 * margin); // Draw the border
-    };
-
-    const addNewPage = () => {
-      doc.addPage();
-      drawBorder();
-      yPosition = 10;
-    };
-
-    // Draw the border on the first page
-    drawBorder();
-
-    // Filter out the indices of screws with defined textarea values
-    const definedIndices = Object.keys(accordionInputs).filter(index => accordionInputs[index] !== undefined);
-
-    // Title
-    doc.setTextColor(128, 0, 0);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(16);
-    doc.text('Omni Screw Orderlist', pageWidth / 2, yPosition, { align: 'center' });
-    yPosition += 14;
-
-    
-    // Shopkeeper Details
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    // Order No and Date on the same line (left and right)
-
-    const orderNoText = `Order No: ${editOrderDetail?.orderNo}`;
-    doc.text(orderNoText, 15, yPosition);
-    doc.setFont('helvetica', 'bold');
-    const dateText = `Date: ${editOrderDetail?.Date_OrderList}`
-    const dateTextWidth = doc.getTextWidth(dateText);
-    doc.text(dateText, pageWidth - dateTextWidth - 15, yPosition);
-    yPosition += 7;
-
-    // Order By and Order Mode on the same line (left and right)
-    doc.setFont("helvetica", "bold");
-    const orderByText = `Order By: ${editOrderDetail?.fieldMemberName}`;
-    doc.text(orderByText, 15, yPosition);
-    doc.setFont("helvetica", "bold");
-    const orderModeText = `Order Mode: ${checked ? 'Phone' : 'Visit'}`;
-    const orderModeTextWidth = doc.getTextWidth(orderModeText);
-    doc.text(orderModeText, pageWidth - orderModeTextWidth - 15, yPosition);
-    yPosition += 7;
-
-    // Shopkeeper Details
-
-    doc.setFont("helvetica", "bold");
-    const stateName2 = `State Name: ${stateName.toUpperCase()}`;
-    doc.text(stateName2, 15, yPosition);
-    yPosition += 7;
-
-
-    doc.setFont("helvetica", "bold");
-    const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}`;
-    doc.text(shopKeeperData, 15, yPosition);
-    yPosition += 7;
-
-    doc.setFont("helvetica", "bold");
-    const cityData = `City: ${city.toUpperCase()}`;
-    doc.text(cityData, 15, yPosition);
-    yPosition += 10;
-
-    // const orderByText = `Order No: ${editOrderDetail?.orderNo}, Order By: ${editOrderDetail?.fieldMemberName}, Order Mode: ${checked ? 'Phone' : 'Visit'}, Date: ${editOrderDetail?.Date_OrderList}`;
-    // doc.text(orderByText, 15, yPosition);
-    // yPosition += 7;
-    // const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}, City: ${city.toUpperCase()}, `;
-    // doc.text(shopKeeperData, 15, yPosition);
-    // yPosition += 10;
-
-
-
-    // Iterate over the definedIndices array to generate PDF for defined textarea values
-    definedIndices.forEach((index, i) => {
-      const screw = screws.screwName[index];
-      const textareaValue = accordionInputs[index];
-
-      // Split textarea content into lines
-      const lines = doc.splitTextToSize(textareaValue, pageWidth - 40);
-      let remainingLines = [...lines];
-
-      // If there are remaining lines to render
-      while (remainingLines.length > 0) {
-        const minRequiredSpace = 7 + (remainingLines.length * 5);
-        // If space is not enough for the current content, add a new page
-        if (yPosition + minRequiredSpace > pageHeight - 10) {
-          addNewPage();
-        }
-
-        // Screw Name
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.setTextColor(204, 0, 0);
-        doc.text(`${screw}`, 15, yPosition);
-        yPosition += 6;
-
-        // Calculate how many lines can fit on the current page
-        const availableLines = Math.floor((doc.internal.pageSize.getHeight() - yPosition) / 5);
-        const linesToRender = remainingLines.slice(0, availableLines);
-
-        // Render lines on the current page
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(0, 0, 0);
-        doc.text(linesToRender, 20, yPosition);
-        yPosition += linesToRender.length * 5; // Adjust yPosition based on the height of the rendered lines
-
-        remainingLines = remainingLines.slice(availableLines); // Update remaining lines to render
-
-        // If there are remaining lines, add a new page
-        if (remainingLines.length > 0) {
-          addNewPage();
-        }
-      }
-
-      yPosition += 3; // Adjust the space between screw sections
-
-      // If it's not the last item and the space is not enough for the next content, add a new page
-      if (i < definedIndices.length - 1 && yPosition + 30 > pageHeight - 10) {
-        addNewPage();
-      }
-    });
-
-    // Remarks section
-    if (formattedText) {
-
-      if (yPosition + 30 > pageHeight - 10) {
-        addNewPage();
-      }
-      // Add spacing before remarks section
-      yPosition += 5;
-      doc.setFontSize(13);
-      doc.setFont('helvetica', 'bold');
-      const remarksText = `REMARKS:`;
-      doc.text(remarksText, 15, yPosition);
-      yPosition += 5; // Add some space before printing the actual remarks
-      doc.setFontSize(11);
-      doc.setTextColor(128, 0, 0);
-      doc.setFont('helvetica', 'bold');
-      const remarksLines = doc.splitTextToSize(formattedText, pageWidth - 30);
-      doc.text(formattedText, 15, yPosition);
-      yPosition += remarksLines.length * 5;
-    }
-
-
-    const trimmedFirmName = shopkeeperName.trim(); // Trim extra spaces
-    const firmName = trimmedFirmName
-      .split(/\s+/)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-
-    const trimmedCity = city.trim(); // Trim extra spaces
-    const formattedCity = trimmedCity
-      .split(/\s+/)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-
-
-    const orderListObject = {
-      orderListID: editOrderDetail?.orderListID,
-      orderNo: editOrderDetail?.orderNo,
-      fieldMemberName: editOrderDetail?.fieldMemberName,
-      orderMode: checked ? 'Phone' : 'Visit',
-      stateName : stateName,
-      firmName: firmName,
-      City: formattedCity,
-      Date_OrderList: editOrderDetail?.Date_OrderList,
-      orderObject: accordionInputs,
-      remark: formattedText ? formattedText : textareaValue,
-      fieldMemberID: editOrderDetail?.fieldMemberID
-    }
-
-
-    try {
-
-      dispatch(updateOrderListData(orderListObject));
-      setStatusState(true);
-    } catch (err) {
-      handleShopToast(true, 'Error', 'Something went wrong.');
-    }
-
-
-    console.log("orderLikjhlhlhstObject", orderListObject)
-
-    // Save the PDF
-    doc.save(`${shopkeeperName} (${city}).pdf`);
-    handelcloseModalWithType();
-    window.location.reload()
-  };
-
-  console.log("checkedchecked", checked)
 
   // updateOrderDetailStatus, updateOrderDetailError
-  const callFunction = () => {
-    if (updateOrderDetailStatus == "pending") {
-      setShowLoder(true)
-    }
-    else if (updateOrderDetailStatus == "Success") {
+  // const callFunction = () => {
+  //   if (updateOrderDetailStatus == "pending") {
+  //     setShowLoder(true)
+  //   }
+  //   else if (updateOrderDetailStatus == "Success") {
 
-      handleShopToast(true, 'Success', 'Order update sucessfully.')
-      // navigate("/fourbox")
-    }
-    else {
-      handleShopToast(true, 'Error', 'Something wrong.')
+  //     handleShopToast(true, 'Success', 'Order update sucessfully.')
+  //     // navigate("/fourbox")
+  //   }
+  //   else {
+  //     handleShopToast(true, 'Error', 'Something wrong.')
 
-    }
+  //   }
 
-  }
+  // }
 
 
   return (
@@ -538,8 +580,8 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
       {/* MANUAL MODE MODAL CODE START */}
 
       {
-        showModalEdit == true &&
-        <Modal show={showModalEdit}
+        showModalReport == true &&
+        <Modal show={showModalReport}
           onHide={handelcloseModalWithType}
           centered
           backdrop={false}
@@ -547,7 +589,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
           style={{ zIndex: 9 }}
         >
           <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
-            <Modal.Title style={{ color: "white" }}>Update Omni Order List</Modal.Title>
+            <Modal.Title style={{ color: "white" }}>Shop Report</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div>
@@ -637,11 +679,10 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
 
               <div className='d-flex justify-content-between mt-2'>
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <h4 className='firmname-tag-h6'>Order Details</h4>
+                  <h4 className='firmname-tag-h6'>Screw Report</h4>
                 </div>
 
-                <Col xs={3} sm={3} lg={3} className="d-flex justify-content-center align-items-center m-0 p-0">
-
+                {/* <Col xs={3} sm={3} lg={3} className="d-flex justify-content-center align-items-center m-0 p-0">
                   <ButtonGroup >
                     <ToggleButton
                       id="toggle-check"
@@ -656,10 +697,10 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
                       Phone
                     </ToggleButton>
                   </ButtonGroup>
-                  {/* </div> */}
-                </Col>
+                </Col> */}
+
                 {/* editOrderDetail?.orderMode */}
-                {console.log("toggle", checked)}
+                {/* {console.log("toggle", checked)} */}
                 
                 {(hasNonEmptyValue && stateName !== "" && shopkeeperName !== "" && city !== "") && (
                   <div style={{ width: "36px", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -712,7 +753,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
                   backgroundColor: "green", color: "white",
                   borderRadius: "5px", border: "none", fontSize: "14px", height: "34px", width: "106px", float: "right"
                 }}
-              >Update Order</button>
+              >Genrate Report</button>
             </div>
           </Modal.Body>
         </Modal>
@@ -724,4 +765,4 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
   );
 };
 
-export default EditOrderModal;
+export default ScrewReportModal;

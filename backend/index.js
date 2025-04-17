@@ -39,7 +39,7 @@ import shopkeeper from "./Routes/shopkeeper.js"
 import catalogueRoute from "./Routes/catalogue.js"
 import pricelistRoute from "./Routes/pricelist.js"
 import orderlist from "./Routes/orderlist.js"
-
+import reportlist from "./Routes/reportlist.js"
 
 import cors from "cors"
 import cookieParser from "cookie-parser";
@@ -71,6 +71,7 @@ app.use("/api/users", userRoutes)
 app.use("/api/auth", authRoutes)
 app.use("/api/shopkeeper", shopkeeper)
 app.use("/api/orderlist", orderlist)
+app.use("/api/reportlist", reportlist)
 
 
 
