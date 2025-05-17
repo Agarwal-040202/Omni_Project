@@ -27,6 +27,7 @@ import Writemodemodal from './Component/WriteModeModal/Writemodemodal';
 // import EditOrderModal from './Component/UpdateOrder/EditOrderModal';
 import EditOrderTable from './Component/UpdateOrder/EditorderTable';
 import ScrewReportPage from './Component/Screw Report/ScrewReportPage';
+import AmountPaybleTable from './Component/AmountPayable/AmountPaybleTable';
 
 // Import other components here
 
@@ -83,7 +84,7 @@ function App() {
               <Route exact path="/writemodemodal" element={<Writemodemodal />} />
               <Route exact path='/editordertable' element={<EditOrderTable/>}/>
               <Route exact path='/screwreportpage' element={<ScrewReportPage/>}/>
-
+              <Route exact path='/paybleamountpage' element={<AmountPaybleTable/>}/>
 
             </>
           )}

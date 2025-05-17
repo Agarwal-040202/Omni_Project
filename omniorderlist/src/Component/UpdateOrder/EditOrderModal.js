@@ -140,6 +140,7 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
         "CSK PHILLIPS MM THREAD",
         "BLACK GYPSUM",
         "CHROME FINISH",
+        "ZINC DRYWALL",
         "ZINC CHIPBOARD",
         "ZINC COMBI WITH WASHER MS",
         "CARRIAGE BOLTS 12 MM",
@@ -156,7 +157,8 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
         "NUT",
         "ZINC SDS",
         "ZINC TRUSS SDS",
-        "ZINC HEX HEAD"
+        "ZINC HEX HEAD",
+        "BIT"
       ]
   }
 
@@ -295,14 +297,6 @@ const EditOrderModal = ({ showModalEdit, setShowModalEdit, editOrderDetail }) =>
     const cityData = `City: ${city.toUpperCase()}`;
     doc.text(cityData, 15, yPosition);
     yPosition += 10;
-
-    // const orderByText = `Order No: ${editOrderDetail?.orderNo}, Order By: ${editOrderDetail?.fieldMemberName}, Order Mode: ${checked ? 'Phone' : 'Visit'}, Date: ${editOrderDetail?.Date_OrderList}`;
-    // doc.text(orderByText, 15, yPosition);
-    // yPosition += 7;
-    // const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}, City: ${city.toUpperCase()}, `;
-    // doc.text(shopKeeperData, 15, yPosition);
-    // yPosition += 10;
-
 
 
     // Iterate over the definedIndices array to generate PDF for defined textarea values

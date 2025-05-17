@@ -145,8 +145,24 @@ const Fourbox = () => {
                       <Card.Header className="text-center" style={{ backgroundColor: "maroon", borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px" }}>
                         Screw Report
                       </Card.Header>
+                    </Card>
+                  </Link>
+                </div>
+              </Col>
+            }
 
+{linkDataProps?.state === "1111" &&
+              <Col span={6} xs={24} sm={12} md={12} lg={6} xl={6} className="d-flex justify-content-center align-items-center">
+                <div>
+                  <Link className="linkstyles" to="/paybleamountpage" >
+                    <Card className="Main-Card-Div Animation-Card-Right Main-Card-Div-Left" >
+                      <Card.Body className="d-flex justify-content-center align-items-center " >
+                        <Card.Img src="payble5.png" style={{ zIndex: "1" }} className='w-50' />
+                      </Card.Body>
 
+                      <Card.Header className="text-center" style={{ backgroundColor: "maroon", borderBottomLeftRadius: "50px", borderBottomRightRadius: "50px" }}>
+                        Amount Payable
+                      </Card.Header>
                     </Card>
                   </Link>
                 </div>

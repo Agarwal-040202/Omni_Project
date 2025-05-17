@@ -40,6 +40,8 @@ import catalogueRoute from "./Routes/catalogue.js"
 import pricelistRoute from "./Routes/pricelist.js"
 import orderlist from "./Routes/orderlist.js"
 import reportlist from "./Routes/reportlist.js"
+import  paymentdetail from "./Routes/paymentdetail.js"
+
 
 import cors from "cors"
 import cookieParser from "cookie-parser";
@@ -72,7 +74,7 @@ app.use("/api/auth", authRoutes)
 app.use("/api/shopkeeper", shopkeeper)
 app.use("/api/orderlist", orderlist)
 app.use("/api/reportlist", reportlist)
-
+app.use("/api/paymentdetail", paymentdetail)
 
 
 const port = process.env.PORT || 8000

@@ -362,7 +362,7 @@ const EditReportModal = ({ showModalEdit, setShowModalEdit, editReportDetail }) 
     }
     else if (updateReportDetailStatus == "Success") {
 
-      handleShopToast(true, 'Success', 'Order update sucessfully.')
+      handleShopToast(true, 'Success', 'Report update sucessfully.')
       // navigate("/fourbox")
     }
     else {
@@ -395,8 +395,8 @@ const EditReportModal = ({ showModalEdit, setShowModalEdit, editReportDetail }) 
               <textarea
                 rows="5"
                 className='w-100 p-1'
-                style={{ textTransform: 'uppercase', fontWeight: 'bold' }}
-                placeholder="Enter your pop list here..."
+                style={{ fontWeight: 'bold' }}
+                placeholder="Enter your remark here..."
                 value={textareaValue}
                 onChange={handleTextareaChange}
               ></textarea>
@@ -613,7 +613,7 @@ const EditReportModal = ({ showModalEdit, setShowModalEdit, editReportDetail }) 
                             rows="5"
                             className='w-100 p-1'
                             style={{ fontWeight: 'bold', border: "none" }}
-                            placeholder="Enter your order here..."
+                            placeholder="Enter your report here..."
                             value={accordionInputs[index]}
                             onChange={(e) => handleAccordionTextareaChange(index, e.target.value)}
                           ></textarea>
