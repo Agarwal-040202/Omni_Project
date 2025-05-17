@@ -5,14 +5,8 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { useDispatch, useSelector } from "react-redux"
-import { updateOrderListData } from "../../Redux/Slice/orderListSlice/orderListEditSlice"
 import MyContext from "../../MyContext";
-import { compose } from '@reduxjs/toolkit';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { Col, Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from "uuid"
-
 import {reportListDetails} from "../../Redux/Slice/reportListSlice/reportListSaveSlice"
 
 const ScrewReportModal = ({ showModalReport, setShowModalReport }) => {
@@ -369,7 +363,7 @@ const handleGeneratePDF = () => {
   
     doc.save(fileName);
     handelcloseModalWithType();
-    // window.location.reload();
+    window.location.reload();
   };
 
 
@@ -507,8 +501,9 @@ const handleGeneratePDF = () => {
               <textarea
                 rows="5"
                 className='w-100 p-1'
-                style={{ textTransform: 'uppercase', fontWeight: 'bold' }}
-                placeholder="Enter your pop list here..."
+                // textTransform: 'uppercase',
+                style={{  fontWeight: 'bold' }}
+                placeholder="Enter your remark here..."
                 value={textareaValue}
                 onChange={handleTextareaChange}
               ></textarea>
@@ -724,7 +719,7 @@ const handleGeneratePDF = () => {
                             rows="5"
                             className='w-100 p-1'
                             style={{ fontWeight: 'bold', border: "none" }}
-                            placeholder="Enter your order here..."
+                            placeholder="Enter your report here..."
                             value={accordionInputs[index]}
                             onChange={(e) => handleAccordionTextareaChange(index, e.target.value)}
                           ></textarea>

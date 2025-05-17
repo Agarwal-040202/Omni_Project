@@ -54,7 +54,6 @@ const Commoncomponent = (props) => {
   const [quantity, setQuantity] = useState(""); // Step 2: Initialize quantity state
   const [scheme, setScheme] = useState(''); // Step 3: Initialize scheme state
   const [orderList, setOrderList] = useState([]);
-  // const [getInput1, setInput1] = useState("");
   const [userIDState, setUserIDState] = useState("")
   const [userCodeState, setUserCodeState] = useState("")
   const [checked, setChecked] = useState(false);
@@ -121,7 +120,6 @@ const Commoncomponent = (props) => {
   const seconds = currentDate.getSeconds(); // Get the seconds component
   const orderno = seconds + userCodeState
 
-  // console.log("seconds", currentDate); // Output: The current seconds value (e.g., 0, 1, 2, ... 59)
 
 
   const functionS = () => {
@@ -175,7 +173,6 @@ const Commoncomponent = (props) => {
     setInput(e.target.value)
 
   }
-  // console.log("lkjljkljl", getInput)
 
   useEffect(() => {
     if (priceListData && priceListData.priceListData && priceListData.priceListData.data) {
@@ -185,79 +182,12 @@ const Commoncomponent = (props) => {
   }, [priceListData]);
 
 
-  // Function to add an item to the order list
-  // const addToOrderListFunction = (data) => {
-  //   const screwName = priceListData?.priceListData?.data?.[0]?.Schrew_Name;
-
-  //   // Check if the screwName already exists in orderList, if not, initialize it with an empty array
-  //   if (!orderList[screwName]) {
-  //     orderList[screwName] = [];
-  //   }
-
-  //   // Check if an item with the same Size already exists in the order list
-  //   const existingItemIndex = orderList[screwName].findIndex((item) => item.Size === data.Size);
-
-  //   if (existingItemIndex !== -1) {
-  //     // Item with the same Size already exists, update it
-  //     orderList[screwName][existingItemIndex] = {
-  //       ...orderList[screwName][existingItemIndex],
-  //       Quantity: quantity,
-  //       Scheme: scheme,
-  //     };
-
-  //   } else {
-  //     // Item with the same Size doesn't exist, add a new item
-  //     orderList[screwName].push({
-  //       screwName: screwName,
-  //       Size: data.Size,
-  //       Quantity: quantity,
-  //       Scheme: scheme,
-  //     });
-
-  //   }
-
-  //   // Update the order list state
-  //   setOrderList({ ...orderList });
-
-  //   // Clear the input fields after adding/updating the item
-  //   inputRef.current.value = ""
-  //   setQuantity("");
-  //   setScheme('');
-
-  //   setCurrentScrewName(screwName);
-  // };
-
-
-  // console.log("ppuretyuiouy", JSON.stringify(orderList, null, 2));
-
-  // const removeFromOrderListFunction = (screwName, index) => {
-  //   setOrderList((prevOrderList) => {
-  //     const updatedList = {
-  //       ...prevOrderList,
-  //       [screwName]: prevOrderList[screwName].filter((item, i) => i !== index),
-  //     };
-
-  //     // If the updated array's length is 0, remove the screwName key
-  //     if (updatedList[screwName].length === 0) {
-  //       delete updatedList[screwName];
-  //     }
-
-  //     return updatedList;
-  //   });
-  // };
-
-
 
   const showOrderModal = () => {
     setShowModal(true)
   }
 
-  // const handleClose = () => {
-  //   setShowModal(false)
-
-  // }
-
-  // new modelwithtype code start
+ 
 
   const screws = {
     "screwName":
@@ -286,12 +216,13 @@ const Commoncomponent = (props) => {
         "FULLCUT 410 GOLDEN",
         "FULLCUT 410 ROSEGOLD",
         "FULLCUT 410 AUTO BLACK",
-        "COMBINATION WITH WASHER SS",
+        "COMBI WITH WASHER SS",
         "CSK SLOTTED BSW THREAD",
         "CSK SLOTTED MM THREAD",
         "CSK PHILLIPS MM THREAD",
         "BLACK GYPSUM",
         "CHROME FINISH",
+        "ZINC DRYWALL",
         "ZINC CHIPBOARD",
         "ZINC COMBI WITH WASHER MS",
         "CARRIAGE BOLTS 12 MM",
@@ -302,13 +233,15 @@ const Commoncomponent = (props) => {
         "KITCHEN BASKET SCREW",
         "NAILS HEADLESS",
         "NAILS ROUND HEAD",
+        "MACHINE SCREW (-)",
         "MACHINE SCREW (+)",
         "MACHINE SCREW ANTIQUE (+)",
         "Washer",
         "NUT",
         "ZINC SDS",
         "ZINC TRUSS SDS",
-        "ZINC HEX HEAD"
+        "ZINC HEX HEAD",
+        "BIT"
 
       ]
   }
@@ -352,159 +285,7 @@ const Commoncomponent = (props) => {
   };
 
 
-
-  console.log("accordionInputs", accordionInputs)
-
-  // import { jsPDF } from "jspdf";
-
-  // const handleGeneratePDF = () => {
-  //   const doc = new jsPDF();
-  //   let yPosition = 10;
-  //   const pageWidth = doc.internal.pageSize.getWidth();
-  
-  //   const addNewPage = () => {
-  //     doc.addPage();
-  //     yPosition = 10;
-  //   };
-  
-  //   const definedIndices = Object.keys(accordionInputs).filter(index => accordionInputs[index] !== undefined);
-  
-  //   doc.setFontSize(14);
-  //   doc.setTextColor(128, 0, 0);
-  //   doc.setFont('helvetica', 'bold');
-  //   doc.text('Omni Screw Orderlist', pageWidth / 2, yPosition, { align: 'center' });
-  //   doc.setTextColor(0);
-  //   yPosition += 10;
-  
-  //   doc.setFontSize(12);
-  //   doc.setFont('helvetica', 'normal');
-  //   const orderByText = `Order No: ${orderno}, Order By: ${UserRole?.User_Name}, Order Mode: ${checked ? 'Phone' : 'Visit'}, Date: ${formattedDate}`;
-  //   doc.text(orderByText, 15, yPosition);
-  //   yPosition += 7;
-  //   const shopKeeperData = `Firm Name: ${shopkeeperName.toUpperCase()}, City: ${city.toUpperCase()}, `;
-  //   doc.text(shopKeeperData, 15, yPosition);
-  //   yPosition += 10;
-  
-  //   definedIndices.forEach((index, i) => {
-  //     const screw = screws.screwName[index];
-  //     const textareaValue = accordionInputs[index];
-  //     const lines = doc.splitTextToSize(textareaValue, pageWidth - 40);
-  //     let remainingLines = lines;
-  
-  //     while (remainingLines.length > 0) {
-  //       if (yPosition + 30 > doc.internal.pageSize.getHeight()) {
-  //         addNewPage();
-  //       }
-  
-  //       doc.setFontSize(12);
-  //       doc.setFont('helvetica', 'bold');
-  //       doc.text(`${screw}`, 15, yPosition);
-  //       yPosition += 6;
-  
-  //       const availableLines = Math.floor((doc.internal.pageSize.getHeight() - yPosition) / 5);
-  //       const linesToRender = remainingLines.slice(0, availableLines);
-  
-  //       doc.setFontSize(12);
-  //       doc.setFont('helvetica', 'normal');
-  //       doc.text(linesToRender, 20, yPosition);
-  //       yPosition += linesToRender.length * 5;
-  
-  //       remainingLines = remainingLines.slice(availableLines);
-  
-  //       if (remainingLines.length > 0) {
-  //         addNewPage();
-  //       }
-  //     }
-  
-  //     yPosition += 3;
-  
-  //     if (i < definedIndices.length - 1 && yPosition + 30 > doc.internal.pageSize.getHeight()) {
-  //       addNewPage();
-  //     }
-  //   });
-  
-  //   if (formattedText) {
-  //     yPosition += 5;
-  //     doc.setFontSize(13);
-  //     doc.setFont('helvetica', 'bold');
-  //     const remarksText = `REMARKS:`;
-  //     doc.text(remarksText, 15, yPosition);
-  //     yPosition += 5;
-  //     doc.setFontSize(11);
-  //     doc.setTextColor(128, 0, 0);
-  //     doc.setFont('helvetica', 'bold');
-  //     doc.text(formattedText, 15, yPosition);
-  //   }
-  
-  //   if (yPosition + 30 > doc.internal.pageSize.getHeight()) {
-  //     addNewPage();
-  //   }
-  
-  //   const trimmedFirmName = shopkeeperName.trim();
-  //   const firmName = trimmedFirmName
-  //     .split(/\s+/)
-  //     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-  //     .join(' ');
-  
-  //   const trimmedCity = city.trim();
-  //   const formattedCity = trimmedCity
-  //     .split(/\s+/)
-  //     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-  //     .join(' ');
-  
-  //   const orderListObject = {
-  //     orderListID: orderListID,
-  //     orderNo: orderno,
-  //     fieldMemberName: UserRole?.User_Name,
-  //     orderMode: checked ? 'Phone' : 'Visit',
-  //     firmName: firmName,
-  //     City: formattedCity,
-  //     Date_OrderList: formattedDate,
-  //     orderObject: accordionInputs,
-  //     remark: formattedText,
-  //     fieldMemberID: UserRole?.User_Id
-  //   };
-  
-  //   dispatch(orderListDetails(orderListObject));
-  
-  //   console.log("orderListObject", orderListObject);
-  
-  //   // Save the PDF with a unique name
-  //   const baseFileName = `${shopkeeperName} (${city})`;
-  //   let fileName = `${baseFileName}.pdf`;
-  //   let counter = 1;
-  
-  //   // Function to check if a file exists
-  //   const fileExists = (name) => {
-  //     try {
-  //       // Attempt to open the file
-  //       new jsPDF().save(name, { returnPromise: false });
-  //       return false;
-  //     } catch (e) {
-  //       return true;
-  //     }
-  //   };
-  
-  //   // Find a unique file name
-  //   while (fileExists(fileName)) {
-  //     fileName = `${baseFileName} (${counter}).pdf`;
-  //     counter += 1;
-  //   }
-  
-  //   // Save the PDF
-  //   doc.save(fileName);
-  //   handelcloseModalWithType();
-  // };
-
-  // new code 4/8/24
-
-  
-  
-  // new code end 4/8/24
-
-
-
-  //new code 15/4125
+  //new code 15/4/25
 
   const handleGeneratePDF = () => {
     const doc = new jsPDF();
@@ -659,23 +440,7 @@ const Commoncomponent = (props) => {
 
   //new code end 15/4/25
   
-  
-
-
-  // new modelwithtype code end
-
-  // useEffect(() => {
-  //   const savedAccordionInputs = sessionStorage.getItem('accordionInputs');
-
-  //   if (savedAccordionInputs) {
-  //     setAccordionInputs(JSON.parse(savedAccordionInputs));
-  //   }
-  //   console.log("asdasdadad", savedAccordionInputs)
-
-  // }, []);
-
-
-  const showPOPModalFunction = () => {
+    const showPOPModalFunction = () => {
     setShowPopModalState(true)
   }
 
@@ -694,118 +459,14 @@ const Commoncomponent = (props) => {
 
   }
 
-  // new code pdf start
-
-  // const generatePDF = (orderList, orderno) => {
-  //   const doc = new jsPDF();
-  //   let yPosition = 10;
-  //   const pageWidth = doc.internal.pageSize.getWidth();
-  //   const itemsPerPage = 40; // Adjust this based on your layout and font size
-
-  //   // Title
-  //   doc.setFontSize(16);
-  //   doc.setTextColor(128, 0, 0);
-  //   doc.setFont('helvetica', 'bold');
-  //   doc.text('Omni Screw Order', pageWidth / 2, yPosition, { align: 'center' });
-  //   doc.setTextColor(0);
-  //   yPosition += 10;
-
-  //   // Order details
-  //   doc.setFontSize(14);
-  //   doc.setFont('helvetica', 'normal');
-  //   const orderByText = `Order No: ${orderno}, Order By: ${UserRole?.User_Name}, Order Mode: ${checked ? 'Phone' : 'Visit'}`;
-  //   doc.text(orderByText, 15, yPosition);
-
-  //   const shopKeeperData = `Firm Name: ${shopKeepeerData?.Firm_Name}, City: ${shopKeepeerData?.City}, Date: ${formattedDate}`;
-  //   yPosition += 7;
-  //   doc.text(shopKeeperData, 15, yPosition);
-  //   yPosition += 10;
-
-  //   // Iterate over order list
-  //   Object.keys(orderList).forEach((screwName, index) => {
-  //     const screwItems = orderList[screwName];
-
-  //     // Display screw name
-  //     doc.setFontSize(12);
-  //     doc.setFont('helvetica', 'bold');
-  //     doc.text(`${screwName}`, 15, yPosition);
-  //     yPosition += 7;
-
-  //     // Display items for the screw
-  //     screwItems.forEach((item) => {
-  //       if (yPosition > doc.internal.pageSize.getHeight() - 20) {
-  //         // Move to the next page if remaining space is not enough
-  //         doc.addPage();
-  //         yPosition = 10; // Reset yPosition for the new page
-  //       }
-
-  //       const itemText = `${item.Size} - ${item.Quantity.toUpperCase()} ${item.Scheme}`;
-  //       doc.setFontSize(12);
-  //       doc.setFont('helvetica', 'normal');
-  //       doc.text(itemText, 20, yPosition);
-  //       yPosition += 6;
-  //     });
-
-  //     // Add spacing between screw names
-  //     yPosition += 5;
-  //   });
-
-  //   // Remarks section
-  //   if (formattedText != "") {
-  //     // Add spacing before remarks section
-  //     yPosition += 6;
-  //     doc.setFontSize(14);
-  //     doc.setFont('helvetica', 'bold');
-  //     const remarksText = `REMARKS:`;
-  //     doc.text(remarksText, 15, yPosition);
-  //     yPosition += 5; // Add some space before printing the actual remarks
-  //     doc.setFontSize(12);
-  //     doc.setTextColor(128, 0, 0);
-  //     doc.setFont('helvetica', 'bold');
-  //     doc.text(formattedText, 15, yPosition);
-  //   }
-
-  //   // Save the PDF
-  //   doc.save(`${shopKeepeerData?.Firm_Name} (${shopKeepeerData?.City}).pdf`);
-
-  //   // Navigate to another page
-  //   navigate("/fourbox");
-  // };
-
-  // new code pdf end
-
-  // const updateQuantity = (screwName, index, value) => {
-  //   setOrderList((prevOrderList) => {
-  //     const updatedOrderList = { ...prevOrderList };
-  //     updatedOrderList[screwName][index].Quantity = value;
-  //     return updatedOrderList;
-  //   });
-  // };
-
-  // const updateScheme = (screwName, index, value) => {
-  //   setOrderList((prevOrderList) => {
-  //     const updatedOrderList = { ...prevOrderList };
-  //     updatedOrderList[screwName][index].Scheme = value;
-  //     return updatedOrderList;
-  //   });
-  // }
-
-
+  
   let totalCount = 0;
 
   // Iterate through each screwName key and add the length of the array to totalCount
   Object.keys(orderList).forEach((screwName) => {
     totalCount += orderList[screwName].length;
-    // inputRef.current.value="0"
 
   });
-
-
-  // Function to handle radio button change
-  // const handleRadioChange = (e) => {
-  //   const value = e.target.value;
-  //   setSelectedRadio(value === selectedRadio ? null : value); // Toggle the selected radio value
-  // };
 
   useEffect(() => {
     if (currentScrewName !== '') {
@@ -846,94 +507,6 @@ const Commoncomponent = (props) => {
 
   return (
     <div>
-
-      {/* {
-        showModal == true &&
-        <Modal show={showModal} onHide={handleClose}
-          centered
-          backdrop={false}
-          size="lg"
-          style={{ zIndex: 9 }}
-        >
-          <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
-            <Modal.Title style={{ color: "white" }}>Omni Order List</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div>
-              <Row>
-                <Col>
-                  <Row>
-                    <Col xs="12" md="2" lg="2">
-                      <h5 className='firmname-tag-h6'>Firm Name: </h5>
-                    </Col>
-                    <Col xs="12" md="10" lg="6"><h5 className='firmname-tag-h6' style={{ color: "black", paddingRight: "10px" }}>{shopKeepeerData?.Firm_Name}</h5></Col>
-                  </Row>
-                  <Row>
-                    <Col xs="12" sm="6" lg="6">
-                      <h5 className='firmname-tag-h6'>City: <span style={{ color: "black" }}>{shopKeepeerData?.City}</span></h5>
-                    </Col>
-                    <Col xs="12" sm="6" lg="6">
-                      <h5 className='firmname-tag-h6'>Mode: <span style={{ color: "black" }}>{checked ? "Phone" : "Visit"}</span></h5>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-              <hr />
-              <div className="position-relative" style={{ height: "200px", "overflow-y": "scroll" }}>
-                <div className='pdf-class'>
-                  {Object.keys(orderList).map((screwName, index) => (
-                    <div key={index}>
-                      {orderList[screwName]?.length > 0 ? <div className='d-flex justify-content-between mb-2'>
-                        <div>
-                          <h4 style={{ fontWeight: "700", color: "maroon" }}>{screwName} </h4>
-                        </div>
-
-                      </div> : ""}
-
-                      {orderList[screwName].map((item, i) => (
-                        <h6 key={i} style={{ listStyle: "none" }}>
-                          {item.Size}
-                          <input
-                            type="text"
-                            value={item.Quantity}
-                            style={{ width: '55px', border: "1px solid gray", height: "30px", marginLeft: "16px", fontWeight: "500" }}
-                            onChange={(e) => updateQuantity(screwName, i, e.target.value)}
-                          />{" "}
-
-                          <img src="/cancel1.png" onClick={() => removeFromOrderListFunction(screwName, i)} style={{ width: "24px", marginLeft: "16px", marginBottom: "5px", cursor: "pointer" }} />
-                           <button onClick={() => removeFromOrderListFunction(screwName, i)} style={{marginLeft:"20px",backgroundColor:"red",color:"white",
-                             borderRadius:"5px",border:"none",fontSize:"16px",height: "30px",width:"70px"}}>Remove</button> 
-                        </h6>
-                      ))}
-
-                    </div>
-                  ))}
-
-                </div>
-              </div>
-              <hr />
-              <div className='d-flex justify-content-between'>
-                <button onClick={showPOPModalFunction}
-                  disabled={totalCount > 0 ? false : true}
-                  style={{
-                    backgroundColor: "blue", color: "white",
-                    borderRadius: "5px", border: "none", fontSize: "16px", height: "36px", width: "80px", float: "right"
-                  }}
-                >Remark</button>
-
-                <button onClick={() => generatePDF(orderList, orderno)}
-                  disabled={totalCount > 0 ? false : true}
-                  style={{
-                    backgroundColor: "green", color: "white",
-                    borderRadius: "5px", border: "none", fontSize: "16px", height: "36px", width: "120px", float: "right"
-                  }}
-                >Genrate Orderkk</button>
-              </div>
-            </div>
-          </Modal.Body>
-        </Modal>
-
-      } */}
 
       {/* Remark MODAL CODE START */}
       {
@@ -994,7 +567,6 @@ const Commoncomponent = (props) => {
           </Modal.Header>
           <Modal.Body>
             <div>
-              {/* <h4 className='firmname-tag-h6'>View Order</h4> */}
             </div>
 
             <div className="position-relative" style={{ height: "200px", overflowY: "scroll" }}>
@@ -1242,9 +814,7 @@ const Commoncomponent = (props) => {
               </div>
             </div>
           </Col>
-          {/* <Col xs={2} sm={2} lg={2} className="d-flex justify-content-center m-0 p-0">
-
-          </Col> */}
+          
           <Col xs={3} sm={3} lg={3} className="d-flex justify-content-center align-items-center m-0 p-0">
 
             <ButtonGroup >
@@ -1261,7 +831,6 @@ const Commoncomponent = (props) => {
                 Phone
               </ToggleButton>
             </ButtonGroup>
-            {/* </div> */}
           </Col>
           <Col xs={1} sm={1} lg={1} className="d-flex justify-content-end">
 
@@ -1305,27 +874,11 @@ const Commoncomponent = (props) => {
                 <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
                   <img src="/rsicon1.jpg" style={{ height: "12px", marginTop: "-3px" }} onError={(e) => console.log('Error loading image:', e)} />
                   {" "} 100</th>
-                {/* {
-                  OrderTypemodeVariable == "OrderTypemode" ? "" : <>
-                    <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
-                      Qty
-                    </th>
-                    <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
-                  Info
-                </th>
-                    <th className="text-center " style={{ border: "1px solid black", color: "maroon", borderTop: "none", fontFamily: "sans-serif" }}>
-                      Add
-                    </th>
-                  </>
-                } */}
-
               </tr>
 
             </thead>
             {priceListData?.priceListData?.data?.filter(data => data?.Size?.toLowerCase().includes(getInput.toLowerCase())).map((data, index) => {
-              // let quantity = 0; // Default quantity
-              // let scheme = ''; // Default scheme
-              // const screwName = priceListData?.priceListData?.data?.[0]?.Schrew_Name;
+             
 
               return (
                 <tr style={{ backgroundColor: "" }} className="tabel-row" key={index}>
@@ -1333,27 +886,7 @@ const Commoncomponent = (props) => {
                   <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }}>{data?.Size}</td>
                   <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }}>{data?.Packing}</td>
                   <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }}>{data?.Price}</td>
-                  {/* {
-                    OrderTypemodeVariable == "OrderTypemode" ? "" : <>
-                      <td style={{ border: "1px solid black", textAlign: "center", fontWeight: "600", fontFamily: "sans-serif", color: "#1C2833" }} className='p-2'>
-
-                        <input type='text'
-                          placeholder='Qty'
-                          id="qtyInput"
-                          ref={inputRef.current[index]}
-                          style={{ width: '60px', border: "1px solid black", height: "28px", fontWeight: "500" }}
-                          defaultValue={quantity}
-                          onChange={(e) => setQuantity(e.target.value)}
-                        />
-                      </td>
-                      <td style={{ border: "1px solid black", textAlign: "center" }}>
-                        <img src="/addicone.jpg" style={{ width: "36px", cursor: "pointer" }} 
-                        onClick={() =>
-                          addToOrderListFunction(data)
-                        } />
-
-                      </td>
-                    </>} */}
+                 
 
                 </tr>
               )

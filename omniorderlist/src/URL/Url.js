@@ -11,9 +11,15 @@ let OmniUrl ={
     orderListDetailURL:'http://localhost:8000/api/orderlist/addorderlistdetail',
     getOrderListDetailURL:'http://localhost:8000/api/orderlist/getallorderlist/userId',
     updateOrderDetailURL:'http://localhost:8000/api/orderlist/update/orderId',
+
     reportListDetailURL:'http://localhost:8000/api/reportlist/addreportlistdetail',
     getReportListDetailURL:'http://localhost:8000/api/reportlist/getallreportlist/userId',
     updateReportDetailURL:'http://localhost:8000/api/reportlist/update/reportId',
+
+    getPaymentDetailURL:'http://localhost:8000/api/paymentdetail/getallpaymentdetail/userId',
+    paymentDetailSaveURL:'http://localhost:8000/api/paymentdetail/addPaymentDetail',
+    updatePaymentDetailURL:'http://localhost:8000/api/paymentdetail/update/reportId',
+    
 
 
 // url with https

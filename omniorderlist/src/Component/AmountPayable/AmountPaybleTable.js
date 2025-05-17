@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getReportListData } from '../../Redux/Slice/reportListSlice/getReportListDataSlice';
+import { getPaymentDetalData } from '../../Redux/Slice/paymentDetailSlice/getPaymentDataSlice';
 import { Col, Row, Select } from 'antd';
 import { Table } from 'react-bootstrap';
 import { indianStates } from '../StateandCity/State';
 import { citiesByState } from "../StateandCity/City";
 import Button from "react-bootstrap/Button";
-import EditReportModal from './EditReportModal';
-import ScrewReportModal from './ScrewReportModal';
+import PayableModal from './PayableModal';
+import EditAmountPayableModal from './EditAmountPayableModal';
+// import EditReportModal from './EditReportModal';
+// import ScrewReportModal from './ScrewReportModal';
 
-const ScrewReportPage = () => {
+const AmountPaybleTable = () => {
 
     const allStateNames = Object.values(indianStates);
 
     const dispatch = useDispatch();
-    const reportlistData = useSelector((state) => state.getALLReportListData.reportlistData);
+    const reportlistData = useSelector((state) => state.getAllPaymentDetailData?.paymentDetail);
+    
+
     const UserRole = JSON.parse(sessionStorage?.getItem("personalInfo")) || "";
 
     const [showScrewTable, setShowScrewTable] = useState(false)
 
-
+     console.log("lkjlkhlhkhhlhll",reportlistData)
 
     const [showModalEdit, setShowModalEdit] = useState(false)
     const [showModalReport, setShowModalReport] = useState(false)
@@ -42,7 +46,7 @@ const ScrewReportPage = () => {
     }
 
     const functionS = () => {
-        dispatch(getReportListData(UserRole?.User_Id)); // Pass the user ID to the thunk
+        dispatch(getPaymentDetalData(UserRole?.User_Id)); // Pass the user ID to the thunk
     };
 
 
@@ -102,7 +106,7 @@ const ScrewReportPage = () => {
                                     <h3 style={{
                                             color: "maroon",
                                             
-                                        }}>Screw Report</h3>
+                                        }}>Payment Details</h3>
                                     {/* <Button
                                         type="submit"
                                         onClick={showPartyTable}
@@ -127,7 +131,7 @@ const ScrewReportPage = () => {
                                         onClick={handleActionsShowReportModal}
 
                                         style={{
-                                            backgroundColor: "#1b2631", // Change background color
+                                            backgroundColor: "#7b7d7d", // Change background color
                                             color: "white",
                                             border: "none",
                                             borderRadius: "50px",
@@ -138,7 +142,7 @@ const ScrewReportPage = () => {
                                             width: "130px",
                                             marginLeft: "7px"
                                         }}
-                                    >Create Report</Button>
+                                    >New Payment</Button>
                                 </div>
                             </Col>
                             {/* <Col>
@@ -220,13 +224,13 @@ const ScrewReportPage = () => {
                                         <thead className="bg-light">
                                             <tr>
                                                 <th>Firm Name</th>
-                                                <th>State</th>
                                                 <th>City</th>
                                                 <th>Action</th> {/* Add this line for User Role */}
                                                 {/* <th>Action</th> */}
                                             </tr>
                                         </thead>
                                         <tbody>
+                                          {console.log("reportlistDatafsf",reportlistData)}
                                             {reportlistData?.data?.length > 0 &&
                                                 reportlistData.data
                                                     .filter((item) => {
@@ -245,7 +249,6 @@ const ScrewReportPage = () => {
                                                         return (
                                                             <tr key={index}>
                                                                 <td>{firmName}</td>
-                                                                <td>{stateName}</td>
                                                                 <td>{City}</td>
                                                                 {/* <td>{Date_OrderList}</td> */}
                                                                 {/* <td>{orderMode}</td> */}
@@ -269,14 +272,19 @@ const ScrewReportPage = () => {
                 </Row>
             </div>
             {
-                showModalEdit == true && <EditReportModal showModalEdit setShowModalEdit={setShowModalEdit} editReportDetail={editReportDetail} />
+                showModalEdit == true && <EditAmountPayableModal showModalEdit setShowModalEdit={setShowModalEdit} editReportDetail={editReportDetail} />
 
             }
+
             {
-                showModalReport == true && <ScrewReportModal showModalReport setShowModalReport={setShowModalReport} />
-            }
+                showModalReport == true && <PayableModal showModalReport setShowModalReport={setShowModalReport} />
+            } 
         </>
     );
 };
 
-export default ScrewReportPage;
+export default AmountPaybleTable;
+
+
+
+
