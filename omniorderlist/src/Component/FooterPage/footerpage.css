@@ -12,7 +12,7 @@
     flex-basis: 40%;
     padding: 10px;
     /* text-align: center; */
-    transition: transform 0.3s ease-in-out;
+    /* transition: transform 0.3s ease-in-out; */
   }
   .footer-column1 {
     /* border: 1px solid red; */
@@ -28,7 +28,7 @@
   .ancher-div a{
       color: wheat;
       text-decoration: none;
-      font-size: 20px;
+      font-size: 18px;
       margin-top: 10px;
       cursor: pointer;
 
@@ -68,8 +68,14 @@
         order: 1;
       }
   }
+.iconClass{
+  width: 35px;
+}
+  @media (max-width:1024px){
 
-  @media (max-width:600px){
+    .iconClass{
+      width: 35px;
+    }
     .footer-image-two-div{
       display: flex;
       justify-content: start;

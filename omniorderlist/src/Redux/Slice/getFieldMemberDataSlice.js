@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import OmniUrl from "../../URL/Url";
+
+const {getFieldMemberDetailsURL} = OmniUrl
 
 const initialState = {
     fileldMemberDetailStatus: "",
@@ -16,7 +19,7 @@ export const getFiledMemberData = createAsyncThunk(
                 FieldMemberID: fileldMemberData
             }
             const response = await axios.post(
-                "http://localhost:8000/api/users/find/userId",
+                getFieldMemberDetailsURL,
                 josnObj,
                 {
                     headers: {

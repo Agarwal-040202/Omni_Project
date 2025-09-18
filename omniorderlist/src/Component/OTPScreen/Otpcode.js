@@ -28,7 +28,7 @@ const Otpcode = (props) => {
     const getOtp = [...otp];
 
     const handleOnChange = (e, index) => {
-        console.log("kkkkkkkkkk", e.target.value)
+        // console.log("kkkkkkkkkk", e.target.value)
 
         getOtp[index] = e.target.value
         setOtp(getOtp)
@@ -41,10 +41,10 @@ const Otpcode = (props) => {
         }
     }
 
-    console.log("getOtp", currentOtpValue)
+    // console.log("getOtp", currentOtpValue)
 
     const handleKeyDown = (e, index) => {
-        console.log("asdadadad", e.key, index)
+        // console.log("asdadadad", e.key, index)
         currentOtpIndex = index
 
         if (e.key === "Tab") {
@@ -52,7 +52,7 @@ const Otpcode = (props) => {
             setActiveOtpIndex(currentOtpIndex + 1)
         }
         if (e.key === 'Backspace' && !e.target.value) {
-            console.log("asdsssadadad", currentOtpIndex)
+            // console.log("asdsssadadad", currentOtpIndex)
             e.preventDefault();
             setActiveOtpIndex(currentOtpIndex - 1)
         }
@@ -75,7 +75,7 @@ const Otpcode = (props) => {
                     "User_Role": "Field Member"
                 }
 
-                console.log('inputObject2', JsonObj)
+                // console.log('inputObject2', JsonObj)
 
                 const respos = await axios.post("http://localhost:8000/api/auth/find/logincode", JsonObj, {
                     headers: {
@@ -83,7 +83,7 @@ const Otpcode = (props) => {
                     }
                 });
 
-                console.log("response", respos.data[0]?.User_Code)
+                // console.log("response", respos.data[0]?.User_Code)
 
                 const dataObj = { userCode: respos.data[0]?.User_Code, UserRole: respos.data[0]?.User_Role }
 
@@ -107,7 +107,7 @@ const Otpcode = (props) => {
                 }
             }
             catch (error) {
-                console.log("responsekkklk", error)
+                // console.log("responsekkklk", error)
 
                 handleShopToast(true, 'Error', 'Please enter the valid code.')
 
@@ -118,14 +118,7 @@ const Otpcode = (props) => {
 
     return (
         <div className='d-flex justify-content-center' style={{ height: "87.6vh" }} >
-            {/* <Modal show={props.otpCodeState} onHide={handleClose}
-                centered
-                backdrop={false}
-            >
-                <Modal.Header closeButton closeVariant={"white"} style={{ backgroundColor: "maroon" }}>
-                    <Modal.Title style={{ color: "white" }}>Entrance Code</Modal.Title>
-                </Modal.Header>
-                <Modal.Body> */}
+           
             {showOtpPage == true ? "" : <>
                 <div className='main-otp-div'>
 
@@ -141,7 +134,7 @@ const Otpcode = (props) => {
                             otp.map((_, index) => {
                                 return (
                                     <div key={index}>
-                                        <input type="text" ref={activeOtpIndex == index ? inputRef : null} className='test' id="digit-1" maxLength="1"
+                                        <input type="password" ref={activeOtpIndex == index ? inputRef : null} className='test' id="digit-1" maxLength="1"
                                             onChange={(e) => handleOnChange(e, index)}
                                             onKeyDown={(e) => handleKeyDown(e, index)}
                                         />
@@ -152,18 +145,25 @@ const Otpcode = (props) => {
 
                     </div>
                     <div className='d-flex justify-content-end'>
-                        <Button className='btn-submit' onClick={handleSubmit}>
+
+                        <div onClick={handleSubmit}
+                            style={{
+                                backgroundColor: "maroon",
+                                color: "white",
+                                padding: "6px",
+                                cursor: "pointer",
+                                borderRadius: "5px",
+                                fontWeight: "normal"
+                            }}
+                        >
                             Submit
-                        </Button>
+                        </div>
+
                     </div>
                 </div>
             </>}
 
-            {/* </Modal.Body>
-                <Modal.Footer>
-                   
-                </Modal.Footer>
-            </Modal> */}
+           
 
 
         </div>

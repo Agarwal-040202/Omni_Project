@@ -9,6 +9,18 @@ import updatefieldMemberReducer from "../Slice/updateFieldMemberSlice"
 import updateshopkeeperReducer from "../Slice/shopkeeperSlice/updateShopkeeperSlice"
 import insertCatelogueData from "../Slice/catelogueSlice/catelogueSlice"
 import priceListDataSlice  from "../Slice/priceLisleSlice/priceListSlice"
+import orderListDetailsSlice from "../Slice/orderListSlice/orderListSaveSlice"
+import orderlistDataSlice from "../Slice/orderListSlice/getOderlistDataSlice"
+import updateOrderListDataSlice from "../Slice/orderListSlice/orderListEditSlice"
+
+import reportListDetailsSlice from "../Slice/reportListSlice/reportListSaveSlice"
+import reportlistDataSlice from "../Slice/reportListSlice/getReportListDataSlice"
+import updateReportListDataSlice from "../Slice/reportListSlice/reportListEditSlice"
+
+import paymentDetailSlice from "../Slice/paymentDetailSlice/getPaymentDataSlice"
+import paymentDetailsSaveSlice from "../Slice/paymentDetailSlice/paymentDetailsSaveSlice"
+import paymentDetailsEditSlice from "../Slice/paymentDetailSlice/paymentDetailsEditSlice"
+
 
 
 export const store = configureStore({
@@ -23,6 +35,16 @@ export const store = configureStore({
         updateshopkeeperData:updateshopkeeperReducer,
         catelougeData:insertCatelogueData,
         priceListData: priceListDataSlice,
-
+        addNewOrderData:orderListDetailsSlice,
+        getALLOrderListData:orderlistDataSlice,
+        updateOrderList:updateOrderListDataSlice,
+        addNewReportData:reportListDetailsSlice,
+        getALLReportListData:reportlistDataSlice,
+        updateReportList:updateReportListDataSlice,
+        
+        getAllPaymentDetailData:paymentDetailSlice,
+        addNewPaymentData:paymentDetailsSaveSlice,
+        updatePaymentDetails:paymentDetailsEditSlice,
+        
     }
 })

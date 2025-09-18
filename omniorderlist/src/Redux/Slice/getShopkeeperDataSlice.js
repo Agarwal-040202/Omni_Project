@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import OmniUrl from "../../URL/Url";
+
+const {getAllShopkeeperDataURL} = OmniUrl
 
 const initialState = {
   shopkeeperDataStatus: "",
@@ -13,7 +16,7 @@ export const getShopkeeperData = createAsyncThunk(
   async (_, { rejectWithValue }) => { // You don't need the shopKeeperData parameter here
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/shopkeeper/getallshopkeeper",
+        getAllShopkeeperDataURL,
         {
           headers: {
             "Content-Type": "application/json",

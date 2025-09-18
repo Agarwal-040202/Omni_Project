@@ -6,6 +6,7 @@ const router = express.Router()
 // router.get("/test", (req,res)=>{
 //     res.send("it works!")
 // })
+console.log("updateShopkeeperDetail",updateShopkeeperDetail)
 
 router.post("/addshopkeeperdetail", addShopkeeperDetail)
 router.get("/getallshopkeeper", getShopkeeperDetail)

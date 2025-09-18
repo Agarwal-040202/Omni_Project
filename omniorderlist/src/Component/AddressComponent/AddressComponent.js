@@ -33,7 +33,7 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
     const [loggedInId, setloggedInId] = useState('')
     const [addressInfo, setaddressInfo] = useState({ ...addressInfoObj() })
 
-    console.log('addressInfoaddressInfo', getAddress)
+    // console.log('addressInfoaddressInfo', getAddress)
 
     
    
@@ -54,7 +54,7 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
         }
     };
 
-    console.log("addressText", addressText)
+    // console.log("addressText", addressText)
 
     const initAutoComplete = () => {
         if (!inputSearchaddressRef.current) return;
@@ -66,7 +66,7 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
     };
 
     const onChangeAddress = (autocomplete) => {
-        console.log("autocomplete",autocomplete)
+        // console.log("autocomplete",autocomplete)
         const place = autocomplete.getPlace();
         const lat = place?.geometry?.location?.lat();
         const long = place?.geometry?.location?.lng();
@@ -126,7 +126,7 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
 
     const mapApi = "https://maps.googleapis.com/maps/api/js";
 
-    console.log("kkkkkkk",addressInfo)
+    // console.log("kkkkkkk",addressInfo)
 
 
     function loadAsyncScript(src) {
@@ -148,7 +148,7 @@ const AddressComponent = ({ setAd, setDemoState, getAddress, setAddressTextBoxSt
             return Promise.resolve();
         }
         const src = `${mapApi}?key=${'AIzaSyBaUn22pwovCzOxH7Uthivbd8_ScMkaEAI'}&libraries=places&v=weekly`;
-        console.log(src,"srcsrcsrc")
+        // console.log(src,"srcsrcsrc")
         return loadAsyncScript(src);
     }
     return (

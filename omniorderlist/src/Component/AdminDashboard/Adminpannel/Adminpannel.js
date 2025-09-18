@@ -37,7 +37,7 @@ const Adminpannel = () => {
         },1000)
       }
 
-    console.log("clickedSideMenu", clickedSideMenu)
+    // console.log("clickedSideMenu", clickedSideMenu)
     return (
         <div className='main-Pannel-div' >
             {['xl'].map((expand) => (

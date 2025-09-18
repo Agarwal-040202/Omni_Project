@@ -78,7 +78,10 @@
   
     /* fontWeight:"500",color:"black",textDecoration:"none" */
   }
-
+.navbar-toggler{
+  /* border: 2px solid red !important; */
+  padding: 5px !important;
+}
   @media (max-width:991px){
     .navbar-Div{
       /* display: inline-block !important; */

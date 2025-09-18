@@ -17,7 +17,7 @@ const CommToaster = ({ open, message, type }) => {
         handleShopToast(false)
     };
 
-    console.log("opennopenn", open)
+    // console.log("opennopenn", open)
     return (
         <div >
             <Modal

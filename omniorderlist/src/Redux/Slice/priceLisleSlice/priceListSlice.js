@@ -22,7 +22,7 @@ export const getPriceListData = createAsyncThunk(
       );
 
       const priceListData = response?.data;
-      console.log("priceListData", priceListData);
+      console.log("priceListgdssdfData", priceListName,priceListData);
 
       return priceListData;
     } catch (error) {

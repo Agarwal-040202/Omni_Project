@@ -7,6 +7,7 @@
   align-items: center;
   /* border: 1px solid red; */
 }
+
 .container1 {
   position: relative !important;
   max-width: 850px !important;
@@ -14,17 +15,20 @@
   background: #fff;
   padding: 40px 30px !important;
 }
-.chooseRoll-tag-h6{
+
+.chooseRoll-tag-h6 {
   font-size: 18px !important;
   font-weight: 600;
   color: maroon;
   margin-top: 1px;
 }
-.radio-sapn-tag{
+
+.radio-sapn-tag {
   font-size: 16px !important;
-font-weight: 600;
+  font-weight: 600;
 
 }
+
 .container1 .cover {
   position: absolute !important;
   top: 0 !important;
@@ -36,10 +40,12 @@ font-weight: 600;
   transform-origin: left !important;
   transform-style: preserve-3d !important;
 }
-.container1 #flip:checked ~ .cover {
+
+.container1 #flip:checked~.cover {
   transform: rotateY(-180deg);
   /* backface-visibility: hidden; */
 }
+
 .container1 .cover .front,
 .container1 .cover .back {
   position: absolute;
@@ -49,10 +55,12 @@ font-weight: 600;
   width: 100%;
   backface-visibility: hidden;
 }
+
 .cover .back {
   transform: rotateY(180deg);
   /* backface-visibility: hidden; */
 }
+
 .container1 .cover::before,
 .container1 .cover::after {
   content: "";
@@ -63,17 +71,20 @@ font-weight: 600;
   /* opacity: 0.5; */
   z-index: 12;
 }
+
 .container1 .cover::after {
   opacity: 0.3;
   transform: rotateY(180deg);
   backface-visibility: hidden;
 }
+
 .container1 .cover img {
   height: 100% !important;
   width: 100% !important;
   overflow: hidden;
   z-index: 10;
 }
+
 .container1 .cover .text {
   position: absolute;
   z-index: 130;
@@ -84,6 +95,7 @@ font-weight: 600;
   align-items: center;
   justify-content: center;
 }
+
 .cover .text .text-1,
 .cover .text .text-2 {
   font-size: 26px;
@@ -91,24 +103,29 @@ font-weight: 600;
   color: #fff;
   text-align: center;
 }
+
 .cover .text .text-2 {
   font-size: 15px;
   font-weight: 500;
 }
+
 .container1 .forms {
   height: 100%;
   width: 100% !important;
   background: #fff;
 }
+
 .container1 .form-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .form-content .login-form,
 .form-content .signup-form {
   width: calc(100% / 2 - 25px);
 }
+
 .forms .form-content .title {
   position: relative;
   font-size: 26px;
@@ -118,6 +135,7 @@ font-weight: 600;
   display: flex;
   justify-content: center;
 }
+
 .forms .form-content .title:before {
   content: "";
   position: absolute;
@@ -126,12 +144,15 @@ font-weight: 600;
   height: 3px;
   width: 25px;
 }
+
 .forms .signup-form .title:before {
   width: 20px;
 }
+
 .forms .form-content .input-boxes {
   /* margin-top: 30px; */
 }
+
 .forms .form-content .input-box {
   display: flex;
   align-items: center;
@@ -140,6 +161,7 @@ font-weight: 600;
   margin: 8px 0;
   position: relative;
 }
+
 .form-content .input-box input {
   height: 100%;
   width: 100%;
@@ -151,30 +173,37 @@ font-weight: 600;
   border-bottom: 2px solid rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
+
 .form-content .input-box input:focus,
 .form-content .input-box input:valid {
   border-color: maroon;
 }
+
 .form-content .input-box i {
   position: absolute;
   font-size: 17px;
 }
+
 .forms .form-content .text {
   font-size: 14px;
   font-weight: 500;
   color: #333;
 }
+
 .forms .form-content .text a {
   text-decoration: none;
 }
+
 .forms .form-content .text a:hover {
   text-decoration: underline;
 }
+
 .Login-Submit-div {
   margin-top: 20px;
   display: flex;
   justify-content: center;
 }
+
 .Login-Submit-div button {
   background: maroon;
   color: white;
@@ -195,9 +224,11 @@ font-weight: 600;
   cursor: pointer;
   transition: all 0.4s ease;
 }
+
 .forms .form-content .button input:hover {
   background: maroon;
 }
+
 .forms .form-content label {
   color: maroon;
   cursor: pointer;
@@ -211,13 +242,16 @@ font-weight: 600;
   margin-top: 16px;
   font-size: 16px;
 }
+
 .container1 #flip {
   display: none;
 }
+
 @media (max-width: 800px) {
   .main-Div {
     padding-left: 30px !important;
     padding-right: 30px !important;
+    height: 91.5vh;
   }
 }
 
@@ -225,33 +259,41 @@ font-weight: 600;
   .main-Div {
     padding-left: 30px !important;
     padding-right: 30px !important;
+    height: 91.5vh;
   }
-  .chooseRoll-tag-h6{
+
+  .chooseRoll-tag-h6 {
     font-size: 13px !important;
-    margin-top: 5px;
+    margin-top: 60px;
   }
-  .radio-sapn-tag{
+
+  .radio-sapn-tag {
     font-size: 13px !important;
-  font-weight: 600;
-  
+    font-weight: 600;
+
   }
 }
+
 @media (max-width: 500px) {
   .container1 .cover {
     display: none;
   }
+
   .form-content .login-form {
     width: 100%;
     margin-top: 40px;
   }
+
   .form-content .signup-form {
     width: 100%;
     display: none;
   }
-  .container1 #flip:checked ~ .forms .signup-form {
+
+  .container1 #flip:checked~.forms .signup-form {
     display: block;
   }
-  .container1 #flip:checked ~ .forms .login-form {
+
+  .container1 #flip:checked~.forms .login-form {
     display: none;
   }
 }
@@ -275,14 +317,12 @@ font-weight: 600;
   max-width: 850px !important;
   width: 100% !important;
   height: 420px;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    transparent,
-    #45f3ff,
-    #45f3ff,
-    #45f3ff
-  );
+  background: linear-gradient(0deg,
+      transparent,
+      transparent,
+      #45f3ff,
+      #45f3ff,
+      #45f3ff);
   z-index: 1;
   transform-origin: bottom right;
   animation: animate 6s linear infinite;
@@ -296,14 +336,12 @@ font-weight: 600;
   max-width: 850px !important;
   width: 100% !important;
   height: 420px;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    transparent,
-    #ff27,
-    #ff27,
-    #ff27
-  );
+  background: linear-gradient(0deg,
+      transparent,
+      transparent,
+      #ff27,
+      #ff27,
+      #ff27);
   z-index: 1;
   transform-origin: bottom right;
   animation: animate 6s linear infinite;
@@ -318,19 +356,18 @@ font-weight: 600;
   max-width: 850px !important;
   width: 100% !important;
   height: 420px;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    transparent,
-    #45f3ff,
-    #45f3ff,
-    #45f3ff
-  );
+  background: linear-gradient(0deg,
+      transparent,
+      transparent,
+      #45f3ff,
+      #45f3ff,
+      #45f3ff);
   z-index: 1;
   transform-origin: bottom right;
   animation: animate 6s linear infinite;
   animation-delay: -3s;
 }
+
 .borderLine {
   position: absolute;
   top: 0;
@@ -345,14 +382,12 @@ font-weight: 600;
   max-width: 850px !important;
   width: 100% !important;
   height: 420px;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    transparent,
-    #ff27,
-    #ff27,
-    #ff27
-  );
+  background: linear-gradient(0deg,
+      transparent,
+      transparent,
+      #ff27,
+      #ff27,
+      #ff27);
   z-index: 1;
   transform-origin: bottom right;
   animation: animate 6s linear infinite;
@@ -363,6 +398,7 @@ font-weight: 600;
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

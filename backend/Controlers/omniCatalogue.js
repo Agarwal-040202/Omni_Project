@@ -35,16 +35,17 @@ export const createCatalogues = (req, res) => {
   const jsonData = req.body; // Assuming req.body is an array of JSON data objects
 
   // Define the SQL query to delete all existing records from the table
-  const deleteQuery = `DELETE FROM drywall_410`;
+  const deleteQuery = `DELETE FROM drywall410golden`;
   
   // Define the SQL query to insert multiple records into the database
   const insertQuery = `
-    INSERT INTO drywall_410 (Schrew_Name, Size, Packing, Price)
+    INSERT INTO drywall410golden (drywall410golden_ID,Schrew_Name, Size, Packing, Price)
     VALUES ?
   `;
   
   // Extract the values from the JSON data objects and create a 2D array
   const values = jsonData.map((item) => [
+    item.drywall410golden_ID,
     item.Schrew_Name,
     item.Size,
     item.Packing,

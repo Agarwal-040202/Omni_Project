@@ -15,13 +15,8 @@ const LoginForm = () => {
 
   const loaction = useLocation()
   const dispatch = useDispatch()
-  // const { users, loading, error } = useSelector((state) => state.app)
   const { auth, userLoaded, registerStatus, token, loginStatus } = useSelector((state) => state.auth)
-  console.log("authkkk", loginStatus)
-
-  // console.log("location", loaction.state, users.length, loading, error)
-
-
+  
   const inputReffPassword = useRef(null)
   const inputReffComparePassword = useRef(null)
   const Form = useRef(null)
@@ -60,17 +55,17 @@ const LoginForm = () => {
   }, [loginStatus])
 
   const userDetailFunction = (e) => {
-    setUserDetailState({ ...userDetailState, [e.target.name]: e.target.value, ["User_Id"]: userIDState, ["User_Code"]: userCodeState, ["Password"]: password })
+    setUserDetailState({ ...userDetailState, [e.target.name]: e.target.value, ["User_Id"]: userIDState, ["User_Code"]: userCodeState})
   }
 
-  console.log("userDetailStatejkj", userDetailState, password)
+  // console.log("userDetailStatejkj", userDetailState, password)
 
   const registerHererFunction = () =>{
     loaction.state =""
   }
 
 
-  console.log("hhjhjhjh", loaction?.state)
+  // console.log("loaction?.state", loaction?.state?.userCode)
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
@@ -86,12 +81,14 @@ const LoginForm = () => {
       }
       else {
 
-        console.log("sdfsdf",JsonObj)
+        // console.log("JsonObjJsonObj",JsonObj)
         try {
           dispatch(showUser1(JsonObj))
           setStatusState(true)
 
         } catch (err) {
+        // console.log("JsonObjJsonObjError",JsonObj)
+
           handleShopToast(true, 'Error', 'Invalid user name and password.')
 
         }
@@ -102,31 +99,31 @@ const LoginForm = () => {
 
     if (showRegisterPageState == true) {
 
-      if (userDetailState == "" || password == "" || comparePassword == "") {
+      if (userDetailState == "" ) {
         handleShopToast(true, 'Error', 'Please fills all fields.')
         return;
       }
-      else if (validateState == false) {
-        handleShopToast(true, 'Error', 'Password is not Valid.')
+      // else if (validateState == false) {
+      //   handleShopToast(true, 'Error', 'Password is not Valid.')
 
-      }
-      else if (password !== comparePassword) {
-        handleShopToast(true, 'Error', 'Password is mismatched.')
-        return;
-      }
+      // }
+      // else if (password !== comparePassword) {
+      //   handleShopToast(true, 'Error', 'Password is mismatched.')
+      //   return;
+      // }
 
       else {
 
         try {
           dispatch(registerUser(userDetailState))
-          setShowLoder(true)
-          console.log("kjkjkkk", token)
-          setTimeout(() => {
-            handleShopToast(true, 'Success', 'User register sucessfully.')
-            Form.current.reset();
-            window.location.reload()
-            setUserDetailState("")
-          }, 3000)
+          // setShowLoder(true)
+          // console.log("kjkjkkk", token)
+          // setTimeout(() => {
+          //   handleShopToast(true, 'Success', 'User register sucessfully.')
+          //   Form.current.reset();
+          //   window.location.reload()
+          //   setUserDetailState("")
+          // }, 3000)
 
         }
         catch (err) {
@@ -141,7 +138,7 @@ const LoginForm = () => {
   }
 
   const callFunction = () => {
-    console.log("tokentoken", token)
+    // console.log("tokentoken", token)
 
     if (loginStatus == "pending") {
       setShowLoder(true)
@@ -152,7 +149,8 @@ const LoginForm = () => {
     else if (loaction?.state?.UserRole == "Field Member" && loginStatus == "Success") {
       
       // handleShopToast(true, 'Sucess', 'Login is successfully.')
-      navigate("/fourbox")
+      navigate("/writemodemodal")
+      // navigate("/fourbox")
     }
     else {
       handleShopToast(true, 'Error', 'Invalid user name and password.')
@@ -162,7 +160,7 @@ const LoginForm = () => {
 
   // new code using redux end
 
-  console.log("passwordpassword", password)
+  // console.log("passwordpassword", password)
 
   function validatePassword(password) {
     // Password must contain at least one lowercase letter, one uppercase letter, one numeric digit, and be at least 8 characters long
@@ -221,116 +219,6 @@ const LoginForm = () => {
 
 
 
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-
-  // if ((loaction.state == "Admin") || loaction.state == ("Field Member")) {
-
-  //   if (memberEmailState == "" || memberPasswordState == "") {
-  //     handleShopToast(true, 'Error', 'Please fills both fields.')
-
-  //   }
-  //   else {
-
-  //     try {
-  //       let JsonObj = {
-  //         "Email_Id": memberEmailState,
-  //         "Password": memberPasswordState
-  //       }
-  //       console.log("JsonObj", JsonObj)
-  //       const res = await axios.post("http://localhost:8000/api/auth/fieldmemberlogin", JsonObj, {
-  //         // withCredentials: true,
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         }
-  //       })
-  //       if (res) {
-  //         console.log("respokknse", res)
-  //         handleShopToast(true, 'Sucess', 'Login is successfully.')
-
-  //       }
-  //     }
-  //     catch (err) {
-  //       console.log("responseError", err)
-
-  //       handleShopToast(true, 'Error', 'Something is wrong.')
-  //     }
-
-  //   }
-
-  // }
-
-
-
-  //   if (showRegisterPageState == true) {
-
-  //     if (userRollState == "" || userNameState == "" || userEmailState == "" || userContactState == "" || password == "" || comparePassword == "") {
-  //       handleShopToast(true, 'Error', 'Please fills all fields.')
-  //       return;
-  //     }
-  //     else if (validateState == false) {
-  //       handleShopToast(true, 'Error', 'Password is not Valid.')
-
-  //     }
-  //     else if (password !== comparePassword) {
-  //       handleShopToast(true, 'Error', 'Password is mismatched.')
-  //       return;
-  //     }
-
-  //     else {
-  //       try {
-
-  //         const inputObject = { userIDState, userRollState, userCodeState, userNameState, userContactState, userEmailState, password }
-  //         console.log("inputObject", inputObject)
-
-  //         let inputObject2 = JSON.stringify(inputObject)
-
-  //         let JsonObj = {
-  //           "User_Id": userIDState,
-  //           "User_Role": userRollState,
-  //           "User_Code": userCodeState,
-  //           "User_Name": userNameState,
-  //           "Contact": userContactState,
-  //           "Email_Id": userEmailState,
-  //           "Password": password
-
-  //         }
-
-  //         console.log('inputObject2', JsonObj)
-
-  //         const respos = await axios.post("http://localhost:8000/api/auth/register", JsonObj, {
-  //           headers: {
-  //             'Content-Type': 'application/json'
-  //           }
-  //         });
-
-  //         console.log("responsejjj", respos)
-
-  //         if (respos) {
-  //           console.log("respohhhnse", respos)
-  //           setShowLoder(true)
-  //           handleShopToast(true, 'Success', 'User register sucessfully.')
-
-  //         }
-  //       }
-  //       catch (error) {
-  //         console.log("response", error)
-
-  //         handleShopToast(true, 'Error', 'Something is wrong.')
-
-  //       }
-  //     }
-
-  //   }
-
-
-  // };
-
-
-
-
-
-
   return (
     <div className="main-Div">
 
@@ -377,14 +265,23 @@ const LoginForm = () => {
                       />
                     </div>
 
-                    <div className="text">
+                    {/* <div className="text">
                       <a href="#">Forgot password?</a>
-                    </div>
-                    <div className="Login-Submit-div">
-                      <button>Sign In</button>
+                    </div> */}
+                    <div className="Login-Submit-div" >
+                      <button 
+                      style={{
+                        backgroundColor: "maroon",
+                        color: "white",
+                        padding: "6px",
+                        cursor: "pointer",
+                        borderRadius: "5px",
+                        fontWeight: "normal"
+                    }}
+                      >Sign In</button>
                     </div>
 
-                    {loaction.state == "Admin" ? <> <div className="text sign-up-text">
+                    {loaction.state?.UserRole == "Admin" ? <> <div className="text sign-up-text">
                       Don't have an account?{" "}
                       <label for="flip" onClick={registerHererFunction}>Register Here</label>
                     </div></> : ""}
@@ -475,7 +372,8 @@ const LoginForm = () => {
                         name="Password"
                         placeholder="Enter your password"
                         // value={password} 
-                        onChange={(e) => handlePasswordChange(e)}
+                        // onChange={(e) => handlePasswordChange(e)}
+                        onChange={(e) => userDetailFunction(e)}
                         autoComplete="new-password"
                       />
                     </div>
@@ -487,7 +385,8 @@ const LoginForm = () => {
                         name="password"
                         type="Password"
                         placeholder="Re-Enter your password"
-                        onChange={reEnterPasswordChange}
+                        // onChange={reEnterPasswordChange}
+                        onChange={(e) => userDetailFunction(e)}
                         autoComplete="new-password"
                       />
                     </div>

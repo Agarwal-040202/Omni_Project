@@ -21,7 +21,7 @@ const SchemeModal = (props) => {
       setShowModal(true);
     };
   
-    console.log("jkjkdfdfdkkj", props);
+    // console.log("jkjkdfdfdkkj", props);
 
 
   return (
